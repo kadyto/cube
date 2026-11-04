@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { EVENTS, EVENT_IDS, formatTime } from '../shared/domain.js';
 import { WCA_EVENTS, formatWcaResult } from '../shared/wca.js';
+import { JB_CUBE_FACES } from '../shared/jb-cube.js';
 import { Empty, Modal, PublicationCard, PuzzleIcon } from './components';
 import { CompetitionTimeline } from './CompetitionTimeline';
 import type { EventId, PublicData, Publication } from './types';
@@ -73,20 +74,20 @@ export function PublicPage({
         <div className="hero-art" aria-hidden="true">
           <div className="orbit orbit-one" />
           <div className="orbit orbit-two" />
-          <div className="big-cube">
+          <div className="big-cube" data-case="Jb" title="PLL Jb · amarillo arriba, verde delante">
             <div className="cube-face top">
-              {Array.from({ length: 9 }, (_, i) => (
-                <i key={i} />
+              {JB_CUBE_FACES.U.map((color, i) => (
+                <i key={i} data-color={color} />
               ))}
             </div>
             <div className="cube-face front">
-              {Array.from({ length: 9 }, (_, i) => (
-                <i key={i} />
+              {JB_CUBE_FACES.F.map((color, i) => (
+                <i key={i} data-color={color} />
               ))}
             </div>
             <div className="cube-face right">
-              {Array.from({ length: 9 }, (_, i) => (
-                <i key={i} />
+              {JB_CUBE_FACES.R.map((color, i) => (
+                <i key={i} data-color={color} />
               ))}
             </div>
           </div>
