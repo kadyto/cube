@@ -163,6 +163,7 @@ export async function createApp(options = {}) {
                 id: profile.wca.id,
                 name: profile.wca.name,
                 country: profile.wca.country,
+                personalRecords: profile.wca.personalRecords ?? null,
                 competitions: profile.showCompetitions ? profile.wca.competitions : [],
                 importedAt: profile.wca.importedAt,
               }

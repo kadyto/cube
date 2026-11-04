@@ -1091,7 +1091,7 @@ main {
 .hero-kicker .live-dot {
   background: #bed695;
 }
-.profile-copy h2 {
+.profile-copy h1 {
   font-size: 34px;
   line-height: 1.25;
   letter-spacing: -0.9px;
@@ -1395,20 +1395,6 @@ main {
   font-size: 18px;
   font-weight: 500;
   color: #536b43;
-}
-.little-note {
-  border: 1px solid #e7ecdd;
-  background: #f0f4e7;
-  border-radius: 11px;
-  padding: 18px;
-  color: #839970;
-  display: flex;
-  gap: 13px;
-}
-.little-note p {
-  font-size: 11px;
-  line-height: 1.8;
-  margin: 0;
 }
 .wca-name {
   font-size: 13px;
@@ -1755,7 +1741,7 @@ th:first-child {
   .publication-grid {
     grid-template-columns: 1fr;
   }
-  .profile-copy h2 {
+  .profile-copy h1 {
     font-size: 29px;
   }
   .profile-copy {
@@ -1928,7 +1914,7 @@ th:first-child {
     max-width: 68%;
     padding: 25px;
   }
-  .profile-copy h2 {
+  .profile-copy h1 {
     font-size: 26px;
   }
   .hero-art {
@@ -2341,7 +2327,7 @@ th:first-child {
     padding: 25px 22px;
     max-width: 80%;
   }
-  .profile-copy h2 {
+  .profile-copy h1 {
     font-size: 28px;
     margin-top: 16px;
   }
@@ -2449,18 +2435,6 @@ th:first-child {
   .records-list svg {
     width: 21px;
     height: 21px;
-  }
-  .little-note {
-    padding: 16px;
-    gap: 9px;
-    align-self: stretch;
-    align-items: center;
-  }
-  .little-note p {
-    font-size: 10px;
-  }
-  .little-note svg {
-    width: 19px;
   }
   .public-aside > .text-button {
     font-size: 11px;
@@ -2588,4 +2562,38 @@ th:first-child {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+.wca-records-panel {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+.wca-records-title {
+  margin: 20px 0 9px;
+  font-size: 12px;
+}
+.wca-records-table {
+  white-space: normal;
+  margin-bottom: 12px;
+}
+.wca-records-table th,
+.wca-records-table td {
+  padding: 9px 5px;
+  font-size: 10px;
+}
+.wca-records-table th {
+  color: #6d7e61;
+  background: transparent;
+  font-weight: 500;
+}
+.wca-records-table th:first-child,
+.wca-records-table td:first-child {
+  padding-left: 0;
+}
+.wca-records-table th:not(:first-child),
+.wca-records-table td {
+  text-align: right;
+}
+.wca-records-table td {
+  color: var(--dark);
 }

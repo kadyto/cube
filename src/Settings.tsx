@@ -105,8 +105,9 @@ export function Settings({ profile, onSaved }: { profile: Profile; onSaved: () =
                 Vincular perfil WCA <span className="optional">opcional</span>
               </legend>
               <p className="help">
-                Importa tu nombre y competiciones desde la información pública de la WCA. No
-                necesitas dar tu contraseña de WCA. Vincular un ID no verifica su titularidad.
+                Importa tu nombre, marcas oficiales y competiciones desde la información pública de
+                la WCA. No necesitas dar tu contraseña de WCA. Vincular un ID no verifica su
+                titularidad.
               </p>
               <label>
                 ID WCA
@@ -148,6 +149,11 @@ export function Settings({ profile, onSaved }: { profile: Profile; onSaved: () =
                     {form.wca?.competitions.length} competiciones · actualizado el{' '}
                     {new Date(form.wca!.importedAt).toLocaleDateString('es')}
                   </span>
+                  {form.wca?.personalRecords && (
+                    <span className="help">
+                      Marcas oficiales en {form.wca.personalRecords.length} pruebas.
+                    </span>
+                  )}
                   <button
                     className="text-button"
                     type="button"
@@ -163,7 +169,7 @@ export function Settings({ profile, onSaved }: { profile: Profile; onSaved: () =
                   checked={form.showWca}
                   onChange={(e) => update('showWca', e.target.checked)}
                 />
-                <span>Mostrar mi perfil WCA y mi nombre WCA en público</span>
+                <span>Mostrar mi perfil WCA, mi nombre y mis marcas oficiales en público</span>
               </label>
               <label className="checkbox-row">
                 <input

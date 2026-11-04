@@ -12,6 +12,7 @@ import {
   Trophy,
 } from 'lucide-react';
 import { EVENTS, EVENT_IDS, formatTime } from '../shared/domain.js';
+import { WCA_EVENTS, formatWcaResult } from '../shared/wca.js';
 import { Empty, Modal, PublicationCard, PuzzleIcon } from './components';
 import type { EventId, PublicData, Publication } from './types';
 
@@ -45,24 +46,12 @@ export function PublicPage({
   };
   return (
     <>
-      <div className="page-heading">
-        <div>
-          <p className="eyebrow">PEQUEÑOS GIROS. GRANDES LOGROS.</p>
-          <h1>
-            Un rincón para compartir<span className="green-dot">.</span>
-          </h1>
-          <p className="muted">La alegría de resolver. El orgullo de seguir mejorando.</p>
-        </div>
-        <span className="private-pill public-pill">
-          <Globe2 size={15} /> Página pública
-        </span>
-      </div>
       <section className="profile-hero">
         <div className="profile-copy">
           <span className="hero-kicker">
             <span className="live-dot" /> MI MUNDO, EN SEIS CARAS
           </span>
-          <h2>{profile.name}</h2>
+          <h1>{profile.name}</h1>
           <p>{profile.bio}</p>
           <div className="row wrap">
             {profile.wcaId && (
@@ -176,6 +165,64 @@ export function PublicPage({
           )}
         </div>
         <aside className="public-aside">
+          {profile.wcaId && (
+            <section className="panel wca-records-panel">
+              <h2 className="row">
+                <Globe2 size={18} /> Mi perfil WCA
+              </h2>
+              {profile.wca && <p className="wca-name">{profile.wca.name}</p>}
+              <a
+                className="text-button"
+                href={`https://www.worldcubeassociation.org/persons/${profile.wcaId}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {profile.wcaId}
+                <ExternalLink size={14} />
+              </a>
+              {profile.wca && (
+                <>
+                  <h3 className="wca-records-title">Marcas oficiales WCA</h3>
+                  {profile.wca.personalRecords?.length ? (
+                    <table className="wca-records-table" aria-label="Marcas oficiales WCA">
+                      <thead>
+                        <tr>
+                          <th scope="col">Prueba</th>
+                          <th scope="col">Single</th>
+                          <th scope="col">Media</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {profile.wca.personalRecords.map((record) => (
+                          <tr key={record.event}>
+                            <th scope="row">
+                              {WCA_EVENTS[record.event as keyof typeof WCA_EVENTS] ?? record.event}
+                            </th>
+                            <td className="mono">{formatWcaResult(record.event, record.single)}</td>
+                            <td className="mono">
+                              {formatWcaResult(record.event, record.average, true)}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  ) : (
+                    <p className="help">
+                      {profile.wca.personalRecords == null
+                        ? authenticated
+                          ? 'Consulta de nuevo el perfil en Ajustes para importar tus marcas WCA.'
+                          : 'Las marcas oficiales todavía no se han importado.'
+                        : 'Este perfil todavía no tiene marcas oficiales WCA.'}
+                    </p>
+                  )}
+                  <p className="help">
+                    Mejores resultados en competición · actualizado el{' '}
+                    {new Date(profile.wca.importedAt).toLocaleDateString('es')}.
+                  </p>
+                </>
+              )}
+            </section>
+          )}
           <section className="panel">
             <h2 className="row">
               <Medal size={19} /> Marcas compartidas
@@ -193,24 +240,6 @@ export function PublicPage({
               ))}
             </div>
           </section>
-          {profile.wcaId && (
-            <section className="panel">
-              <h2 className="row">
-                <Globe2 size={18} /> Mi perfil WCA
-              </h2>
-              {profile.wca && <p className="wca-name">{profile.wca.name}</p>}
-              <a
-                className="text-button"
-                href={`https://www.worldcubeassociation.org/persons/${profile.wcaId}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {profile.wcaId}
-                <ExternalLink size={14} />
-              </a>
-              <p className="help">Perfil público vinculado por el propietario.</p>
-            </section>
-          )}
           {!!profile.wca?.competitions.length && (
             <section className="panel">
               <h2 className="row">
@@ -251,10 +280,6 @@ export function PublicPage({
               </p>
             </section>
           )}
-          <div className="little-note">
-            <Sparkles size={21} />
-            <p>El mejor tiempo es el que te anima a volver a intentarlo.</p>
-          </div>
           {authenticated && (
             <button className="text-button" onClick={onSettings}>
               Personalizar mi rincón <ArrowRight size={15} />

@@ -32,6 +32,11 @@ const fakeFetch = async (url) => {
       gender: 'm',
       avatar: { url: 'https://example.com' },
     },
+    personal_records: {
+      333: { single: { best: 987, world_rank: 123 }, average: { best: 1234 } },
+      222: { single: { best: 321 } },
+      pyram: { single: { best: 500 }, average: { best: 700 } },
+    },
   });
 };
 
@@ -193,6 +198,12 @@ describe('private training and explicit public snapshots', () => {
     assert.equal(imported.status, 200);
     let profile = imported.body;
     assert.equal(profile.wca.competitions.length, 2);
+    const expectedRecords = [
+      { event: '333', single: 987, average: 1234 },
+      { event: '222', single: 321, average: null },
+      { event: 'pyram', single: 500, average: 700 },
+    ];
+    assert.deepEqual(profile.wca.personalRecords, expectedRecords);
     assert.equal((await request('/public')).body.profile.wca, null);
     assert.equal((await request('/profile', 'PUT', { ...profile, wcaId: '../evil' })).status, 400);
     profile = (
@@ -208,8 +219,17 @@ describe('private training and explicit public snapshots', () => {
     assert.equal(visible.wca.name, 'Nombre WCA de prueba');
     assert.equal(visible.wca.competitions.length, 0);
     assert.equal(visible.wca.avatar, undefined);
+    assert.deepEqual(visible.wca.personalRecords, expectedRecords);
+    assert.equal((await request('/public')).body.publications.length, 1);
     await request('/profile', 'PUT', { ...profile, showCompetitions: true });
     assert.equal((await request('/public')).body.profile.wca.competitions.length, 2);
+    // Cached profiles from older installations remain readable and can be refreshed.
+    const cachedProfile = app.locals.store.get('profile');
+    delete cachedProfile.wca.personalRecords;
+    app.locals.store.set('profile', cachedProfile);
+    assert.equal((await request('/public')).body.profile.wca.personalRecords, null);
+    await request('/wca/import', 'POST', { wcaId: profile.wcaId });
+    assert.deepEqual((await request('/public')).body.profile.wca.personalRecords, expectedRecords);
     await request('/profile', 'PUT', { ...profile, wcaId: '' });
     visible = (await request('/public')).body.profile;
     assert.equal(visible.wca, null);

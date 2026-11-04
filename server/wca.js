@@ -1,3 +1,5 @@
+import { WCA_EVENT_IDS } from '../shared/wca.js';
+
 const BASE = 'https://www.worldcubeassociation.org';
 const wcaIdPattern = /^\d{4}[A-Z]{4}\d{2}$/;
 
@@ -46,6 +48,19 @@ export async function importWca(input, fetcher = fetch) {
     throw new Error('La WCA devolvió un perfil que no podemos leer.');
   if (!Array.isArray(participations))
     throw new Error('La WCA devolvió unas competiciones que no podemos leer.');
+  if (
+    !data.personal_records ||
+    typeof data.personal_records !== 'object' ||
+    Array.isArray(data.personal_records)
+  )
+    throw new Error('La WCA devolvió unas marcas que no podemos leer.');
+  const validBest = (record) =>
+    Number.isInteger(record?.best) && record.best > 0 ? record.best : null;
+  const personalRecords = WCA_EVENT_IDS.map((event) => ({
+    event,
+    single: validBest(data.personal_records[event]?.single),
+    average: validBest(data.personal_records[event]?.average),
+  })).filter((record) => record.single !== null || record.average !== null);
   // This endpoint returns all attended competitions without pagination. Keep only public metadata.
   const competitions = participations
     .filter((c) => typeof c.id === 'string' && /^[A-Za-z0-9_-]+$/.test(c.id))
@@ -61,6 +76,7 @@ export async function importWca(input, fetcher = fetch) {
     id,
     name: person.name,
     country: String(person.country_iso2 ?? ''),
+    personalRecords,
     competitions,
     importedAt: new Date().toISOString(),
   };

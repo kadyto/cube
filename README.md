@@ -10,7 +10,7 @@ Un rincón de speedcubing para entrenar, ver el progreso y compartir los logros 
 - **ao5 automático**, mejores singles, mejor ao5, gráfico de las últimas 30 resoluciones e historial por puzzle. Las medias se calculan dentro de cada puzzle; los cinco últimos intentos del historial de ese puzzle forman el ao5 actual.
 - **Penalizaciones y notas privadas.** Desde el historial puedes marcar +2 o DNF, añadir una nota o eliminar un intento.
 - **Publicación expresamente elegida.** Elige un single o los cinco intentos consecutivos que terminan en el seleccionado. La confirmación muestra el resultado antes de publicar. Puedes retirar la publicación cuando quieras.
-- **Perfil público personalizable y WCA opcional.** Un apodo, una presentación, el enlace WCA y, si lo autorizas, el nombre y las competiciones importadas. No se contacta con WCA hasta que pulses «Consultar WCA».
+- **Perfil público personalizable y WCA opcional.** Un apodo, una presentación, el enlace WCA y, si lo autorizas, el nombre, las mejores marcas oficiales (single y media) y las competiciones importadas. Las marcas WCA incluyen también las pruebas que no tienen cronómetro de entrenamiento en Cube. No se contacta con WCA hasta que pulses «Consultar WCA».
 - **Contraseña sencilla y modificable**, exportación JSON y copias completas de SQLite.
 
 ### Cómo se calcula el ao5
@@ -77,9 +77,9 @@ La integración WCA se contrasta con el contrato de los endpoints públicos `GET
 
 ## Privacidad y alcance
 
-Los tiempos y notas permanecen privados. Una publicación contiene una copia del resultado, sus mezclas y fechas; **nunca incluye notas privadas**. Editar o borrar un tiempo del historial no cambia una publicación existente: retírala y vuelve a publicarla si quieres actualizarla. Las marcas públicas se calculan exclusivamente a partir de los singles que has publicado.
+Los tiempos y notas permanecen privados. Una publicación contiene una copia del resultado, sus mezclas y fechas; **nunca incluye notas privadas**. Editar o borrar un tiempo del historial no cambia una publicación existente: retírala y vuelve a publicarla si quieres actualizarla. El apartado «Marcas compartidas» se calcula exclusivamente a partir de los singles que has publicado. «Marcas oficiales WCA» muestra los mejores resultados importados de competiciones oficiales.
 
-WCA es opcional y no requiere OAuth ni credenciales WCA. Vincular un ID **no acredita la titularidad** del perfil. La importación recoge participaciones con resultados, no inscripciones futuras. El nombre WCA y las competiciones se muestran únicamente al habilitar las opciones correspondientes y guardar; el nombre del rincón puede seguir siendo un apodo.
+WCA es opcional y no requiere OAuth ni credenciales WCA. Vincular un ID **no acredita la titularidad** del perfil. La importación recoge participaciones con resultados, no inscripciones futuras. El nombre WCA, sus marcas oficiales y las competiciones se muestran únicamente al habilitar las opciones correspondientes y guardar; el nombre del rincón puede seguir siendo un apodo. Para cargar las marcas en un perfil importado con una versión anterior, pulsa una vez «Consultar WCA» en Ajustes. Esa misma acción actualiza las marcas cuando consigas nuevos resultados oficiales.
 
 Cube no carga fuentes, analítica ni recursos de terceros en el navegador. No hay registro abierto, cuentas múltiples, sincronización con csTimer ni funcionamiento sin conexión. Si falla el guardado de un tiempo, conserva un intento pendiente en ese navegador para reintentarlo; no cierres sesión en un dispositivo compartido con un intento pendiente sin haberlo guardado. La exportación JSON permite consultar y conservar datos; la restauración completa se hace con la copia SQLite, no importando JSON.
 

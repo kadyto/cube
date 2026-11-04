@@ -17,6 +17,7 @@ export type WcaProfile = {
   id: string;
   name: string;
   country: string;
+  personalRecords?: { event: string; single: number | null; average: number | null }[] | null;
   competitions: Competition[];
   importedAt: string;
 };
