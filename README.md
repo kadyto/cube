@@ -11,6 +11,7 @@ Un rincón de speedcubing para entrenar, ver el progreso y compartir los logros 
 - **Penalizaciones y notas privadas.** Desde el historial puedes marcar +2 o DNF, añadir una nota o eliminar un intento.
 - **Publicación expresamente elegida.** Elige un single o los cinco intentos consecutivos que terminan en el seleccionado. La confirmación muestra el resultado antes de publicar. Puedes retirar la publicación cuando quieras.
 - **Perfil público personalizable y WCA opcional.** Un apodo, una presentación, el enlace WCA y, si lo autorizas, el nombre, las mejores marcas oficiales (single y media) y las competiciones importadas. Las marcas WCA incluyen también las pruebas que no tienen cronómetro de entrenamiento en Cube. No se contacta con WCA hasta que pulses «Consultar WCA».
+- **Timeline de competiciones WCA.** Fecha, competición y puesto en la última ronda disputada de cada prueba, con filtro por puzzle, tiempos y rondas anteriores desplegables. Muestra tres competiciones recientes y permite cargar las anteriores. Solo es pública al habilitar las competiciones en Ajustes.
 - **Contraseña sencilla y modificable**, exportación JSON y copias completas de SQLite.
 
 ### Cómo se calcula el ao5
@@ -73,7 +74,17 @@ npm run test:e2e
 
 Las pruebas unitarias y de API cubren ao5, DNF/+2, mezclas reales legales e invertibles, privacidad, publicación, retirada, sesiones, contraseñas simples, exportación y persistencia. Las pruebas de navegador utilizan una base temporal y recorren entrada manual, cronómetro, publicación y ajustes. Se utiliza `/usr/bin/chromium` si existe; puede indicarse otro navegador con `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`.
 
-La integración WCA se contrasta con el contrato de los endpoints públicos `GET /api/v0/persons/:id` y `GET /api/v0/persons/:id/competitions`, y se prueba con respuestas simuladas. Su disponibilidad real depende de la conexión del servidor a `www.worldcubeassociation.org`.
+La integración WCA se contrasta con el contrato de los endpoints públicos `GET /api/v0/persons/:id`, `GET /api/v0/persons/:id/competitions` y `GET /api/v0/persons/:id/results`, y se prueba con respuestas simuladas. Su disponibilidad real depende de la conexión del servidor a `www.worldcubeassociation.org`.
+
+### Cómo leer la timeline de competiciones
+
+La timeline agrupa los resultados por competición y prueba, ordenados desde la competición más reciente. La tarjeta resume la última ronda alcanzada: por ejemplo, «8.º · Final» o «15.º · Primera ronda». Al desplegarla se ven los puestos y resultados de las rondas anteriores. El filtro permite seguir una misma prueba entre competiciones.
+
+Cada puesto procede del campo oficial `pos` de su ronda. No es una clasificación global de todos los participantes de la competición; no se inventan denominadores de participantes ni variaciones de ranking. Un puesto entre los tres primeros de una primera ronda o una final B no se presenta como podio. Los trofeos se reservan para resultados válidos entre los tres primeros de una final. DNF y DNS se conservan como tales.
+
+Las instalaciones con competiciones ya importadas deben pulsar una vez «Consultar WCA» en Ajustes para cargar sus rondas y puestos. Si no hay información de una ronda, se indica que falta en lugar de mostrar una posición inventada. La importación es manual y no altera las publicaciones de entrenamiento.
+
+El logo está incorporado en `public/logo.png`, como PNG transparente preparado a partir de la imagen proporcionada por el propietario. Se utiliza en la cabecera, el banner público y los iconos del navegador y del móvil.
 
 ## Privacidad y alcance
 

@@ -7,6 +7,34 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 const fakeFetch = async (url) => {
+  if (url.endsWith('/results'))
+    return Response.json([
+      {
+        competition_id: 'Madrid2025',
+        event_id: '333',
+        round_type_id: 'f',
+        pos: 3,
+        best: 987,
+        average: 1234,
+        name: 'PRIVATE RAW NAME',
+      },
+      {
+        competition_id: 'Madrid2025',
+        event_id: '333',
+        round_type_id: '1',
+        pos: 1,
+        best: 1000,
+        average: 1300,
+      },
+      {
+        competition_id: 'Madrid2024',
+        event_id: 'pyram',
+        round_type_id: '1',
+        pos: 2,
+        best: 500,
+        average: 700,
+      },
+    ]);
   if (url.endsWith('/competitions'))
     return Response.json([
       {
@@ -218,18 +246,35 @@ describe('private training and explicit public snapshots', () => {
     assert.equal(visible.name, 'Mi apodo');
     assert.equal(visible.wca.name, 'Nombre WCA de prueba');
     assert.equal(visible.wca.competitions.length, 0);
+    assert.ok(!JSON.stringify(visible).includes('position'));
     assert.equal(visible.wca.avatar, undefined);
     assert.deepEqual(visible.wca.personalRecords, expectedRecords);
     assert.equal((await request('/public')).body.publications.length, 1);
     await request('/profile', 'PUT', { ...profile, showCompetitions: true });
     assert.equal((await request('/public')).body.profile.wca.competitions.length, 2);
+    const competitions = (await request('/public')).body.profile.wca.competitions;
+    assert.deepEqual(competitions[0].results, [
+      {
+        event: '333',
+        rounds: [
+          { round: '1', position: 1, best: 1000, average: 1300 },
+          { round: 'f', position: 3, best: 987, average: 1234 },
+        ],
+      },
+    ]);
+    assert.ok(!JSON.stringify(competitions).includes('PRIVATE RAW NAME'));
     // Cached profiles from older installations remain readable and can be refreshed.
     const cachedProfile = app.locals.store.get('profile');
     delete cachedProfile.wca.personalRecords;
+    for (const competition of cachedProfile.wca.competitions) delete competition.results;
     app.locals.store.set('profile', cachedProfile);
     assert.equal((await request('/public')).body.profile.wca.personalRecords, null);
     await request('/wca/import', 'POST', { wcaId: profile.wcaId });
     assert.deepEqual((await request('/public')).body.profile.wca.personalRecords, expectedRecords);
+    assert.equal(
+      (await request('/public')).body.profile.wca.competitions[0].results[0].rounds[1].position,
+      3,
+    );
     await request('/profile', 'PUT', { ...profile, wcaId: '' });
     visible = (await request('/public')).body.profile;
     assert.equal(visible.wca, null);

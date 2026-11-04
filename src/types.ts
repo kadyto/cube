@@ -12,7 +12,20 @@ export type Solve = {
   createdAt: string;
 };
 export type Scramble = { id: string; event: EventId; alg: string; createdAt: string };
-export type Competition = { id: string; name: string; city: string; country: string; date: string };
+export type WcaRound = {
+  round: string;
+  position: number | null;
+  best: number | null;
+  average: number | null;
+};
+export type Competition = {
+  id: string;
+  name: string;
+  city: string;
+  country: string;
+  date: string;
+  results?: { event: string; rounds: WcaRound[] }[] | null;
+};
 export type WcaProfile = {
   id: string;
   name: string;

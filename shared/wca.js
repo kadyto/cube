@@ -42,6 +42,73 @@ export const WCA_EVENT_IDS = [
   'fto',
 ];
 
+export const WCA_ROUNDS = {
+  0: { name: 'Clasificación', order: 0, final: false },
+  h: { name: 'Clasificación con corte', order: 0, final: false },
+  1: { name: 'Primera ronda', order: 1, final: false },
+  d: { name: 'Primera ronda con corte', order: 1, final: false },
+  2: { name: 'Segunda ronda', order: 2, final: false },
+  e: { name: 'Segunda ronda con corte', order: 2, final: false },
+  3: { name: 'Semifinal', order: 3, final: false },
+  g: { name: 'Semifinal con corte', order: 3, final: false },
+  b: { name: 'Final B', order: 4, final: false },
+  f: { name: 'Final', order: 5, final: true },
+  c: { name: 'Final con corte', order: 5, final: true },
+};
+
+/** Keep the published position in each round; it is not an overall competition ranking. */
+export function competitionResults(rows) {
+  const competitions = new Map();
+  const resultValue = (value) =>
+    Number.isInteger(value) && (value > 0 || value === -1 || value === -2) ? value : null;
+  for (const row of rows) {
+    if (
+      !row ||
+      !WCA_EVENT_IDS.includes(row.event_id) ||
+      !Object.hasOwn(WCA_ROUNDS, row.round_type_id) ||
+      typeof row.competition_id !== 'string' ||
+      !/^[A-Za-z0-9_-]+$/.test(row.competition_id)
+    )
+      continue;
+    if (!competitions.has(row.competition_id)) competitions.set(row.competition_id, new Map());
+    const events = competitions.get(row.competition_id);
+    if (!events.has(row.event_id)) events.set(row.event_id, []);
+    events.get(row.event_id).push({
+      round: String(row.round_type_id),
+      position: Number.isInteger(row.pos) && row.pos > 0 ? row.pos : null,
+      best: resultValue(row.best),
+      average: resultValue(row.average),
+    });
+  }
+  return new Map(
+    [...competitions].map(([id, events]) => [
+      id,
+      WCA_EVENT_IDS.filter((event) => events.has(event)).map((event) => ({
+        event,
+        rounds: events
+          .get(event)
+          .sort((a, b) => WCA_ROUNDS[a.round].order - WCA_ROUNDS[b.round].order),
+      })),
+    ]),
+  );
+}
+
+export function isWcaPodium(round) {
+  return (
+    !!WCA_ROUNDS[round.round]?.final &&
+    Number.isInteger(round.position) &&
+    round.position >= 1 &&
+    round.position <= 3 &&
+    round.best > 0
+  );
+}
+
+export function formatWcaRoundResult(event, value, average = false) {
+  if (value === -1) return 'DNF';
+  if (value === -2) return 'DNS';
+  return formatWcaResult(event, value, average);
+}
+
 /** WCA stores times in centiseconds, FMC averages in centimoves, and multi-blind as a score. */
 export function formatWcaResult(event, value, average = false) {
   if (!Number.isInteger(value) || value <= 0) return '—';

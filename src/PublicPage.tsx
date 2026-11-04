@@ -2,10 +2,8 @@ import { useState } from 'react';
 import {
   ArrowRight,
   ArrowUpRight,
-  CalendarDays,
   ExternalLink,
   Globe2,
-  MapPin,
   Medal,
   Sparkles,
   Trash2,
@@ -14,6 +12,7 @@ import {
 import { EVENTS, EVENT_IDS, formatTime } from '../shared/domain.js';
 import { WCA_EVENTS, formatWcaResult } from '../shared/wca.js';
 import { Empty, Modal, PublicationCard, PuzzleIcon } from './components';
+import { CompetitionTimeline } from './CompetitionTimeline';
 import type { EventId, PublicData, Publication } from './types';
 
 export function PublicPage({
@@ -71,33 +70,26 @@ export function PublicPage({
             </button>
           </div>
         </div>
-        <div className="hero-art" aria-hidden="true">
-          <div className="orbit orbit-one" />
-          <div className="orbit orbit-two" />
-          <div className="big-cube">
-            <div className="cube-face top">
-              {Array.from({ length: 9 }, (_, i) => (
-                <i key={i} />
-              ))}
-            </div>
-            <div className="cube-face front">
-              {Array.from({ length: 9 }, (_, i) => (
-                <i key={i} />
-              ))}
-            </div>
-            <div className="cube-face right">
-              {Array.from({ length: 9 }, (_, i) => (
-                <i key={i} />
-              ))}
-            </div>
-          </div>
-          <span className="art-spark spark-one">✳</span>
-          <span className="art-spark spark-two">+</span>
-          <span className="art-caption">UNA MEZCLA, UN RETO.</span>
+        <div className="hero-art hero-logo-art" aria-hidden="true">
+          <img
+            className="hero-logo"
+            src="/logo.png"
+            alt=""
+            width="1252"
+            height="1252"
+            fetchPriority="high"
+          />
         </div>
       </section>
       <div className="public-layout">
         <div className="public-main">
+          {!!profile.wca?.competitions.length && (
+            <CompetitionTimeline
+              competitions={profile.wca.competitions}
+              authenticated={authenticated}
+              onSettings={onSettings}
+            />
+          )}
           <div className="panel-title section-title">
             <div>
               <h2>
@@ -240,46 +232,6 @@ export function PublicPage({
               ))}
             </div>
           </section>
-          {!!profile.wca?.competitions.length && (
-            <section className="panel">
-              <h2 className="row">
-                <CalendarDays size={18} /> Mis competiciones
-              </h2>
-              <div className="competitions-list">
-                {profile.wca.competitions.map((c) => (
-                  <a
-                    key={c.id}
-                    href={`https://www.worldcubeassociation.org/competitions/${c.id}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <strong>
-                      {c.name}
-                      <ArrowUpRight size={13} />
-                    </strong>
-                    <span>
-                      {c.date
-                        ? new Date(`${c.date}T12:00:00`).toLocaleDateString('es', {
-                            day: 'numeric',
-                            month: 'short',
-                            year: 'numeric',
-                          })
-                        : ''}
-                    </span>
-                    {c.city && (
-                      <span>
-                        <MapPin size={11} />
-                        {c.city}
-                      </span>
-                    )}
-                  </a>
-                ))}
-              </div>
-              <p className="help">
-                Participaciones importadas de resultados WCA. No incluye inscripciones futuras.
-              </p>
-            </section>
-          )}
           {authenticated && (
             <button className="text-button" onClick={onSettings}>
               Personalizar mi rincón <ArrowRight size={15} />

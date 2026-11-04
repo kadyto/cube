@@ -136,9 +136,7 @@ export default function App() {
       </a>
       <aside className="sidebar">
         <button className="brand" onClick={() => navigate('public')} aria-label="Cube, inicio">
-          <span className="brand-icon">
-            <PuzzleIcon size={29} />
-          </span>
+          <img className="brand-logo" src="/logo.png" alt="" width="60" height="60" />
           <span>
             cube<span className="brand-point">.</span>
           </span>

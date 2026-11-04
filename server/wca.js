@@ -1,4 +1,4 @@
-import { WCA_EVENT_IDS } from '../shared/wca.js';
+import { WCA_EVENT_IDS, competitionResults } from '../shared/wca.js';
 
 const BASE = 'https://www.worldcubeassociation.org';
 const wcaIdPattern = /^\d{4}[A-Z]{4}\d{2}$/;
@@ -39,15 +39,19 @@ async function request(path, fetcher) {
 
 export async function importWca(input, fetcher = fetch) {
   const id = normalizeWcaId(input);
-  const [data, participations] = await Promise.all([
+  const [data, participations, results] = await Promise.all([
     request(`/persons/${id}`, fetcher),
     request(`/persons/${id}/competitions`, fetcher),
+    request(`/persons/${id}/results`, fetcher),
   ]);
   const person = data.person;
   if (!person || typeof person.name !== 'string')
     throw new Error('La WCA devolvió un perfil que no podemos leer.');
   if (!Array.isArray(participations))
     throw new Error('La WCA devolvió unas competiciones que no podemos leer.');
+  if (!Array.isArray(results))
+    throw new Error('La WCA devolvió unos resultados de competición que no podemos leer.');
+  const byCompetition = competitionResults(results);
   if (
     !data.personal_records ||
     typeof data.personal_records !== 'object' ||
@@ -70,6 +74,7 @@ export async function importWca(input, fetcher = fetch) {
       city: String(c.city ?? c.city_name ?? ''),
       country: String(c.country_iso2 ?? ''),
       date: String(c.start_date ?? ''),
+      results: byCompetition.get(c.id) ?? [],
     }));
   competitions.sort((a, b) => b.date.localeCompare(a.date));
   return {

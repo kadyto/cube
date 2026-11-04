@@ -178,7 +178,7 @@ export function Settings({ profile, onSaved }: { profile: Profile; onSaved: () =
                   disabled={!form.showWca}
                   onChange={(e) => update('showCompetitions', e.target.checked)}
                 />
-                <span>Mostrar también mis competiciones importadas</span>
+                <span>Mostrar también mis competiciones y puestos por ronda</span>
               </label>
             </fieldset>
             <div className="info-box">

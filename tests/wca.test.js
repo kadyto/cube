@@ -6,7 +6,7 @@ import { formatWcaResult } from '../shared/wca.js';
 test('WCA imports valid personal bests, including events outside the training puzzles', async () => {
   const imported = await importWca('2015BORR01', async (url) =>
     Response.json(
-      url.endsWith('/competitions')
+      url.endsWith('/competitions') || url.endsWith('/results')
         ? []
         : {
             person: { name: 'Perfil de prueba', country_iso2: 'ES' },
@@ -34,7 +34,7 @@ test('WCA imports valid personal bests, including events outside the training pu
 test('WCA distinguishes no official results from a malformed records response', async () => {
   const fetcher = (records) => async (url) =>
     Response.json(
-      url.endsWith('/competitions')
+      url.endsWith('/competitions') || url.endsWith('/results')
         ? []
         : {
             person: { name: 'Perfil de prueba' },
