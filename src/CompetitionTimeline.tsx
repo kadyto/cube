@@ -68,8 +68,8 @@ export function CompetitionTimeline({
       {legacy && (
         <p className="info-box timeline-notice">
           {authenticated
-            ? 'Para añadir los puestos de tus competiciones anteriores, vuelve a pulsar Consultar WCA en Ajustes.'
-            : 'Los puestos de algunas competiciones todavía no se han importado.'}
+            ? 'Los puestos pendientes se cargarán automáticamente. Puedes adelantarlo desde Ajustes.'
+            : 'Los puestos de estas competiciones se actualizarán automáticamente.'}
           {authenticated && (
             <button className="text-button" onClick={onSettings}>
               Ir a Ajustes <ArrowUpRight size={13} />

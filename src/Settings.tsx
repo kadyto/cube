@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { api, errorMessage } from './api';
 import type { Profile } from './types';
+import { WcaSyncStatus } from './WcaSyncStatus';
 
 export function Settings({ profile, onSaved }: { profile: Profile; onSaved: () => Promise<void> }) {
   const [form, setForm] = useState(profile),
@@ -141,6 +142,7 @@ export function Settings({ profile, onSaved }: { profile: Profile; onSaved: () =
                   </a>
                 )}
               </div>
+              {form.wcaId && <WcaSyncStatus id={form.wcaId} importedAt={form.wca?.importedAt} />}
               {form.wca?.id === form.wcaId && (
                 <div className="wca-preview">
                   <span className="section-label">PERFIL IMPORTADO</span>

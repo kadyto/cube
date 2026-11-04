@@ -43,6 +43,16 @@ export type Profile = {
   showCompetitions: boolean;
   wca: WcaProfile | null;
 };
+export type WcaSyncStatus = {
+  id: string;
+  enabled: boolean;
+  intervalMinutes: number;
+  refreshing: boolean;
+  lastSuccessAt: string | null;
+  lastAttemptAt: string | null;
+  nextRefreshAt: string | null;
+  error: string | null;
+};
 export type Publication = {
   id: string;
   event: EventId;

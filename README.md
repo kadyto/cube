@@ -10,7 +10,7 @@ Un rincón de speedcubing para entrenar, ver el progreso y compartir los logros 
 - **ao5 automático**, mejores singles, mejor ao5, gráfico de las últimas 30 resoluciones e historial por puzzle. Las medias se calculan dentro de cada puzzle; los cinco últimos intentos del historial de ese puzzle forman el ao5 actual.
 - **Edición y borrado individual.** Botones visibles en cada tiempo del historial y acceso directo junto al último tiempo guardado. Puedes corregir el tiempo, marcar +2 o DNF, añadir una nota privada o borrar el intento con confirmación.
 - **Publicación expresamente elegida.** Elige un single o los cinco intentos consecutivos que terminan en el seleccionado. La confirmación muestra el resultado antes de publicar. Puedes retirar la publicación cuando quieras.
-- **Perfil público personalizable y WCA opcional.** Un apodo, una presentación, el enlace WCA y, si lo autorizas, el nombre, las mejores marcas oficiales (single y media) y las competiciones importadas. Las marcas WCA incluyen también las pruebas que no tienen cronómetro de entrenamiento en Cube. No se contacta con WCA hasta que pulses «Consultar WCA».
+- **Perfil público personalizable y WCA opcional.** Un apodo, una presentación, el enlace WCA y, si lo autorizas, el nombre, las mejores marcas oficiales (single y media) y las competiciones importadas. Las marcas WCA incluyen también las pruebas que no tienen cronómetro de entrenamiento en Cube. Al guardar un ID WCA, sus datos se actualizan automáticamente cada hora; «Consultar WCA» permite adelantar la actualización.
 - **Timeline de competiciones WCA.** Fecha, competición y puesto en la última ronda disputada de cada prueba, con filtro por puzzle, tiempos y rondas anteriores desplegables. Muestra tres competiciones recientes y permite cargar las anteriores. Solo es pública al habilitar las competiciones en Ajustes.
 - **Contraseña sencilla y modificable**, exportación JSON y copias completas de SQLite.
 
@@ -92,7 +92,17 @@ La timeline agrupa los resultados por competición y prueba, ordenados desde la 
 
 Cada puesto procede del campo oficial `pos` de su ronda. No es una clasificación global de todos los participantes de la competición; no se inventan denominadores de participantes ni variaciones de ranking. Un puesto entre los tres primeros de una primera ronda o una final B no se presenta como podio. Los trofeos se reservan para resultados válidos entre los tres primeros de una final. DNF y DNS se conservan como tales.
 
-Las instalaciones con competiciones ya importadas deben pulsar una vez «Consultar WCA» en Ajustes para cargar sus rondas y puestos. Si no hay información de una ronda, se indica que falta en lugar de mostrar una posición inventada. La importación es manual y no altera las publicaciones de entrenamiento.
+Las competiciones ya importadas que carecen de rondas y puestos se completan automáticamente al revisar el perfil. Si no hay información de una ronda, se indica que falta en lugar de mostrar una posición inventada. Estas actualizaciones no alteran las publicaciones de entrenamiento.
+
+### Actualizaciones automáticas de WCA
+
+Con un ID WCA guardado, el servidor revisa el perfil, las marcas y los resultados cada hora, aunque el navegador esté cerrado. Al arrancar comprueba si faltan datos o si los anteriores han caducado. No necesita un cron externo ni nuevas variables del Compose. Sin un ID vinculado no consulta WCA.
+
+Si WCA no responde o devuelve un error, conserva la última información válida y reintenta tras 15 minutos. La fecha de la última consulta y los reintentos se guardan en SQLite y se conservan al reiniciar. Las actualizaciones respetan el apodo, la presentación y las opciones de visibilidad elegidas, y nunca publican tiempos privados automáticamente. Quitar el ID WCA detiene las consultas de ese perfil.
+
+La portada comprueba los datos del servidor cada minuto mientras está visible y al recuperar el foco, por lo que incorpora los cambios sin recargarla a mano. En Ajustes se muestran la última actualización, la próxima comprobación y los posibles errores; «Consultar WCA» permite actualizar en ese momento.
+
+Las nuevas competiciones aparecen cuando WCA publica sus resultados oficiales. La sincronización no incluye inscripciones futuras ni puede anticipar los resultados que WCA todavía no ha publicado.
 
 El logo está incorporado en `public/logo.png`, como PNG transparente preparado a partir de la imagen proporcionada por el propietario. Se utiliza en la cabecera y los iconos del navegador y del móvil. El cubo del banner muestra siempre un PLL Jb con amarillo arriba, verde delante y naranja a la derecha; sus pegatinas se verifican con cubing.js.
 
@@ -100,7 +110,7 @@ El logo está incorporado en `public/logo.png`, como PNG transparente preparado 
 
 Los tiempos y notas permanecen privados. Una publicación contiene una copia del resultado, sus mezclas y fechas; **nunca incluye notas privadas**. Editar o borrar un tiempo del historial no cambia una publicación existente: retírala y vuelve a publicarla si quieres actualizarla. El apartado «Marcas compartidas» se calcula exclusivamente a partir de los singles que has publicado. «Marcas oficiales WCA» muestra los mejores resultados importados de competiciones oficiales.
 
-WCA es opcional y no requiere OAuth ni credenciales WCA. Vincular un ID **no acredita la titularidad** del perfil. La importación recoge participaciones con resultados, no inscripciones futuras. El nombre WCA, sus marcas oficiales y las competiciones se muestran únicamente al habilitar las opciones correspondientes y guardar; el nombre del rincón puede seguir siendo un apodo. Para cargar las marcas en un perfil importado con una versión anterior, pulsa una vez «Consultar WCA» en Ajustes. Esa misma acción actualiza las marcas cuando consigas nuevos resultados oficiales.
+WCA es opcional y no requiere OAuth ni credenciales WCA. Vincular un ID **no acredita la titularidad** del perfil. La sincronización recoge participaciones con resultados, no inscripciones futuras. El nombre WCA, sus marcas oficiales y las competiciones se muestran únicamente al habilitar las opciones correspondientes y guardar; el nombre del rincón puede seguir siendo un apodo. Los perfiles de versiones anteriores también se actualizan automáticamente al arrancar el servidor si les faltan datos.
 
 Cube no carga fuentes, analítica ni recursos de terceros en el navegador. No hay registro abierto, cuentas múltiples, sincronización con csTimer ni funcionamiento sin conexión. Si falla el guardado de un tiempo, conserva un intento pendiente en ese navegador para reintentarlo; no cierres sesión en un dispositivo compartido con un intento pendiente sin haberlo guardado. La exportación JSON permite consultar y conservar datos; la restauración completa se hace con la copia SQLite, no importando JSON.
 

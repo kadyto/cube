@@ -60,7 +60,9 @@ test('old imported profiles explain that records need to be refreshed', async ({
     }),
   );
   await page.goto('/');
-  await expect(page.getByText('Las marcas oficiales todavía no se han importado.')).toBeVisible();
+  await expect(
+    page.getByText('Las marcas oficiales se cargarán en la próxima actualización automática.'),
+  ).toBeVisible();
   await expect(page.getByRole('table', { name: 'Marcas oficiales WCA' })).toHaveCount(0);
 });
 

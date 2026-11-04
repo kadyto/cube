@@ -2880,3 +2880,16 @@ th:first-child {
     gap: 12px;
   }
 }
+
+.wca-sync-info {
+  margin-top: 16px;
+}
+.wca-sync-info strong {
+  display: block;
+  font-size: 12px;
+}
+.wca-sync-info p {
+  margin: 6px 0 0;
+  font-size: 11px;
+  line-height: 1.7;
+}

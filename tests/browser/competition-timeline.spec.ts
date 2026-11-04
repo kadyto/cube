@@ -92,7 +92,7 @@ test('legacy competitions remain visible and explain that positions need refresh
   );
   await page.goto('/');
   await expect(
-    page.getByText('Los puestos de algunas competiciones todavía no se han importado.'),
+    page.getByText('Los puestos de estas competiciones se actualizarán automáticamente.'),
   ).toBeVisible();
   await expect(page.getByRole('link', { name: 'Open 1 2026' })).toBeVisible();
   await expect(page.getByText('Puestos pendientes de importar.')).toBeVisible();

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ArrowRight,
   ChevronRight,
@@ -52,8 +52,11 @@ export default function App() {
     [profile, setProfile] = useState<Profile | null>(null);
   const [publication, setPublication] = useState<Publication | null>(null),
     [publish, setPublish] = useState<{ solve: Solve; kind: 'single' | 'ao5' } | null>(null);
+  const publicRequest = useRef(0);
   const refreshPublic = useCallback(async () => {
-    setPublicData(await api<PublicData>('/public'));
+    const request = ++publicRequest.current;
+    const data = await api<PublicData>('/public');
+    if (request === publicRequest.current) setPublicData(data);
   }, []);
   const refreshPrivate = useCallback(async () => {
     const [nextSolves, nextProfile] = await Promise.all([
@@ -87,6 +90,20 @@ export default function App() {
   useEffect(() => {
     void initialize();
   }, []);
+  useEffect(() => {
+    if (view !== 'public' || loading) return;
+    const reload = () => {
+      if (document.visibilityState === 'visible') void refreshPublic().catch(() => {});
+    };
+    const timer = window.setInterval(reload, 60000);
+    window.addEventListener('focus', reload);
+    document.addEventListener('visibilitychange', reload);
+    return () => {
+      window.clearInterval(timer);
+      window.removeEventListener('focus', reload);
+      document.removeEventListener('visibilitychange', reload);
+    };
+  }, [view, loading, refreshPublic]);
   useEffect(() => {
     const expired = () => {
       setAuthenticated(false);

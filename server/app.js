@@ -7,7 +7,8 @@ import { randomScrambleForEvent } from 'cubing/scramble';
 import { EVENTS, averageOfFive, effectiveTime } from '../shared/domain.js';
 import { openStore, readSolve, readPublication, nextSolveNumber } from './store.js';
 import { hashPassword, verifyPassword, tokenHash, sessionToken, setSession } from './auth.js';
-import { importWca, normalizeWcaId } from './wca.js';
+import { normalizeWcaId } from './wca.js';
+import { createWcaSync } from './wca-sync.js';
 
 const DEFAULT_PROFILE = {
   name: 'Mi rincón de cubos',
@@ -40,6 +41,7 @@ export async function createApp(options = {}) {
     set('profile', DEFAULT_PROFILE);
   }
   const app = express();
+  const wcaSync = createWcaSync(store, { fetcher: options.fetcher });
   app.disable('x-powered-by');
   app.set('trust proxy', options.trustProxy ?? (process.env.TRUST_PROXY === '1' ? 1 : false));
   const secureCookie = options.secureCookie ?? process.env.COOKIE_SECURE ?? 'auto';
@@ -198,13 +200,27 @@ export async function createApp(options = {}) {
     res.json(profile);
   });
   app.post('/api/wca/import', requireAuth, async (req, res) => {
-    const wca = await importWca(req.body.wcaId, options.fetcher).catch((error) => {
+    let id;
+    try {
+      id = normalizeWcaId(req.body.wcaId);
+    } catch (error) {
+      throw bad(error.message);
+    }
+    const previous = get('profile', DEFAULT_PROFILE);
+    if (previous.wcaId !== id)
+      set('profile', {
+        ...previous,
+        wcaId: id,
+        wca: previous.wca?.id === id ? previous.wca : null,
+      });
+    const result = await wcaSync.refresh(id).catch((error) => {
       throw bad(error.message, 502);
     });
-    const profile = { ...get('profile', DEFAULT_PROFILE), wcaId: wca.id, wca };
-    set('profile', profile);
-    res.json(profile);
+    if (!result.applied)
+      throw bad('El perfil vinculado ha cambiado durante la consulta. Vuelve a intentarlo.', 409);
+    res.json(get('profile', DEFAULT_PROFILE));
   });
+  app.get('/api/wca/status', requireAuth, (_req, res) => res.json(wcaSync.status()));
   let scrambleQueue = Promise.resolve();
   app.post('/api/scramble', requireAuth, async (req, res) => {
     const event = req.body.event;
@@ -369,5 +385,6 @@ export async function createApp(options = {}) {
     });
   });
   app.locals.store = store;
+  app.locals.wcaSync = wcaSync;
   return app;
 }

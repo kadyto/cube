@@ -217,8 +217,8 @@ export function PublicPage({
                     <p className="help">
                       {profile.wca.personalRecords == null
                         ? authenticated
-                          ? 'Consulta de nuevo el perfil en Ajustes para importar tus marcas WCA.'
-                          : 'Las marcas oficiales todavía no se han importado.'
+                          ? 'Las marcas oficiales se cargarán en la próxima actualización automática. Puedes adelantarla desde Ajustes.'
+                          : 'Las marcas oficiales se cargarán en la próxima actualización automática.'
                         : 'Este perfil todavía no tiene marcas oficiales WCA.'}
                     </p>
                   )}
