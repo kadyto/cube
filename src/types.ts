@@ -2,6 +2,7 @@ export type EventId = '333' | '222' | 'pyram';
 export type Penalty = 'none' | '+2' | 'DNF';
 export type Solve = {
   id: string;
+  number: number;
   event: EventId;
   timeCs: number;
   penalty: Penalty;

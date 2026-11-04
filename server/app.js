@@ -5,7 +5,7 @@ import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { randomScrambleForEvent } from 'cubing/scramble';
 import { EVENTS, averageOfFive, effectiveTime } from '../shared/domain.js';
-import { openStore, readSolve, readPublication } from './store.js';
+import { openStore, readSolve, readPublication, nextSolveNumber } from './store.js';
 import { hashPassword, verifyPassword, tokenHash, sessionToken, setSession } from './auth.js';
 import { importWca, normalizeWcaId } from './wca.js';
 
@@ -238,26 +238,43 @@ export async function createApp(options = {}) {
     const scramble = db.prepare('SELECT * FROM scrambles WHERE id=?').get(scrambleId ?? '');
     if (!scramble) throw bad('Genera una mezcla antes de guardar el tiempo.');
     const id = randomUUID();
-    db.prepare('INSERT INTO solves VALUES (?,?,?,?,?,?,?,?,?)').run(
-      id,
-      scramble.event,
-      timeCs,
-      penalty,
-      scramble.alg,
-      scramble.id,
-      source,
-      text(req.body.note ?? '', 500, 'La nota'),
-      new Date().toISOString(),
-    );
+    const note = text(req.body.note ?? '', 500, 'La nota');
+    db.exec('BEGIN IMMEDIATE');
+    try {
+      const number = nextSolveNumber(db, scramble.event);
+      db.prepare(
+        'INSERT INTO solves(id,event,time_cs,penalty,scramble,scramble_id,source,note,created_at,number) VALUES (?,?,?,?,?,?,?,?,?,?)',
+      ).run(
+        id,
+        scramble.event,
+        timeCs,
+        penalty,
+        scramble.alg,
+        scramble.id,
+        source,
+        note,
+        new Date().toISOString(),
+        number,
+      );
+      db.exec('COMMIT');
+    } catch (error) {
+      db.exec('ROLLBACK');
+      throw error;
+    }
     res.status(201).json(readSolve(db.prepare('SELECT * FROM solves WHERE id=?').get(id)));
   });
   app.patch('/api/solves/:id', requireAuth, (req, res) => {
-    if (!['none', '+2', 'DNF'].includes(req.body.penalty)) throw bad('Penalización no válida.');
-    if (!db.prepare('SELECT id FROM solves WHERE id=?').get(req.params.id))
-      throw bad('Ese tiempo ya no existe.', 404);
-    db.prepare('UPDATE solves SET penalty=?,note=? WHERE id=?').run(
-      req.body.penalty,
-      text(req.body.note ?? '', 500, 'La nota'),
+    const previous = db.prepare('SELECT * FROM solves WHERE id=?').get(req.params.id);
+    if (!previous) throw bad('Ese tiempo ya no existe.', 404);
+    const timeCs = req.body.timeCs === undefined ? previous.time_cs : req.body.timeCs;
+    const penalty = req.body.penalty === undefined ? previous.penalty : req.body.penalty;
+    if (!Number.isInteger(timeCs) || timeCs < 1 || timeCs > 8640000)
+      throw bad('El tiempo debe estar entre 0,01 segundos y 24 horas.');
+    if (!['none', '+2', 'DNF'].includes(penalty)) throw bad('Penalización no válida.');
+    db.prepare('UPDATE solves SET time_cs=?,penalty=?,note=? WHERE id=?').run(
+      timeCs,
+      penalty,
+      req.body.note === undefined ? previous.note : text(req.body.note, 500, 'La nota'),
       req.params.id,
     );
     res.json(readSolve(db.prepare('SELECT * FROM solves WHERE id=?').get(req.params.id)));
@@ -276,20 +293,24 @@ export async function createApp(options = {}) {
   );
   app.post('/api/publications', requireAuth, (req, res) => {
     const { kind, solveId } = req.body;
-    const selected = db
-      .prepare('SELECT *,rowid AS sequence FROM solves WHERE id=?')
-      .get(solveId ?? '');
+    const selected = db.prepare('SELECT * FROM solves WHERE id=?').get(solveId ?? '');
     if (!selected || !['single', 'ao5'].includes(kind))
       throw bad('Elige el tiempo que quieres publicar.');
     const rows =
       kind === 'single'
         ? [selected]
         : db
-            .prepare('SELECT * FROM solves WHERE event=? AND rowid<=? ORDER BY rowid DESC LIMIT 5')
-            .all(selected.event, selected.sequence)
+            .prepare(
+              'SELECT * FROM solves WHERE event=? AND number<=? ORDER BY number DESC LIMIT 5',
+            )
+            .all(selected.event, selected.number)
             .reverse();
     if (rows.length !== (kind === 'single' ? 1 : 5))
       throw bad('Necesitas cinco resoluciones de este puzzle para publicar un ao5.');
+    if (kind === 'ao5' && rows.some((row, i) => row.number !== selected.number - 4 + i))
+      throw bad(
+        'Completa los intentos pendientes de estos cinco números antes de publicar su ao5.',
+      );
     // An explicit immutable snapshot. Private notes never enter the public record.
     const solves = rows.map(readSolve).map(({ timeCs, penalty, scramble, createdAt }) => ({
       timeCs,

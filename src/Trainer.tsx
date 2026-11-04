@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowRight,
   Check,
@@ -8,11 +8,13 @@ import {
   Keyboard,
   LoaderCircle,
   Plus,
+  Pencil,
   RefreshCw,
   ShieldCheck,
   Sparkles,
   Timer,
   Trophy,
+  Trash2,
   Upload,
 } from 'lucide-react';
 import {
@@ -22,10 +24,13 @@ import {
   formatTime,
   parseTime,
   statistics,
+  nextAttemptNumber,
+  consecutiveWindow,
 } from '../shared/domain.js';
 import { api, errorMessage } from './api';
 import { Empty, ProgressChart, PuzzleIcon, SolveTime } from './components';
 import { useTimer } from './useTimer';
+import { SolveEditor } from './SolveEditor';
 import type { EventId, Penalty, Scramble, Solve } from './types';
 
 type Pending = { scramble: Scramble; timeCs: number; penalty: Penalty; source: 'manual' | 'timer' };
@@ -71,10 +76,24 @@ export function Trainer({
   const [manual, setManual] = useState(''),
     [penalty, setPenalty] = useState<Penalty>('none');
   const [lastSaved, setLastSaved] = useState<Solve | null>(null);
+  const [selected, setSelected] = useState<Solve | null>(null),
+    [deleting, setDeleting] = useState(false);
   const requestRef = useRef(0),
     savingRef = useRef(false);
-  const eventSolves = solves.filter((s) => s.event === event),
-    stats = statistics(eventSolves);
+  const eventSolves = useMemo(
+    () => solves.filter((s) => s.event === event).sort((a, b) => a.number - b.number),
+    [solves, event],
+  );
+  const stats = useMemo(() => statistics(eventSolves), [eventSolves]);
+  const nextNumber = useMemo(() => nextAttemptNumber(eventSolves), [eventSolves]);
+  const recentSolves = useMemo(
+    () =>
+      solves
+        .filter((s) => s.event === event)
+        .slice(-4)
+        .reverse(),
+    [solves, event],
+  );
   const generate = async (selected: EventId = event) => {
     const request = ++requestRef.current;
     setLoading(true);
@@ -190,7 +209,7 @@ export function Trainer({
       <section className="panel scramble-panel">
         <div className="row between">
           <span className="section-label">
-            <RefreshCw size={15} /> TU MEZCLA
+            <RefreshCw size={15} /> INTENTO #{nextNumber} · TU MEZCLA
           </span>
           <details className="legend">
             <summary>
@@ -442,9 +461,29 @@ export function Trainer({
             )}
           </span>
           {lastSaved && !busy && (
-            <button className="text-button" onClick={() => onPublish(lastSaved, 'single')}>
-              <Upload size={14} /> Publicar este single
-            </button>
+            <div className="row wrap last-solve-actions">
+              <button
+                className="text-button"
+                onClick={() => {
+                  setDeleting(false);
+                  setSelected(lastSaved);
+                }}
+              >
+                <Pencil size={14} /> Editar último tiempo
+              </button>
+              <button
+                className="text-button danger-text"
+                onClick={() => {
+                  setDeleting(true);
+                  setSelected(lastSaved);
+                }}
+              >
+                <Trash2 size={14} /> Borrar último tiempo
+              </button>
+              <button className="text-button" onClick={() => onPublish(lastSaved, 'single')}>
+                <Upload size={14} /> Publicar este single
+              </button>
+            </div>
           )}
         </div>
       </section>
@@ -477,7 +516,13 @@ export function Trainer({
         <Stat
           label="AO5 ACTUAL"
           value={formatTime(stats.ao5)}
-          hint={stats.count < 5 ? `${stats.count}/5 resoluciones` : 'Sin el mejor ni el peor'}
+          hint={
+            stats.count < 5
+              ? `${stats.count}/5 resoluciones`
+              : stats.ao5 === null
+                ? 'Hay un hueco por completar'
+                : 'Sin el mejor ni el peor'
+          }
         />
         <Stat label="MEJOR AO5" value={formatTime(stats.bestAo5)} icon={<Sparkles size={17} />} />
         <Stat
@@ -503,29 +548,74 @@ export function Trainer({
           </div>
           {eventSolves.length ? (
             <div className="recent-list">
-              {eventSolves
-                .slice(-4)
-                .reverse()
-                .map((solve, i) => (
-                  <div key={solve.id} className="row between">
-                    <span className="muted">#{eventSolves.length - i}</span>
-                    <strong>
-                      <SolveTime solve={solve} />
-                    </strong>
-                    <span className="help">
-                      {new Date(solve.createdAt).toLocaleTimeString('es', {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })}
-                    </span>
-                  </div>
-                ))}
+              {recentSolves.map((solve) => (
+                <div key={solve.id} className="row between">
+                  <span className="muted">#{solve.number}</span>
+                  <button
+                    className="time-button"
+                    onClick={() => {
+                      setDeleting(false);
+                      setSelected(solve);
+                    }}
+                  >
+                    <SolveTime solve={solve} />
+                  </button>
+                  <span className="help">
+                    {new Date(solve.createdAt).toLocaleTimeString('es', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </span>
+                </div>
+              ))}
             </div>
           ) : (
             <Empty title="Todo empieza con un intento">Tu primera resolución aparecerá aquí.</Empty>
           )}
         </section>
       </div>
+      {selected && (
+        <SolveEditor
+          solve={selected}
+          initialDeleting={deleting}
+          hasAo5={
+            consecutiveWindow(
+              eventSolves,
+              eventSolves.findIndex((s) => s.id === selected.id),
+            ).length === 5
+          }
+          onClose={() => setSelected(null)}
+          onSave={async (timeCs, penalty, note) => {
+            const updated = await api<Solve>(`/solves/${selected.id}`, 'PATCH', {
+              timeCs,
+              penalty,
+              note,
+            });
+            if (lastSaved?.id === selected.id) setLastSaved(updated);
+            await onSaved();
+            setSelected(null);
+          }}
+          onDelete={async () => {
+            await api(`/solves/${selected.id}`, 'DELETE', {});
+            await onSaved();
+            if (lastSaved?.id === selected.id) {
+              setLastSaved(null);
+              timer.reset();
+              setScramble({
+                id: selected.scrambleId,
+                event: selected.event,
+                alg: selected.scramble,
+                createdAt: selected.createdAt,
+              });
+            }
+            setSelected(null);
+          }}
+          onPublish={(kind) => {
+            setSelected(null);
+            onPublish(selected, kind);
+          }}
+        />
+      )}
     </>
   );
 }

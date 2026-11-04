@@ -63,7 +63,10 @@ export function Modal({
     <dialog
       ref={ref}
       className={wide ? 'modal wide' : 'modal'}
-      onCancel={onClose}
+      onCancel={(e) => {
+        e.preventDefault();
+        onClose();
+      }}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}

@@ -5,6 +5,28 @@ export const EVENTS = {
 };
 export const EVENT_IDS = ['333', '222', 'pyram'];
 
+export function nextAttemptNumber(solves) {
+  const numbers = new Set(solves.map((solve) => solve.number));
+  let number = 1;
+  while (numbers.has(number)) number++;
+  return number;
+}
+
+export function consecutiveWindow(solves, endIndex = solves.length - 1) {
+  const window = solves.slice(Math.max(0, endIndex - 4), endIndex + 1);
+  if (window.length !== 5) return [];
+  // Unnumbered input remains supported for standalone averages and public snapshots.
+  if (
+    window.some((solve) => Number.isInteger(solve.number)) &&
+    window.some(
+      (solve, i) =>
+        !Number.isInteger(solve.number) || (i > 0 && solve.number !== window[i - 1].number + 1),
+    )
+  )
+    return [];
+  return window;
+}
+
 /** Times are stored in centiseconds, as in WCA results. */
 export function effectiveTime(solve) {
   return solve.penalty === 'DNF' ? Infinity : solve.timeCs + (solve.penalty === '+2' ? 200 : 0);
@@ -43,13 +65,14 @@ export function parseTime(value) {
 export function statistics(solves) {
   const valid = solves.map(effectiveTime).filter(Number.isFinite);
   const averages = [];
-  for (let i = 4; i < solves.length; i++) averages.push(averageOfFive(solves.slice(i - 4, i + 1)));
+  for (let i = 4; i < solves.length; i++)
+    averages.push(averageOfFive(consecutiveWindow(solves, i)));
   const validAverages = averages.filter((v) => typeof v === 'number');
   return {
     count: solves.length,
     best: valid.length ? Math.min(...valid) : null,
     bestAo5: validAverages.length ? Math.min(...validAverages) : null,
-    ao5: solves.length >= 5 ? averageOfFive(solves.slice(-5)) : null,
+    ao5: averageOfFive(consecutiveWindow(solves)),
     mean: valid.length ? Math.round(valid.reduce((a, b) => a + b, 0) / valid.length) : null,
   };
 }

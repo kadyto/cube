@@ -2862,3 +2862,36 @@ th:first-child {
     margin-left: 23px;
   }
 }
+
+.solve-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-top: 4px;
+}
+.solve-row-actions .text-button {
+  font-size: 10px;
+  min-height: 30px;
+}
+.last-solve-actions {
+  justify-content: flex-end;
+  gap: 9px 14px;
+}
+.timer-footer {
+  flex-wrap: wrap;
+  gap: 9px 16px;
+}
+.next-attempt {
+  margin: -4px 0 16px;
+}
+@media (max-width: 640px) {
+  .last-solve-actions {
+    justify-content: center;
+  }
+  .last-solve-actions .text-button {
+    min-height: 30px;
+  }
+  .solve-row-actions {
+    gap: 12px;
+  }
+}

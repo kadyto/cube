@@ -26,6 +26,29 @@ export function openStore(path) {
       title TEXT NOT NULL, solves TEXT NOT NULL, result TEXT NOT NULL, created_at TEXT NOT NULL
     );
   `);
+  // Preserve the existing per-puzzle display order when upgrading older databases.
+  if (
+    !db
+      .prepare('PRAGMA table_info(solves)')
+      .all()
+      .some((column) => column.name === 'number')
+  ) {
+    db.exec('BEGIN IMMEDIATE');
+    try {
+      db.exec(`
+        ALTER TABLE solves ADD COLUMN number INTEGER NOT NULL DEFAULT 1 CHECK(number > 0);
+        WITH numbered AS (
+          SELECT id, ROW_NUMBER() OVER (PARTITION BY event ORDER BY rowid) AS n FROM solves
+        ) UPDATE solves SET number=(SELECT n FROM numbered WHERE numbered.id=solves.id);
+        CREATE UNIQUE INDEX solves_event_number ON solves(event, number);
+        COMMIT;
+      `);
+    } catch (error) {
+      db.exec('ROLLBACK');
+      db.close();
+      throw error;
+    }
+  }
   const get = (key, fallback = null) => {
     const row = db.prepare('SELECT value FROM settings WHERE key = ?').get(key);
     return row ? JSON.parse(row.value) : fallback;
@@ -42,6 +65,7 @@ export function openStore(path) {
 export function readSolve(row) {
   return {
     id: row.id,
+    number: row.number,
     event: row.event,
     timeCs: row.time_cs,
     penalty: row.penalty,
@@ -51,6 +75,20 @@ export function readSolve(row) {
     note: row.note,
     createdAt: row.created_at,
   };
+}
+
+export function nextSolveNumber(db, event) {
+  return db
+    .prepare(
+      `
+    SELECT MIN(candidate) AS number FROM (
+      SELECT 1 AS candidate UNION ALL SELECT number+1 FROM solves WHERE event=?
+    ) slots WHERE NOT EXISTS (
+      SELECT 1 FROM solves WHERE event=? AND number=slots.candidate
+    )
+  `,
+    )
+    .get(event, event).number;
 }
 
 export function readPublication(row) {

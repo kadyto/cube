@@ -15,7 +15,13 @@ import {
   Upload,
   X,
 } from 'lucide-react';
-import { EVENTS, averageOfFive, effectiveTime, formatTime } from '../shared/domain.js';
+import {
+  EVENTS,
+  averageOfFive,
+  consecutiveWindow,
+  effectiveTime,
+  formatTime,
+} from '../shared/domain.js';
 import { api, errorMessage } from './api';
 import { Modal, PublicationDetails, PuzzleIcon, SolveTime } from './components';
 import { Trainer } from './Trainer';
@@ -392,9 +398,11 @@ function PublishDialog({
     [title, setTitle] = useState(''),
     [busy, setBusy] = useState(false),
     [error, setError] = useState('');
-  const eventSolves = solves.filter((s) => s.event === solve.event),
+  const eventSolves = solves
+      .filter((s) => s.event === solve.event)
+      .sort((a, b) => a.number - b.number),
     index = eventSolves.findIndex((s) => s.id === solve.id);
-  const window = eventSolves.slice(Math.max(0, index - 4), index + 1),
+  const window: Solve[] = consecutiveWindow(eventSolves, index),
     selected = kind === 'single' ? [solve] : window;
   const result = kind === 'single' ? effectiveTime(solve) : averageOfFive(window);
   return (
@@ -426,9 +434,9 @@ function PublishDialog({
         {kind === 'ao5' ? ' · Los 5 intentos consecutivos que terminan en el seleccionado' : ''}
       </p>
       <div className="publish-preview">
-        {selected.map((s, i) => (
+        {selected.map((s) => (
           <div className="row between" key={s.id}>
-            <span className="help">Intento {i + 1}</span>
+            <span className="help">Intento #{s.number}</span>
             <SolveTime solve={s} />
           </div>
         ))}
