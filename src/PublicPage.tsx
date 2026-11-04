@@ -1,0 +1,306 @@
+import { useState } from 'react';
+import {
+  ArrowRight,
+  ArrowUpRight,
+  CalendarDays,
+  ExternalLink,
+  Globe2,
+  MapPin,
+  Medal,
+  Sparkles,
+  Trash2,
+  Trophy,
+} from 'lucide-react';
+import { EVENTS, EVENT_IDS, formatTime } from '../shared/domain.js';
+import { Empty, Modal, PublicationCard, PuzzleIcon } from './components';
+import type { EventId, PublicData, Publication } from './types';
+
+export function PublicPage({
+  data,
+  authenticated,
+  onTrain,
+  onSettings,
+  onOpen,
+  onRemove,
+}: {
+  data: PublicData;
+  authenticated: boolean;
+  onTrain: () => void;
+  onSettings: () => void;
+  onOpen: (p: Publication) => void;
+  onRemove: (id: string) => Promise<void>;
+}) {
+  const [filter, setFilter] = useState<EventId | 'all'>('all'),
+    [removing, setRemoving] = useState<string | null>(null),
+    [busy, setBusy] = useState(false),
+    [error, setError] = useState('');
+  const profile = data.profile,
+    publications = data.publications.filter((p) => filter === 'all' || p.event === filter);
+  const singles = data.publications.filter(
+    (p) => p.kind === 'single' && typeof p.result === 'number',
+  );
+  const best = (event: EventId) => {
+    const times = singles.filter((p) => p.event === event).map((p) => p.result as number);
+    return times.length ? Math.min(...times) : null;
+  };
+  return (
+    <>
+      <div className="page-heading">
+        <div>
+          <p className="eyebrow">PEQUEÑOS GIROS. GRANDES LOGROS.</p>
+          <h1>
+            Un rincón para compartir<span className="green-dot">.</span>
+          </h1>
+          <p className="muted">La alegría de resolver. El orgullo de seguir mejorando.</p>
+        </div>
+        <span className="private-pill public-pill">
+          <Globe2 size={15} /> Página pública
+        </span>
+      </div>
+      <section className="profile-hero">
+        <div className="profile-copy">
+          <span className="hero-kicker">
+            <span className="live-dot" /> MI MUNDO, EN SEIS CARAS
+          </span>
+          <h2>{profile.name}</h2>
+          <p>{profile.bio}</p>
+          <div className="row wrap">
+            {profile.wcaId && (
+              <a
+                className="hero-link"
+                href={`https://www.worldcubeassociation.org/persons/${profile.wcaId}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                WCA · {profile.wcaId}
+                <ArrowUpRight size={15} />
+              </a>
+            )}
+            <button className="hero-button" onClick={onTrain}>
+              {authenticated ? 'Seguir entrenando' : 'Entrar a entrenar'}
+              <ArrowRight size={17} />
+            </button>
+          </div>
+        </div>
+        <div className="hero-art" aria-hidden="true">
+          <div className="orbit orbit-one" />
+          <div className="orbit orbit-two" />
+          <div className="big-cube">
+            <div className="cube-face top">
+              {Array.from({ length: 9 }, (_, i) => (
+                <i key={i} />
+              ))}
+            </div>
+            <div className="cube-face front">
+              {Array.from({ length: 9 }, (_, i) => (
+                <i key={i} />
+              ))}
+            </div>
+            <div className="cube-face right">
+              {Array.from({ length: 9 }, (_, i) => (
+                <i key={i} />
+              ))}
+            </div>
+          </div>
+          <span className="art-spark spark-one">✳</span>
+          <span className="art-spark spark-two">+</span>
+          <span className="art-caption">UNA MEZCLA, UN RETO.</span>
+        </div>
+      </section>
+      <div className="public-layout">
+        <div className="public-main">
+          <div className="panel-title section-title">
+            <div>
+              <h2>
+                En mi vitrina <Sparkles size={18} />
+              </h2>
+              <p className="muted">Momentos que merecen quedarse.</p>
+            </div>
+            <span className="count-pill">
+              {data.publications.length}{' '}
+              {data.publications.length === 1 ? 'publicación' : 'publicaciones'}
+            </span>
+          </div>
+          <div className="filter-tabs" role="group" aria-label="Filtrar publicaciones">
+            <button className={filter === 'all' ? 'selected' : ''} onClick={() => setFilter('all')}>
+              Todos
+            </button>
+            {(EVENT_IDS as EventId[]).map((event) => (
+              <button
+                className={filter === event ? 'selected' : ''}
+                key={event}
+                onClick={() => setFilter(event)}
+              >
+                {EVENTS[event].name}
+              </button>
+            ))}
+          </div>
+          {publications.length ? (
+            <div className="publication-grid">
+              {publications.map((p) => (
+                <div className="publication-wrap" key={p.id}>
+                  <PublicationCard publication={p} onOpen={() => onOpen(p)} />
+                  {authenticated && (
+                    <button
+                      className="text-button remove-publication"
+                      onClick={() => setRemoving(p.id)}
+                    >
+                      <Trash2 size={13} /> Retirar de la vitrina
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <section className="panel">
+              <Empty
+                title={
+                  filter === 'all'
+                    ? 'Los grandes momentos están por llegar'
+                    : 'Todavía no hay publicaciones de este puzzle'
+                }
+                icon={<Trophy size={30} />}
+              >
+                {authenticated
+                  ? 'Entrena a tu ritmo y publica los singles o ao5 que tú elijas. Aquí nunca se comparte nada automáticamente.'
+                  : 'Este espacio se llenará con los tiempos que su protagonista decida compartir.'}
+              </Empty>
+              {authenticated && (
+                <div className="empty-action">
+                  <button className="button primary" onClick={onTrain}>
+                    Vamos a entrenar <ArrowRight size={16} />
+                  </button>
+                </div>
+              )}
+            </section>
+          )}
+        </div>
+        <aside className="public-aside">
+          <section className="panel">
+            <h2 className="row">
+              <Medal size={19} /> Marcas compartidas
+            </h2>
+            <p className="help">Solo cuentan los singles publicados.</p>
+            <div className="records-list">
+              {(EVENT_IDS as EventId[]).map((event) => (
+                <div className="row between" key={event}>
+                  <span className="row">
+                    <PuzzleIcon event={event} size={26} />
+                    {EVENTS[event].name}
+                  </span>
+                  <strong className="mono">{formatTime(best(event))}</strong>
+                </div>
+              ))}
+            </div>
+          </section>
+          {profile.wcaId && (
+            <section className="panel">
+              <h2 className="row">
+                <Globe2 size={18} /> Mi perfil WCA
+              </h2>
+              {profile.wca && <p className="wca-name">{profile.wca.name}</p>}
+              <a
+                className="text-button"
+                href={`https://www.worldcubeassociation.org/persons/${profile.wcaId}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {profile.wcaId}
+                <ExternalLink size={14} />
+              </a>
+              <p className="help">Perfil público vinculado por el propietario.</p>
+            </section>
+          )}
+          {!!profile.wca?.competitions.length && (
+            <section className="panel">
+              <h2 className="row">
+                <CalendarDays size={18} /> Mis competiciones
+              </h2>
+              <div className="competitions-list">
+                {profile.wca.competitions.map((c) => (
+                  <a
+                    key={c.id}
+                    href={`https://www.worldcubeassociation.org/competitions/${c.id}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <strong>
+                      {c.name}
+                      <ArrowUpRight size={13} />
+                    </strong>
+                    <span>
+                      {c.date
+                        ? new Date(`${c.date}T12:00:00`).toLocaleDateString('es', {
+                            day: 'numeric',
+                            month: 'short',
+                            year: 'numeric',
+                          })
+                        : ''}
+                    </span>
+                    {c.city && (
+                      <span>
+                        <MapPin size={11} />
+                        {c.city}
+                      </span>
+                    )}
+                  </a>
+                ))}
+              </div>
+              <p className="help">
+                Participaciones importadas de resultados WCA. No incluye inscripciones futuras.
+              </p>
+            </section>
+          )}
+          <div className="little-note">
+            <Sparkles size={21} />
+            <p>El mejor tiempo es el que te anima a volver a intentarlo.</p>
+          </div>
+          {authenticated && (
+            <button className="text-button" onClick={onSettings}>
+              Personalizar mi rincón <ArrowRight size={15} />
+            </button>
+          )}
+        </aside>
+      </div>
+      {removing && (
+        <Modal
+          title="¿Retirar esta publicación?"
+          onClose={() => {
+            if (!busy) setRemoving(null);
+          }}
+        >
+          <p>
+            Dejará de verse en la página pública. Tus tiempos privados seguirán en el historial.
+          </p>
+          {error && (
+            <p className="error-box" role="alert">
+              {error}
+            </p>
+          )}
+          <div className="modal-actions">
+            <button className="button secondary" onClick={() => setRemoving(null)}>
+              Cancelar
+            </button>
+            <button
+              className="button primary"
+              disabled={busy}
+              onClick={async () => {
+                setBusy(true);
+                try {
+                  await onRemove(removing);
+                  setRemoving(null);
+                } catch {
+                  setError('No se pudo retirar. Vuelve a intentarlo.');
+                } finally {
+                  setBusy(false);
+                }
+              }}
+            >
+              Retirar publicación
+            </button>
+          </div>
+        </Modal>
+      )}
+    </>
+  );
+}
