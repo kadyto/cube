@@ -70,15 +70,29 @@ export function PublicPage({
             </button>
           </div>
         </div>
-        <div className="hero-art hero-logo-art" aria-hidden="true">
-          <img
-            className="hero-logo"
-            src="/logo.png"
-            alt=""
-            width="1252"
-            height="1252"
-            fetchPriority="high"
-          />
+        <div className="hero-art" aria-hidden="true">
+          <div className="orbit orbit-one" />
+          <div className="orbit orbit-two" />
+          <div className="big-cube">
+            <div className="cube-face top">
+              {Array.from({ length: 9 }, (_, i) => (
+                <i key={i} />
+              ))}
+            </div>
+            <div className="cube-face front">
+              {Array.from({ length: 9 }, (_, i) => (
+                <i key={i} />
+              ))}
+            </div>
+            <div className="cube-face right">
+              {Array.from({ length: 9 }, (_, i) => (
+                <i key={i} />
+              ))}
+            </div>
+          </div>
+          <span className="art-spark spark-one">✳</span>
+          <span className="art-spark spark-two">+</span>
+          <span className="art-caption">UNA MEZCLA, UN RETO.</span>
         </div>
       </section>
       <div className="public-layout">

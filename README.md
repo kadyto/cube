@@ -84,7 +84,7 @@ Cada puesto procede del campo oficial `pos` de su ronda. No es una clasificació
 
 Las instalaciones con competiciones ya importadas deben pulsar una vez «Consultar WCA» en Ajustes para cargar sus rondas y puestos. Si no hay información de una ronda, se indica que falta en lugar de mostrar una posición inventada. La importación es manual y no altera las publicaciones de entrenamiento.
 
-El logo está incorporado en `public/logo.png`, como PNG transparente preparado a partir de la imagen proporcionada por el propietario. Se utiliza en la cabecera, el banner público y los iconos del navegador y del móvil.
+El logo está incorporado en `public/logo.png`, como PNG transparente preparado a partir de la imagen proporcionada por el propietario. Se utiliza en la cabecera y los iconos del navegador y del móvil. El banner público conserva el cubo decorativo original.
 
 ## Privacidad y alcance
 

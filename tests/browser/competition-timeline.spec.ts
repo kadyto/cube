@@ -64,7 +64,7 @@ test('timeline shows latest-round positions, expands previous rounds, filters ev
   await page.setViewportSize({ width: 390, height: 844 });
   await expect(page.locator('body')).toHaveJSProperty('scrollWidth', 390);
   await expect(page.locator('.brand-logo')).toBeVisible();
-  await expect(page.locator('.hero-logo')).toBeVisible();
+  await expect(page.locator('.hero-art .big-cube')).toBeVisible();
   await expect
     .poll(() => page.locator('.brand-logo').evaluate((img: HTMLImageElement) => img.naturalWidth))
     .toBeGreaterThan(0);
