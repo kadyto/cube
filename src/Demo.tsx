@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Play, RefreshCw, Timer } from 'lucide-react';
+import { Github, Play, RefreshCw, Timer } from 'lucide-react';
 import { effectiveTime } from '../shared/domain.js';
 import { errorMessage } from './api';
 import { ScramblePreview } from './ScramblePreview';
@@ -143,6 +143,17 @@ export function Demo() {
         </div>
       </section>
       <ScramblePreview event={event} alg={alg} disabled={timer.active || loading} />
+      <div className="demo-install">
+        <p>¿Quieres instalar tu propio Cube?</p>
+        <a
+          className="text-button"
+          href="https://github.com/kadyto/cube"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Github size={16} aria-hidden="true" /> Código e instalación en GitHub
+        </a>
+      </div>
     </>
   );
 }
