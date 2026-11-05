@@ -33,6 +33,7 @@ import { Empty, ProgressChart, PuzzleIcon, SolveTime } from './components';
 import { useTimer } from './useTimer';
 import { useScreenWakeLock } from './useScreenWakeLock';
 import { SolveEditor } from './SolveEditor';
+import { ScramblePreview } from './ScramblePreview';
 import type { EventId, Penalty, Scramble, Solve } from './types';
 
 type Pending = { scramble: Scramble; timeCs: number; penalty: Penalty; source: 'manual' | 'timer' };
@@ -250,7 +251,7 @@ export function Trainer({
                     Las mayúsculas giran una capa de 120°. Las minúsculas <b>u, l, r, b</b> giran
                     solo la punta.
                   </p>
-                  <p>Sujeta el Pyraminx con una cara hacia ti y una punta arriba.</p>
+                  <p>Empieza con verde delante, amarillo en la base y una punta arriba.</p>
                 </>
               ) : (
                 <>
@@ -509,6 +510,11 @@ export function Trainer({
           )}
         </div>
       </section>
+      <ScramblePreview
+        event={event}
+        alg={!loading && scramble?.event === event ? scramble.alg : null}
+        disabled={busy}
+      />
       {error && (
         <div className="error-box" role="alert">
           {error}

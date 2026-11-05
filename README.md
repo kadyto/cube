@@ -7,6 +7,7 @@ Un rincón de speedcubing para entrenar, ver el progreso y compartir los logros 
 - **3×3×3, 2×2×2 y Pyraminx.** Mezclas de estado aleatorio generadas por [cubing.js](https://js.cubing.net/cubing/scramble/), con una leyenda junto a la mezcla para aprender la notación. Son mezclas para entrenamiento con criterios de los eventos WCA; esta aplicación no es un programa oficial homologado para organizar competiciones WCA.
 - **Cronómetro táctil y con barra espaciadora.** Mantén 350 ms y suelta para arrancar; pulsa para detener. Escape cancela el intento. Inspección opcional: a partir de 15 s aplica +2; a partir de 17 s, DNF. La inspección termina al soltar para iniciar la resolución.
 - **Pantalla encendida al entrenar.** Evita el apagado automático durante toda la vista de Entrenamiento: mirando una mezcla, durante la inspección, cronometrando o introduciendo tiempos a mano. Se libera al salir o poner la página en segundo plano y se solicita de nuevo al volver.
+- **Dibujo de la mezcla.** Desplegado en color del estado exacto que produce la secuencia actual en 3×3×3, 2×2×2 y Pyraminx, con opción de ampliarlo en el móvil. Se actualiza con cada nueva mezcla y al cambiar de puzzle, también en el modo de entrada manual.
 - **Entrada manual.** Acepta `12.34`, `12,34` y `1:02.45`. Cada intento conserva su mezcla, fecha y forma de registro.
 - **ao5 automático**, mejores singles, mejor ao5, gráfico de las últimas 30 resoluciones e historial por puzzle. Las medias se calculan dentro de cada puzzle; los cinco últimos intentos del historial de ese puzzle forman el ao5 actual.
 - **Edición y borrado individual.** Botones visibles en cada tiempo del historial y acceso directo junto al último tiempo guardado. Puedes corregir el tiempo, marcar +2 o DNF, añadir una nota privada o borrar el intento con confirmación.
@@ -35,6 +36,12 @@ Las publicaciones son copias de los resultados que elegiste compartir: editar, b
 Entrenamiento utiliza Screen Wake Lock automáticamente, sin depender de que el cronómetro esté corriendo. El indicador «Pantalla encendida durante el entrenamiento» confirma que el navegador ha aceptado la solicitud. El bloqueo se libera al cambiar de sección, cerrar sesión, ocultar la página o abandonarla; al regresar se intenta recuperar, también después de volver de otra aplicación o del bloqueo manual del móvil.
 
 Esta función necesita HTTPS y un navegador compatible (en desarrollo también funciona en `localhost`). El sistema puede rechazarla o retirarla por ahorro de batería u otras restricciones; en ese caso se muestra el estado y puedes reintentar, y también se intenta de nuevo al tocar la pantalla o usar el teclado. No impide bloquear manualmente el móvil. Si no está disponible, el cronómetro y la entrada manual siguen funcionando normalmente.
+
+### Comprobar una mezcla con el dibujo
+
+Debajo del cronómetro aparece «Así queda tu mezcla»: las seis caras desplegadas del cubo o las cuatro del Pyraminx después de aplicar la secuencia indicada al puzzle resuelto. En los cubos, empieza con blanco arriba y verde delante; en Pyraminx, con verde delante y amarillo en la base. Los giros de las puntas del Pyraminx también se representan. «Ampliar dibujo» abre una vista mayor con la misma mezcla escrita; ciérrala para volver a cronometrar.
+
+El estado y el dibujo se calculan localmente con cubing.js, sin servicios externos ni animaciones. El dibujo se conserva durante el intento y se sustituye al generar la siguiente mezcla. Si borras el último intento accidental y recuperas su mezcla, también se recupera su dibujo. Los fallos del dibujo no impiden usar la secuencia, el cronómetro o la entrada manual.
 
 ## Desplegar en Dockhand
 
@@ -134,4 +141,4 @@ WCA es opcional y no requiere OAuth ni credenciales WCA. Vincular un ID **no acr
 
 Cube no carga fuentes, analítica ni recursos de terceros en el navegador. No hay registro abierto, cuentas múltiples, sincronización con csTimer ni funcionamiento sin conexión. Si falla el guardado de un tiempo, conserva un intento pendiente en ese navegador para reintentarlo; no cierres sesión en un dispositivo compartido con un intento pendiente sin haberlo guardado. La exportación JSON permite consultar y conservar datos; la restauración completa se hace con la copia SQLite, no importando JSON.
 
-Posibles siguientes pasos: objetivos personales «sub-X», sesiones de entrenamiento independientes, modo competición de cinco resoluciones y dibujo del estado mezclado. La base actual prioriza entrenar y compartir de forma sencilla.
+Posibles siguientes pasos: objetivos personales «sub-X», sesiones de entrenamiento independientes y modo competición de cinco resoluciones. La base actual prioriza entrenar y compartir de forma sencilla.
