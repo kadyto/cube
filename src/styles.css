@@ -707,6 +707,31 @@ main {
   font-size: inherit;
   padding: 3px 0;
 }
+.nav-label-short {
+  display: none;
+}
+.demo-notice {
+  background: #eef4e7;
+  color: #526b43;
+  border: 1px solid #dde7d4;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 1.7;
+  padding: 12px 15px;
+  margin: 0 0 20px;
+}
+.demo-timer-footer {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.demo-timer-panel .cancel-timer {
+  position: static;
+  transform: none;
+  margin: 0 auto 12px;
+}
+.demo-timer-panel .timer-face:disabled {
+  cursor: default;
+}
 .event-tab {
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -2091,9 +2116,15 @@ th:first-child {
   }
   .sidebar nav {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 6px;
     margin-top: 17px;
+  }
+  .nav-label-full {
+    display: none;
+  }
+  .nav-label-short {
+    display: inline;
   }
   .nav-item {
     display: flex;

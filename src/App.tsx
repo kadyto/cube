@@ -9,6 +9,7 @@ import {
   LockKeyhole,
   LogIn,
   LogOut,
+  Play,
   Settings2,
   ShieldCheck,
   Timer,
@@ -25,18 +26,21 @@ import {
 import { api, errorMessage } from './api';
 import { Modal, PublicationDetails, PuzzleIcon, SolveTime } from './components';
 import { Trainer } from './Trainer';
+import { Demo } from './Demo';
 import { History } from './History';
 import { PublicPage } from './PublicPage';
 import { Settings } from './Settings';
 import type { Profile, PublicData, Publication, Solve } from './types';
 
-type View = 'public' | 'train' | 'history' | 'settings';
+type View = 'public' | 'demo' | 'train' | 'history' | 'settings';
 const paths: Record<View, string> = {
   public: '',
+  demo: 'demo',
   train: 'entrenar',
   history: 'historial',
   settings: 'ajustes',
 };
+const requiresAuth = (view: View) => view !== 'public' && view !== 'demo';
 const currentView = (): View =>
   (Object.entries(paths).find(([, path]) => window.location.hash === `#/${path}`)?.[0] as View) ??
   'public';
@@ -76,8 +80,8 @@ export default function App() {
       const auth = await api<{ authenticated: boolean }>('/auth');
       setAuthenticated(auth.authenticated);
       await refreshPublic();
-      if (auth.authenticated) await refreshPrivate();
-      else if (currentView() !== 'public') {
+      if (auth.authenticated && currentView() !== 'demo') await refreshPrivate();
+      else if (!auth.authenticated && requiresAuth(currentView())) {
         setLoginFor(currentView());
         setView('public');
       }
@@ -90,6 +94,18 @@ export default function App() {
   useEffect(() => {
     void initialize();
   }, []);
+  useEffect(() => {
+    if (loading || !authenticated || profile || !requiresAuth(view)) return;
+    let current = true;
+    void refreshPrivate().catch((e) => {
+      if (!current) return;
+      setError(errorMessage(e));
+      setView('public');
+    });
+    return () => {
+      current = false;
+    };
+  }, [loading, authenticated, profile, view, refreshPrivate]);
   useEffect(() => {
     if (view !== 'public' || loading) return;
     const reload = () => {
@@ -109,6 +125,11 @@ export default function App() {
       setAuthenticated(false);
       setSolves([]);
       setProfile(null);
+      if (currentView() === 'demo') {
+        setLoginFor(null);
+        setView('demo');
+        return;
+      }
       setLoginFor(currentView() === 'public' ? 'train' : currentView());
       setView('public');
     };
@@ -118,7 +139,7 @@ export default function App() {
   useEffect(() => {
     const listener = () => {
       const next = currentView();
-      if (next !== 'public' && !authenticated) {
+      if (requiresAuth(next) && !authenticated) {
         setLoginFor(next);
         setView('public');
       } else setView(next);
@@ -127,7 +148,7 @@ export default function App() {
     return () => window.removeEventListener('hashchange', listener);
   }, [authenticated]);
   const navigate = (next: View) => {
-    if (next !== 'public' && !authenticated) {
+    if (requiresAuth(next) && !authenticated) {
       setLoginFor(next);
       return;
     }
@@ -147,9 +168,10 @@ export default function App() {
     }
   };
   const navigation = [
-    { id: 'train' as View, label: 'Entrenamiento', icon: Timer },
-    { id: 'history' as View, label: 'Mi historial', icon: HistoryIcon },
+    { id: 'train' as View, label: 'Entrenamiento', short: 'Entrenar', icon: Timer },
+    { id: 'history' as View, label: 'Mi historial', short: 'Historial', icon: HistoryIcon },
     { id: 'public' as View, label: 'Mi rincón', icon: Globe2 },
+    { id: 'demo' as View, label: 'Demo', icon: Play },
     { id: 'settings' as View, label: 'Ajustes', icon: Settings2 },
   ];
   return (
@@ -166,14 +188,16 @@ export default function App() {
         </button>
         <p className="sidebar-caption">TU ESPACIO DE SPEEDCUBING</p>
         <nav aria-label="Navegación principal">
-          {navigation.map(({ id, label, icon: Icon }) => (
+          {navigation.map(({ id, label, short, icon: Icon }) => (
             <button
               key={id}
               className={`nav-item ${view === id ? 'active' : ''}`}
               onClick={() => navigate(id)}
+              aria-label={label}
             >
               <Icon size={20} />
-              <span>{label}</span>
+              <span className={short ? 'nav-label-full' : undefined}>{label}</span>
+              {short && <span className="nav-label-short">{short}</span>}
               {view === id && <span className="nav-dot" />}
             </button>
           ))}
@@ -257,7 +281,7 @@ export default function App() {
               </button>
             </div>
           )}
-          {loading ? (
+          {loading || (authenticated && requiresAuth(view) && !profile) ? (
             <div className="app-loading">
               <LoaderCircle className="spin" size={28} />
               <p>Preparando tu rincón…</p>
@@ -277,6 +301,7 @@ export default function App() {
                   }}
                 />
               )}{' '}
+              {view === 'demo' && <Demo />}
               {view === 'train' && authenticated && (
                 <Trainer
                   solves={solves}
@@ -310,6 +335,10 @@ export default function App() {
       {loginFor && (
         <Login
           onClose={() => setLoginFor(null)}
+          onDemo={() => {
+            setLoginFor(null);
+            navigate('demo');
+          }}
           onSuccess={async () => {
             const target = loginFor;
             setAuthenticated(true);
@@ -340,7 +369,15 @@ export default function App() {
   );
 }
 
-function Login({ onClose, onSuccess }: { onClose: () => void; onSuccess: () => Promise<void> }) {
+function Login({
+  onClose,
+  onDemo,
+  onSuccess,
+}: {
+  onClose: () => void;
+  onDemo: () => void;
+  onSuccess: () => Promise<void>;
+}) {
   const [password, setPassword] = useState(''),
     [busy, setBusy] = useState(false),
     [error, setError] = useState('');
@@ -393,6 +430,9 @@ function Login({ onClose, onSuccess }: { onClose: () => void; onSuccess: () => P
         <p className="help">
           La contraseña inicial la elige quien instala Cube. Después puedes cambiarla en Ajustes.
         </p>
+        <button type="button" className="text-button" onClick={onDemo} disabled={busy}>
+          <Play size={15} /> Probar la demo sin contraseña
+        </button>
       </form>
     </Modal>
   );

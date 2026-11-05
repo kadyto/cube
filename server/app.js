@@ -237,15 +237,30 @@ export async function createApp(options = {}) {
     res.json(await upcomingSync.check({ forceListing: true }));
   });
   let scrambleQueue = Promise.resolve();
-  app.post('/api/scramble', requireAuth, async (req, res) => {
-    const event = req.body.event;
+  let queuedScrambles = 0;
+  const generateScramble = async (event, publicRequest = false) => {
     if (!Object.hasOwn(EVENTS, event)) throw bad('Puzzle no válido.');
-    // Serializing prevents several expensive solver initializations at once.
+    if (publicRequest && queuedScrambles >= 8)
+      throw bad('Hay varias mezclas en preparación. Vuelve a intentarlo en unos segundos.', 429);
+    queuedScrambles++;
     const task = scrambleQueue.then(async () =>
       String(await (options.scrambler ?? randomScrambleForEvent)(event)),
     );
     scrambleQueue = task.catch(() => {});
-    const alg = await task;
+    try {
+      return await task;
+    } finally {
+      queuedScrambles--;
+    }
+  };
+  app.post('/api/demo/scramble', async (req, res) => {
+    // Public generation is stateless: no scramble ID, database row, session or solve.
+    res.json({ event: req.body.event, alg: await generateScramble(req.body.event, true) });
+  });
+  app.post('/api/scramble', requireAuth, async (req, res) => {
+    const event = req.body.event;
+    // Serializing prevents several expensive solver initializations at once.
+    const alg = await generateScramble(event);
     const scramble = { id: randomUUID(), event, alg, createdAt: new Date().toISOString() };
     db.prepare('INSERT INTO scrambles VALUES (?,?,?,?)').run(
       scramble.id,

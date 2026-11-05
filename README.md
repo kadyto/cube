@@ -4,6 +4,7 @@ Un rincón de speedcubing para entrenar, ver el progreso y compartir los logros 
 
 ## Qué incluye
 
+- **Demo pública sin contraseña.** Entrada «Demo» en el menú y acceso directo por `/#/demo`. Genera mezclas y usa el cronómetro táctil o con espacio para los tres puzzles, con inspección opcional, leyenda y dibujo. Sólo muestra el intento actual; no guarda tiempos, mezclas ni preferencias, ni ofrece historial, estadísticas, exportación o publicaciones.
 - **3×3×3, 2×2×2 y Pyraminx.** Mezclas de estado aleatorio generadas por [cubing.js](https://js.cubing.net/cubing/scramble/), con una leyenda junto a la mezcla para aprender la notación. Son mezclas para entrenamiento con criterios de los eventos WCA; esta aplicación no es un programa oficial homologado para organizar competiciones WCA.
 - **Cronómetro táctil y con barra espaciadora.** Mantén 350 ms y suelta para arrancar; pulsa para detener. Escape cancela el intento. Inspección opcional: a partir de 15 s aplica +2; a partir de 17 s, DNF. La inspección termina al soltar para iniciar la resolución.
 - **Pantalla encendida al entrenar.** Evita el apagado automático durante toda la vista de Entrenamiento: mirando una mezcla, durante la inspección, cronometrando o introduciendo tiempos a mano. Se libera al salir o poner la página en segundo plano y se solicita de nuevo al volver.
@@ -42,6 +43,12 @@ Esta función necesita HTTPS y un navegador compatible (en desarrollo también f
 Debajo del cronómetro aparece «Así queda tu mezcla»: las seis caras desplegadas del cubo o las cuatro del Pyraminx después de aplicar la secuencia indicada al puzzle resuelto. En los cubos, empieza con blanco arriba y verde delante; en Pyraminx, con verde delante y amarillo en la base. Los giros de las puntas del Pyraminx también se representan. «Ampliar dibujo» abre una vista mayor con la misma mezcla escrita; ciérrala para volver a cronometrar.
 
 El estado y el dibujo se calculan localmente con cubing.js, sin servicios externos ni animaciones. El dibujo se conserva durante el intento y se sustituye al generar la siguiente mezcla. Si borras el último intento accidental y recuperas su mezcla, también se recupera su dibujo. Los fallos del dibujo no impiden usar la secuencia, el cronómetro o la entrada manual.
+
+### Usar la demo sin contraseña
+
+Entra en «Demo» desde el menú, desde la pantalla de acceso o directamente por `/#/demo`. Elige un puzzle, mezcla y mantén pulsado el cronómetro (o espacio) para iniciar; pulsa para parar. «Siguiente mezcla» prepara otro intento. La pantalla se mantiene encendida mientras esté disponible Screen Wake Lock, igual que en el entrenamiento privado.
+
+La demo conserva sólo el intento actual en memoria y lo descarta al salir o recargar. No lee ni escribe preferencias o intentos pendientes del entrenamiento privado en el navegador. El cronómetro no envía tiempos al servidor. La ruta pública `POST /api/demo/scramble` sólo devuelve evento y secuencia, sin crear identificadores, filas de SQLite ni sesiones; la generación se sirve con `Cache-Control: no-store`. Entrenamiento, historial, ajustes, exportaciones y publicaciones conservan su contraseña. Usar la demo con una sesión del propietario abierta tampoco guarda tiempos ni modifica su historial.
 
 ## Desplegar en Dockhand
 
