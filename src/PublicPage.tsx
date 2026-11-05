@@ -14,6 +14,7 @@ import { WCA_EVENTS, formatWcaResult } from '../shared/wca.js';
 import { JB_CUBE_FACES } from '../shared/jb-cube.js';
 import { Empty, Modal, PublicationCard, PuzzleIcon } from './components';
 import { CompetitionTimeline } from './CompetitionTimeline';
+import { UpcomingCompetitions } from './UpcomingCompetitions';
 import type { EventId, PublicData, Publication } from './types';
 
 export function PublicPage({
@@ -98,6 +99,7 @@ export function PublicPage({
       </section>
       <div className="public-layout">
         <div className="public-main">
+          {profile.wca?.upcoming && <UpcomingCompetitions data={profile.wca.upcoming} />}
           {!!profile.wca?.competitions.length && (
             <CompetitionTimeline
               competitions={profile.wca.competitions}

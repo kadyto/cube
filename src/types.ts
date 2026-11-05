@@ -34,6 +34,46 @@ export type WcaProfile = {
   personalRecords?: { event: string; single: number | null; average: number | null }[] | null;
   competitions: Competition[];
   importedAt: string;
+  upcoming?: UpcomingData | null;
+};
+export type PositionEstimate = {
+  event: string;
+  basis: 'average' | 'single' | null;
+  ownBest: number | null;
+  total: number;
+  comparable: number;
+  missing: number;
+  positionMin: number | null;
+  positionMax: number | null;
+  tied: number;
+  reason: string | null;
+};
+export type UpcomingCompetition = Competition & {
+  endDate: string;
+  forecast: {
+    eventIds?: string[];
+    estimates?: PositionEstimate[];
+    notice?: string | null;
+    calculatedAt?: string | null;
+    error?: string | null;
+  } | null;
+};
+export type UpcomingData = {
+  fetchedAt: string | null;
+  competitions: UpcomingCompetition[];
+};
+export type UpcomingStatus = UpcomingData & {
+  id: string;
+  error: string | null;
+  refreshing: boolean;
+  forecast: {
+    enabled: boolean;
+    refreshing: boolean;
+    lastAttemptAt: string | null;
+    calculatedAt: string | null;
+    nextAllowedAt: string;
+    error: string | null;
+  };
 };
 export type Profile = {
   name: string;
@@ -41,6 +81,8 @@ export type Profile = {
   wcaId: string;
   showWca: boolean;
   showCompetitions: boolean;
+  showUpcoming: boolean;
+  calculateForecasts: boolean;
   wca: WcaProfile | null;
 };
 export type WcaSyncStatus = {
@@ -63,6 +105,6 @@ export type Publication = {
   createdAt: string;
 };
 export type PublicData = {
-  profile: Omit<Profile, 'showWca' | 'showCompetitions'>;
+  profile: Omit<Profile, 'showWca' | 'showCompetitions' | 'showUpcoming' | 'calculateForecasts'>;
   publications: Publication[];
 };

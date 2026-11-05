@@ -76,6 +76,25 @@ test('settings display automatic refresh status and preserve an unsaved profile 
     }),
   );
   await page.route('**/api/solves', (route) => route.fulfill({ json: [] }));
+  await page.route('**/api/upcoming', (route) =>
+    route.fulfill({
+      json: {
+        id: wca.id,
+        fetchedAt: null,
+        competitions: [],
+        error: null,
+        refreshing: false,
+        forecast: {
+          enabled: false,
+          refreshing: false,
+          lastAttemptAt: null,
+          calculatedAt: null,
+          nextAllowedAt: new Date().toISOString(),
+          error: null,
+        },
+      },
+    }),
+  );
   await page.route('**/api/public', (route) =>
     route.fulfill({
       json: { profile: { name: 'Mi apodo', bio: '', wcaId: '', wca: null }, publications: [] },

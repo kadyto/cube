@@ -7,12 +7,13 @@ const server = app.listen(Number(process.env.PORT ?? 3000), '0.0.0.0', () => {
 void app.locals.wcaSync
   .start()
   .catch((error) => console.warn(`No se pudo iniciar la actualización WCA: ${error.message}`));
+void app.locals.upcomingSync.start();
 let shuttingDown = false;
 for (const signal of ['SIGTERM', 'SIGINT'])
   process.on(signal, () => {
     if (shuttingDown) return;
     shuttingDown = true;
-    const syncStopped = app.locals.wcaSync.stop();
+    const syncStopped = Promise.all([app.locals.wcaSync.stop(), app.locals.upcomingSync.stop()]);
     server.close(async () => {
       await syncStopped;
       app.locals.store.db.close();

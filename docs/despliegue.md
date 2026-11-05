@@ -4,13 +4,13 @@
 
 Usa [compose.dockhand.yaml](../compose.dockhand.yaml). Descarga `main` de `kadyto/cube` como contexto Git y utiliza su Dockerfile. El código debe estar ya incorporado en GitHub antes del primer despliegue. Se necesita acceso a GitHub, al registro de Docker y a npm durante la construcción. Para importar WCA se necesita salida HTTPS a `www.worldcubeassociation.org` en ejecución.
 
-| Variable | Valor predeterminado | Uso |
-| --- | --- | --- |
-| `INITIAL_PASSWORD` | Obligatoria en Compose | Contraseña de la primera instalación; solo se aplica al crear la base de datos. |
-| `APP_PORT` | `8093` | Puerto publicado por Docker. |
-| `BIND_ADDRESS` | `0.0.0.0` | Interfaz donde se publica el puerto. |
-| `COOKIE_SECURE` | `auto` | `auto`, `true` o `false`; con `auto`, HTTPS utiliza cookie Secure. |
-| `TRUST_PROXY` | `0` | `1` para un único proxy inverso de confianza que sanea los encabezados reenviados. |
+| Variable           | Valor predeterminado   | Uso                                                                                |
+| ------------------ | ---------------------- | ---------------------------------------------------------------------------------- |
+| `INITIAL_PASSWORD` | Obligatoria en Compose | Contraseña de la primera instalación; solo se aplica al crear la base de datos.    |
+| `APP_PORT`         | `8093`                 | Puerto publicado por Docker.                                                       |
+| `BIND_ADDRESS`     | `0.0.0.0`              | Interfaz donde se publica el puerto.                                               |
+| `COOKIE_SECURE`    | `auto`                 | `auto`, `true` o `false`; con `auto`, HTTPS utiliza cookie Secure.                 |
+| `TRUST_PROXY`      | `0`                    | `1` para un único proxy inverso de confianza que sanea los encabezados reenviados. |
 
 El contenedor se ejecuta sin root, con la raíz de solo lectura, un volumen `/data`, sin capacidades Linux y con un healthcheck en `/healthz`. La base de datos usa SQLite con WAL. No publiques `/data` mediante un servidor web.
 
@@ -68,5 +68,7 @@ Esto cambia la contraseña y cierra todas las sesiones. No modifica tiempos ni p
 - **Actualizaciones de WCA:** se revisan cada hora desde el servidor, sin necesidad de mantener la web abierta ni añadir un cron. Al iniciar se comprueban los datos pendientes. Los errores conservan los datos anteriores y se reintentan tras 15 minutos; el estado se consulta en Ajustes. «Consultar WCA» adelanta una actualización manual.
 - **El perfil WCA ya estaba importado pero no aparecen las marcas:** al actualizar el stack se completarán automáticamente los datos pendientes. Comprueba que esté activada la opción de mostrar el perfil y las marcas WCA en público. Puedes usar «Consultar WCA» para adelantar la revisión.
 - **La timeline muestra competiciones sin puestos:** las rondas y posiciones se cargarán en la próxima revisión automática. Activa «Mostrar también mis competiciones y puestos por ronda» y guarda si quieres mostrarlos públicamente. Al actualizar se conservan las competiciones y las publicaciones anteriores.
+- **Próximas competiciones:** en Ajustes hay una vista privada de inscripciones aceptadas, consultada cada hora. WCA no proporciona aquí las pendientes o en lista de espera; algunos IDs carecen de usuario público vinculado. Para mostrarlas públicamente, activa su opción y la del perfil WCA, y guarda. No requiere cambios de Compose ni credenciales WCA.
+- **Comparación por marcas:** se activa por separado y tiene un límite persistente de un corte cada 24 horas, incluso ante errores o reinicios. «Actualizar inscripciones» no adelanta ese corte; Ajustes muestra cuándo vuelve a estar disponible. Las tarjetas conservan la fecha de su último corte válido. No borres el volumen de datos para intentar forzar un cálculo: contiene también tus tiempos y preferencias.
 - **Un tiempo no se guarda:** no cambies de puzzle. Usa «Reintentar guardado». El identificador de la mezcla evita duplicar el tiempo si el servidor ya lo había recibido.
 - **Desaparecen los datos al actualizar:** comprueba que se está montando el mismo volumen y que no se eliminó el volumen anterior. No se guardan los tiempos en el sistema de archivos temporal del contenedor.

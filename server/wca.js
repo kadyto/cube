@@ -11,12 +11,14 @@ export function normalizeWcaId(input) {
   return id;
 }
 
-async function request(path, fetcher) {
+export async function requestWca(path, fetcher = fetch, { signal } = {}) {
   let response;
   try {
     response = await fetcher(`${BASE}/api/v0${path}`, {
       headers: { Accept: 'application/json' },
-      signal: AbortSignal.timeout(12000),
+      signal: signal
+        ? AbortSignal.any([signal, AbortSignal.timeout(12000)])
+        : AbortSignal.timeout(12000),
       redirect: 'error',
     });
   } catch {
@@ -25,7 +27,9 @@ async function request(path, fetcher) {
     );
   }
   if (response.status === 404)
-    throw new Error('No encontramos ese perfil en la WCA. Revisa el ID.');
+    throw Object.assign(new Error('No encontramos ese perfil en la WCA. Revisa el ID.'), {
+      status: 404,
+    });
   if (!response.ok)
     throw new Error('La WCA no está disponible ahora. Puedes guardar tu ID y volver a intentarlo.');
   try {
@@ -40,9 +44,9 @@ async function request(path, fetcher) {
 export async function importWca(input, fetcher = fetch) {
   const id = normalizeWcaId(input);
   const [data, participations, results] = await Promise.all([
-    request(`/persons/${id}`, fetcher),
-    request(`/persons/${id}/competitions`, fetcher),
-    request(`/persons/${id}/results`, fetcher),
+    requestWca(`/persons/${id}`, fetcher),
+    requestWca(`/persons/${id}/competitions`, fetcher),
+    requestWca(`/persons/${id}/results`, fetcher),
   ]);
   const person = data.person;
   if (!person || typeof person.name !== 'string')

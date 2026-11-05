@@ -13,6 +13,7 @@ import {
 import { api, errorMessage } from './api';
 import type { Profile } from './types';
 import { WcaSyncStatus } from './WcaSyncStatus';
+import { UpcomingPanel } from './UpcomingPanel';
 
 export function Settings({ profile, onSaved }: { profile: Profile; onSaved: () => Promise<void> }) {
   const [form, setForm] = useState(profile),
@@ -182,6 +183,28 @@ export function Settings({ profile, onSaved }: { profile: Profile; onSaved: () =
                 />
                 <span>Mostrar también mis competiciones y puestos por ronda</span>
               </label>
+              <label className="checkbox-row">
+                <input
+                  type="checkbox"
+                  checked={form.showUpcoming ?? false}
+                  disabled={!form.showWca}
+                  onChange={(e) => update('showUpcoming', e.target.checked)}
+                />
+                <span>Mostrar en público las próximas competiciones con inscripción aceptada</span>
+              </label>
+              <label className="checkbox-row">
+                <input
+                  type="checkbox"
+                  checked={form.calculateForecasts ?? false}
+                  onChange={(e) => update('calculateForecasts', e.target.checked)}
+                />
+                <span>Calcular una referencia de puesto por marcas oficiales cada 24 horas</span>
+              </label>
+              <p className="help">
+                Ambas opciones están desactivadas al empezar. Guarda para aplicar los cambios. La
+                comparación usa las marcas de la lista pública de inscritos; si muestras tus
+                próximas competiciones, también se verá allí. No predice el resultado del torneo.
+              </p>
             </fieldset>
             <div className="info-box">
               <ShieldCheck size={18} />
@@ -196,6 +219,7 @@ export function Settings({ profile, onSaved }: { profile: Profile; onSaved: () =
           </form>
         </section>
         <div className="settings-side">
+          {profile.wcaId && <UpcomingPanel profile={profile} />}
           <section className="panel">
             <h2 className="row">
               <KeyRound size={20} /> Tu contraseña

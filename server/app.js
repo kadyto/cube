@@ -9,6 +9,7 @@ import { openStore, readSolve, readPublication, nextSolveNumber } from './store.
 import { hashPassword, verifyPassword, tokenHash, sessionToken, setSession } from './auth.js';
 import { normalizeWcaId } from './wca.js';
 import { createWcaSync } from './wca-sync.js';
+import { createUpcomingSync } from './upcoming.js';
 
 const DEFAULT_PROFILE = {
   name: 'Mi rincón de cubos',
@@ -16,6 +17,8 @@ const DEFAULT_PROFILE = {
   wcaId: '',
   showWca: false,
   showCompetitions: false,
+  showUpcoming: false,
+  calculateForecasts: false,
   wca: null,
 };
 const bad = (message, status = 400) => Object.assign(new Error(message), { status });
@@ -42,6 +45,7 @@ export async function createApp(options = {}) {
   }
   const app = express();
   const wcaSync = createWcaSync(store, { fetcher: options.fetcher });
+  const upcomingSync = createUpcomingSync(store, { fetcher: options.fetcher });
   app.disable('x-powered-by');
   app.set('trust proxy', options.trustProxy ?? (process.env.TRUST_PROXY === '1' ? 1 : false));
   const secureCookie = options.secureCookie ?? process.env.COOKIE_SECURE ?? 'auto';
@@ -168,6 +172,7 @@ export async function createApp(options = {}) {
                 personalRecords: profile.wca.personalRecords ?? null,
                 competitions: profile.showCompetitions ? profile.wca.competitions : [],
                 importedAt: profile.wca.importedAt,
+                upcoming: upcomingSync.snapshot({ publicView: true }),
               }
             : null,
       },
@@ -177,7 +182,9 @@ export async function createApp(options = {}) {
         .map(readPublication),
     });
   });
-  app.get('/api/profile', requireAuth, (_req, res) => res.json(get('profile', DEFAULT_PROFILE)));
+  app.get('/api/profile', requireAuth, (_req, res) =>
+    res.json({ ...DEFAULT_PROFILE, ...get('profile', DEFAULT_PROFILE) }),
+  );
   app.put('/api/profile', requireAuth, (req, res) => {
     const previous = get('profile', DEFAULT_PROFILE);
     const name = text(req.body.name, 100, 'El nombre');
@@ -194,9 +201,12 @@ export async function createApp(options = {}) {
       wcaId,
       showWca: req.body.showWca === true,
       showCompetitions: req.body.showCompetitions === true,
+      showUpcoming: (req.body.showUpcoming ?? previous.showUpcoming) === true,
+      calculateForecasts: (req.body.calculateForecasts ?? previous.calculateForecasts) === true,
       wca: previous.wca?.id === wcaId ? previous.wca : null,
     };
     set('profile', profile);
+    upcomingSync.kick();
     res.json(profile);
   });
   app.post('/api/wca/import', requireAuth, async (req, res) => {
@@ -218,9 +228,14 @@ export async function createApp(options = {}) {
     });
     if (!result.applied)
       throw bad('El perfil vinculado ha cambiado durante la consulta. Vuelve a intentarlo.', 409);
+    upcomingSync.kick();
     res.json(get('profile', DEFAULT_PROFILE));
   });
   app.get('/api/wca/status', requireAuth, (_req, res) => res.json(wcaSync.status()));
+  app.get('/api/upcoming', requireAuth, (_req, res) => res.json(upcomingSync.snapshot()));
+  app.post('/api/upcoming/refresh', requireAuth, async (_req, res) => {
+    res.json(await upcomingSync.check({ forceListing: true }));
+  });
   let scrambleQueue = Promise.resolve();
   app.post('/api/scramble', requireAuth, async (req, res) => {
     const event = req.body.event;
@@ -386,5 +401,6 @@ export async function createApp(options = {}) {
   });
   app.locals.store = store;
   app.locals.wcaSync = wcaSync;
+  app.locals.upcomingSync = upcomingSync;
   return app;
 }
