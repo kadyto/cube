@@ -7,6 +7,7 @@ import {
   Clock3,
   Keyboard,
   LoaderCircle,
+  Monitor,
   Plus,
   Pencil,
   RefreshCw,
@@ -30,6 +31,7 @@ import {
 import { api, errorMessage } from './api';
 import { Empty, ProgressChart, PuzzleIcon, SolveTime } from './components';
 import { useTimer } from './useTimer';
+import { useScreenWakeLock } from './useScreenWakeLock';
 import { SolveEditor } from './SolveEditor';
 import type { EventId, Penalty, Scramble, Solve } from './types';
 
@@ -55,6 +57,7 @@ export function Trainer({
   onPublish: (solve: Solve, kind: 'single' | 'ao5') => void;
   onHistory: () => void;
 }) {
+  const screen = useScreenWakeLock();
   const [pending, setPending] = useState<Pending | null>(restoredPending);
   const [event, setEvent] = useState<EventId>(
     () =>
@@ -188,6 +191,25 @@ export function Trainer({
         <span className="private-pill">
           <ShieldCheck size={15} /> Solo para ti
         </span>
+      </div>
+      <div className={`screen-awake ${screen.state === 'active' ? 'is-active' : ''}`} role="status">
+        <Monitor size={14} aria-hidden="true" />
+        {screen.state === 'active' ? (
+          <span>Pantalla encendida durante el entrenamiento</span>
+        ) : screen.state === 'unsupported' ? (
+          <span>
+            Para mantener la pantalla encendida, abre Cube por HTTPS con un navegador compatible.
+          </span>
+        ) : screen.state === 'unavailable' ? (
+          <>
+            <span>No se pudo mantener la pantalla encendida. Revisa el ahorro de batería.</span>
+            <button type="button" className="text-button" onClick={screen.retry}>
+              Reintentar
+            </button>
+          </>
+        ) : (
+          <span>Preparando la pantalla para entrenar…</span>
+        )}
       </div>
       <div className="event-tabs" role="group" aria-label="Elige un puzzle">
         {(EVENT_IDS as EventId[]).map((id) => (

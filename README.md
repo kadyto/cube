@@ -6,6 +6,7 @@ Un rincón de speedcubing para entrenar, ver el progreso y compartir los logros 
 
 - **3×3×3, 2×2×2 y Pyraminx.** Mezclas de estado aleatorio generadas por [cubing.js](https://js.cubing.net/cubing/scramble/), con una leyenda junto a la mezcla para aprender la notación. Son mezclas para entrenamiento con criterios de los eventos WCA; esta aplicación no es un programa oficial homologado para organizar competiciones WCA.
 - **Cronómetro táctil y con barra espaciadora.** Mantén 350 ms y suelta para arrancar; pulsa para detener. Escape cancela el intento. Inspección opcional: a partir de 15 s aplica +2; a partir de 17 s, DNF. La inspección termina al soltar para iniciar la resolución.
+- **Pantalla encendida al entrenar.** Evita el apagado automático durante toda la vista de Entrenamiento: mirando una mezcla, durante la inspección, cronometrando o introduciendo tiempos a mano. Se libera al salir o poner la página en segundo plano y se solicita de nuevo al volver.
 - **Entrada manual.** Acepta `12.34`, `12,34` y `1:02.45`. Cada intento conserva su mezcla, fecha y forma de registro.
 - **ao5 automático**, mejores singles, mejor ao5, gráfico de las últimas 30 resoluciones e historial por puzzle. Las medias se calculan dentro de cada puzzle; los cinco últimos intentos del historial de ese puzzle forman el ao5 actual.
 - **Edición y borrado individual.** Botones visibles en cada tiempo del historial y acceso directo junto al último tiempo guardado. Puedes corregir el tiempo, marcar +2 o DNF, añadir una nota privada o borrar el intento con confirmación.
@@ -28,6 +29,12 @@ Los ao5 siguen el orden de los números de intento y necesitan cinco números co
 Si arrancas y paras el cronómetro por error, pulsa «Borrar último tiempo» y confirma. Se recuperan el número disponible y la mezcla del intento accidental para repetirlo. También puedes pulsar «Editar último tiempo» o abrir cualquier tiempo del historial.
 
 Las publicaciones son copias de los resultados que elegiste compartir: editar, borrar o reponer un intento privado no las cambia automáticamente. Para cambiar una publicación, retírala y publica el resultado corregido. Las bases de datos anteriores se actualizan al arrancar, conservando los tiempos, sus identificadores, mezclas y notas.
+
+### Mantener la pantalla encendida
+
+Entrenamiento utiliza Screen Wake Lock automáticamente, sin depender de que el cronómetro esté corriendo. El indicador «Pantalla encendida durante el entrenamiento» confirma que el navegador ha aceptado la solicitud. El bloqueo se libera al cambiar de sección, cerrar sesión, ocultar la página o abandonarla; al regresar se intenta recuperar, también después de volver de otra aplicación o del bloqueo manual del móvil.
+
+Esta función necesita HTTPS y un navegador compatible (en desarrollo también funciona en `localhost`). El sistema puede rechazarla o retirarla por ahorro de batería u otras restricciones; en ese caso se muestra el estado y puedes reintentar, y también se intenta de nuevo al tocar la pantalla o usar el teclado. No impide bloquear manualmente el móvil. Si no está disponible, el cronómetro y la entrada manual siguen funcionando normalmente.
 
 ## Desplegar en Dockhand
 

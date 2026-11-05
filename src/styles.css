@@ -683,6 +683,30 @@ main {
   gap: 12px;
   margin-bottom: 20px;
 }
+.screen-awake {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: -6px 0 18px;
+  color: #78836e;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.screen-awake > svg {
+  flex-shrink: 0;
+}
+.screen-awake > span {
+  flex: 1;
+  min-width: 180px;
+}
+.screen-awake.is-active {
+  color: #5b7f46;
+}
+.screen-awake .text-button {
+  font-size: inherit;
+  padding: 3px 0;
+}
 .event-tab {
   border: 1px solid var(--line);
   border-radius: 10px;
