@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { DatabaseSync } from 'node:sqlite';
 import { createApp } from '../server/app.js';
 import { assessGoal, measurementSource, roundAverage } from '../shared/training.js';
 
@@ -187,6 +188,121 @@ test('goals and rounds require authentication, while the public profile exposes 
     );
   } finally {
     await h.close();
+  }
+});
+
+test('trophy colors are chosen privately; explicit edits change only the color of an already published snapshot', async () => {
+  const h = await harness();
+  try {
+    const data = {
+      event: '333',
+      kind: 'single',
+      targetCs: 2300,
+      source: 'manual',
+      medal: 'bronze',
+    };
+    const created = await h.request('/goals', 'POST', data);
+    assert.equal(created.status, 201);
+    assert.equal(created.body.medal, 'bronze');
+    assert.equal(created.body.achieved, false);
+    const id = created.body.id;
+    assert.equal((await h.request('/goals', 'POST', data)).body.id, id);
+    const duplicate = await h.request('/goals', 'POST', { ...data, medal: 'gold' });
+    assert.equal(duplicate.status, 409);
+    assert.match(duplicate.body.error, /Cambiar color/);
+    assert.equal((await h.request('/goals', 'POST', { ...data, medal: 'diamond' })).status, 400);
+    assert.equal(
+      (await h.request(`/goals/${id}`, 'PATCH', { medal: 'silver' }, false)).status,
+      401,
+    );
+    for (const medal of ['diamond', '', null, ['gold']])
+      assert.equal((await h.request(`/goals/${id}`, 'PATCH', { medal })).status, 400);
+    assert.equal((await h.request('/goals/missing', 'PATCH', { medal: 'gold' })).status, 404);
+    const edited = (await h.request(`/goals/${id}`, 'PATCH', { medal: 'silver' })).body;
+    assert.deepEqual(edited, { ...created.body, medal: 'silver' });
+    assert.deepEqual((await h.request('/public')).body.achievements, []);
+    await add(h, 2200);
+    const publication = (await h.request(`/goals/${id}/publish`, 'POST', {})).body;
+    assert.equal(publication.medal, 'silver');
+    await add(h, 2100);
+    await h.request(`/goals/${id}`, 'PATCH', { medal: 'gold' });
+    const visible = (await h.request('/public', 'GET', undefined, false)).body.achievements;
+    assert.deepEqual(visible, [{ ...publication, medal: 'gold' }]);
+    const exported = (await h.request('/export')).body;
+    assert.equal(exported.goals.find((item) => item.id === id).best.value, 2100);
+    assert.equal(exported.goals.find((item) => item.id === id).medal, 'gold');
+    assert.equal(exported.achievements[0].value, 2200);
+    await h.request(`/goal-publications/${publication.id}`, 'DELETE', {});
+    await h.request(`/goals/${id}`, 'PATCH', { medal: 'bronze' });
+    assert.deepEqual((await h.request('/public')).body.achievements, []);
+  } finally {
+    await h.close();
+  }
+});
+
+test('existing goals and public trophy snapshots keep their identities and default to gold across migration and restarts', async () => {
+  const directory = mkdtempSync(join(tmpdir(), 'cube-trophy-colors-'));
+  const path = join(directory, 'cube.sqlite');
+  const legacy = new DatabaseSync(path);
+  legacy.exec(`
+    CREATE TABLE settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
+    INSERT INTO settings VALUES ('training-goals-v1','true');
+    CREATE TABLE goals (
+      id TEXT PRIMARY KEY, event TEXT NOT NULL, kind TEXT NOT NULL,
+      target_cs INTEGER NOT NULL, source TEXT NOT NULL, created_at TEXT NOT NULL,
+      UNIQUE(event,kind,target_cs,source)
+    );
+    CREATE TABLE goal_publications (
+      id TEXT PRIMARY KEY, goal_id TEXT NOT NULL UNIQUE REFERENCES goals(id) ON DELETE CASCADE,
+      snapshot TEXT NOT NULL, created_at TEXT NOT NULL
+    );
+    INSERT INTO goals VALUES ('old-goal','333','single',2500,'all','2026-11-06T10:00:00Z');
+  `);
+  const snapshot = {
+    event: '333',
+    kind: 'single',
+    targetCs: 2500,
+    source: 'all',
+    value: 2499,
+    achievedAt: '2026-11-06T11:00:00Z',
+    measurementSource: 'manual',
+  };
+  legacy
+    .prepare('INSERT INTO goal_publications VALUES (?,?,?,?)')
+    .run('old-publication', 'old-goal', JSON.stringify(snapshot), '2026-11-06T12:00:00Z');
+  legacy.close();
+  let h = await harness(path);
+  try {
+    const goals = (await h.request('/goals')).body;
+    assert.equal(goals.length, 1);
+    assert.equal(goals[0].id, 'old-goal');
+    assert.equal(goals[0].medal, 'gold');
+    assert.equal(goals[0].publicationId, 'old-publication');
+    assert.equal(goals[0].createdAt, '2026-11-06T10:00:00Z');
+    const visible = (await h.request('/public', 'GET', undefined, false)).body.achievements[0];
+    assert.deepEqual(visible, {
+      id: 'old-publication',
+      ...snapshot,
+      medal: 'gold',
+      publishedAt: '2026-11-06T12:00:00Z',
+    });
+    assert.deepEqual(
+      JSON.parse(
+        h.app.locals.store.db.prepare('SELECT snapshot FROM goal_publications').get().snapshot,
+      ),
+      snapshot,
+    );
+    await h.request('/goals/old-goal', 'PATCH', { medal: 'bronze' });
+    await h.close();
+    h = await harness(path);
+    assert.equal((await h.request('/goals')).body[0].medal, 'bronze');
+    assert.deepEqual((await h.request('/public')).body.achievements[0], {
+      ...visible,
+      medal: 'bronze',
+    });
+  } finally {
+    await h.close();
+    rmSync(directory, { recursive: true, force: true });
   }
 });
 

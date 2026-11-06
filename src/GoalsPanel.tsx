@@ -1,10 +1,19 @@
 import { useEffect, useState } from 'react';
-import { ChevronDown, Plus, Trash2, Trophy, Upload } from 'lucide-react';
+import {
+  CheckCircle2,
+  ChevronDown,
+  Circle,
+  Palette,
+  Plus,
+  Trash2,
+  Trophy,
+  Upload,
+} from 'lucide-react';
 import { EVENTS, EVENT_IDS, formatTime, parseTime } from '../shared/domain.js';
 import { api, errorMessage } from './api';
 import { Modal, SourceBadge } from './components';
-import { subLabel } from './TrophyCard';
-import type { EventId, Goal, Solve } from './types';
+import { MedalLabel, subLabel, TrophyColorPicker } from './TrophyCard';
+import type { EventId, Goal, Medal, Solve } from './types';
 
 export function GoalsPanel({
   solves,
@@ -20,9 +29,11 @@ export function GoalsPanel({
     [kind, setKind] = useState('single'),
     [source, setSource] = useState('all'),
     [target, setTarget] = useState('25');
+  const [medal, setMedal] = useState<Medal>('gold'),
+    [editedMedal, setEditedMedal] = useState<Medal>('gold');
   const [action, setAction] = useState<{
     goal: Goal;
-    kind: 'publish' | 'withdraw' | 'delete';
+    kind: 'publish' | 'withdraw' | 'delete' | 'color';
   } | null>(null);
   const load = async () => setGoals(await api<Goal[]>('/goals'));
   useEffect(() => {
@@ -66,12 +77,20 @@ export function GoalsPanel({
           Un sub-25 exige menos de 25,00 s. Single y ao5 son objetivos distintos. Se cuentan tus
           tiempos privados ya guardados, con +2 y DNF; puedes elegir qué cronómetro cuenta.
         </p>
+        <p className="help">
+          Bronce, plata y oro son colores que eliges tú. Cada tarjeta indica por separado si el
+          objetivo está pendiente o conseguido; el color no cambia la marca necesaria.
+        </p>
         <div className="goal-grid">
           {goals.map((goal) => (
-            <article className={`goal-card ${goal.achieved ? 'achieved' : ''}`} key={goal.id}>
+            <article
+              className={`goal-card medal-${goal.medal} ${goal.achieved ? 'achieved' : ''}`}
+              key={goal.id}
+            >
               <div className="goal-cup">
                 <Trophy size={28} aria-hidden="true" />
               </div>
+              <MedalLabel medal={goal.medal} />
               <div>
                 <strong className="goal-target">{subLabel(goal.targetCs)}</strong>
                 <p>
@@ -85,7 +104,12 @@ export function GoalsPanel({
                     ? 'Sólo tiempos a mano'
                     : 'Sólo cronómetro web'}
               </span>
-              <strong className="goal-status">
+              <strong className="goal-status row">
+                {goal.achieved ? (
+                  <CheckCircle2 size={14} aria-hidden="true" />
+                ) : (
+                  <Circle size={14} aria-hidden="true" />
+                )}
                 {goal.achieved ? 'Trofeo conseguido' : 'Objetivo pendiente'}
               </strong>
               <p className="help">
@@ -93,6 +117,16 @@ export function GoalsPanel({
               </p>
               {goal.best && <SourceBadge source={goal.best.measurementSource} />}
               <div className="row wrap goal-actions">
+                <button
+                  className="text-button"
+                  disabled={busy}
+                  onClick={() => {
+                    setEditedMedal(goal.medal);
+                    setAction({ goal, kind: 'color' });
+                  }}
+                >
+                  <Palette size={13} /> Cambiar color
+                </button>
                 {goal.publicationId ? (
                   <button
                     className="text-button"
@@ -134,7 +168,7 @@ export function GoalsPanel({
               return;
             }
             void act(async () => {
-              await api('/goals', 'POST', { event, kind, source, targetCs });
+              await api('/goals', 'POST', { event, kind, source, targetCs, medal });
             });
           }}
         >
@@ -172,6 +206,7 @@ export function GoalsPanel({
               <option value="timer">Sólo cronómetro web</option>
             </select>
           </label>
+          <TrophyColorPicker value={medal} onChange={setMedal} disabled={busy} />
           <button className="button secondary small-button" disabled={busy}>
             <Plus size={15} /> Añadir objetivo
           </button>
@@ -194,27 +229,39 @@ export function GoalsPanel({
               ? 'Compartir este trofeo'
               : action.kind === 'withdraw'
                 ? 'Retirar este trofeo'
-                : 'Eliminar este objetivo'
+                : action.kind === 'color'
+                  ? 'Cambiar color del trofeo'
+                  : 'Eliminar este objetivo'
           }
           onClose={() => {
             if (!busy) setAction(null);
           }}
         >
-          <div className="result-hero">
+          <div
+            className={`result-hero trophy-preview medal-${action.kind === 'color' ? editedMedal : action.goal.medal}`}
+          >
             <Trophy size={36} />
             <strong>{subLabel(action.goal.targetCs)}</strong>
           </div>
+          <MedalLabel medal={action.kind === 'color' ? editedMedal : action.goal.medal} />
           <p>
             {EVENTS[action.goal.event].name} · {action.goal.kind === 'single' ? 'Single' : 'ao5'} ·{' '}
             {formatTime(action.goal.best?.value)}
           </p>
           {action.goal.best && <SourceBadge source={action.goal.best.measurementSource} />}
+          {action.kind === 'color' && (
+            <TrophyColorPicker value={editedMedal} onChange={setEditedMedal} disabled={busy} />
+          )}
           <p className="help">
             {action.kind === 'publish'
-              ? 'Se compartirán el objetivo, la marca, su fecha y el origen del tiempo. Los intentos y notas privados no se publican.'
+              ? 'Se compartirán el objetivo, el color del trofeo, la marca, su fecha y el origen del tiempo. Los intentos y notas privados no se publican.'
               : action.kind === 'withdraw'
                 ? 'El trofeo dejará de verse en la página pública. Tu objetivo y tus tiempos se conservan.'
-                : 'Se eliminará este objetivo y se retirará su trofeo público si lo habías compartido. Tus tiempos se conservan.'}
+                : action.kind === 'color'
+                  ? action.goal.publicationId
+                    ? 'El color también cambiará en el trofeo que ya has publicado. Su marca y su fecha se conservan.'
+                    : 'El color es una elección tuya y no cambia los tiempos necesarios. Este objetivo seguirá en privado.'
+                  : 'Se eliminará este objetivo y se retirará su trofeo público si lo habías compartido. Tus tiempos se conservan.'}
           </p>
           {error && (
             <p className="error-box" role="alert">
@@ -234,6 +281,8 @@ export function GoalsPanel({
                     await api(`/goals/${action.goal.id}/publish`, 'POST', {});
                   else if (action.kind === 'withdraw')
                     await api(`/goal-publications/${action.goal.publicationId}`, 'DELETE', {});
+                  else if (action.kind === 'color')
+                    await api(`/goals/${action.goal.id}`, 'PATCH', { medal: editedMedal });
                   else await api(`/goals/${action.goal.id}`, 'DELETE', {});
                   await onPublicChanged();
                   setAction(null);
@@ -244,7 +293,9 @@ export function GoalsPanel({
                 ? 'Publicar este trofeo'
                 : action.kind === 'withdraw'
                   ? 'Retirar trofeo'
-                  : 'Eliminar objetivo'}
+                  : action.kind === 'color'
+                    ? 'Guardar color'
+                    : 'Eliminar objetivo'}
             </button>
           </div>
         </Modal>

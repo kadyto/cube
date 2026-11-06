@@ -32,12 +32,14 @@ export type TrainingRound = {
   slots: { slot: number; scramble: Scramble; solve: Solve | null }[];
 };
 export type Source = 'manual' | 'timer';
+export type Medal = 'bronze' | 'silver' | 'gold';
 export type Goal = {
   id: string;
   event: EventId;
   kind: 'single' | 'ao5';
   targetCs: number;
   source: Source | 'all';
+  medal: Medal;
   createdAt: string;
   achieved: boolean;
   publicationId: string | null;
@@ -49,6 +51,7 @@ export type Achievement = {
   kind: 'single' | 'ao5';
   targetCs: number;
   source: Source | 'all';
+  medal?: Medal;
   value: number;
   achievedAt: string;
   publishedAt: string;

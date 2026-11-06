@@ -39,6 +39,7 @@ export function openStore(path) {
       id TEXT PRIMARY KEY, event TEXT NOT NULL, kind TEXT NOT NULL CHECK(kind IN ('single','ao5')),
       target_cs INTEGER NOT NULL CHECK(target_cs > 0),
       source TEXT NOT NULL CHECK(source IN ('all','manual','timer')), created_at TEXT NOT NULL,
+      medal TEXT NOT NULL DEFAULT 'gold' CHECK(medal IN ('bronze','silver','gold')),
       UNIQUE(event,kind,target_cs,source)
     );
     CREATE TABLE IF NOT EXISTS goal_publications (
@@ -46,6 +47,16 @@ export function openStore(path) {
       snapshot TEXT NOT NULL, created_at TEXT NOT NULL
     );
   `);
+  // Existing trophies were gold; color is independent of the pending/achieved state.
+  if (
+    !db
+      .prepare('PRAGMA table_info(goals)')
+      .all()
+      .some((column) => column.name === 'medal')
+  )
+    db.exec(
+      "ALTER TABLE goals ADD COLUMN medal TEXT NOT NULL DEFAULT 'gold' CHECK(medal IN ('bronze','silver','gold'))",
+    );
   // Preserve the existing per-puzzle display order when upgrading older databases.
   if (
     !db
@@ -84,14 +95,9 @@ export function openStore(path) {
     try {
       for (const kind of ['single', 'ao5'])
         for (const target of [2500, 2000])
-          db.prepare('INSERT OR IGNORE INTO goals VALUES (?,?,?,?,?,?)').run(
-            randomUUID(),
-            '333',
-            kind,
-            target,
-            'all',
-            new Date().toISOString(),
-          );
+          db.prepare(
+            'INSERT OR IGNORE INTO goals(id,event,kind,target_cs,source,created_at) VALUES (?,?,?,?,?,?)',
+          ).run(randomUUID(), '333', kind, target, 'all', new Date().toISOString());
       set('training-goals-v1', true);
       db.exec('COMMIT');
     } catch (error) {

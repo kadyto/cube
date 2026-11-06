@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { EVENTS } from '../shared/domain.js';
-import { assessGoal, roundAverage } from '../shared/training.js';
+import { assessGoal, MEDAL_LABELS, roundAverage } from '../shared/training.js';
 import { readSolve } from './store.js';
 
 const bad = (message, status = 400) => Object.assign(new Error(message), { status });
@@ -10,6 +10,7 @@ const readGoal = (row) => ({
   kind: row.kind,
   targetCs: row.target_cs,
   source: row.source,
+  medal: row.medal,
   createdAt: row.created_at,
 });
 export function createTraining(store, generateScramble) {
@@ -126,7 +127,15 @@ export function createTraining(store, generateScramble) {
     db
       .prepare('SELECT * FROM goal_publications ORDER BY created_at DESC')
       .all()
-      .map((row) => ({ id: row.id, ...JSON.parse(row.snapshot), publishedAt: row.created_at }));
+      .map((row) => {
+        const snapshot = JSON.parse(row.snapshot);
+        return {
+          id: row.id,
+          ...snapshot,
+          medal: snapshot.medal ?? 'gold',
+          publishedAt: row.created_at,
+        };
+      });
   const goals = () => {
     const solves = allSolves(),
       currentRounds = rounds();
@@ -159,7 +168,7 @@ export function createTraining(store, generateScramble) {
     });
     app.get('/api/goals', requireAuth, (_req, res) => res.json(goals()));
     app.post('/api/goals', requireAuth, (req, res) => {
-      const { event, kind, targetCs, source } = req.body;
+      const { event, kind, targetCs, source, medal = 'gold' } = req.body;
       if (
         !Object.hasOwn(EVENTS, event) ||
         !['single', 'ao5'].includes(kind) ||
@@ -169,23 +178,50 @@ export function createTraining(store, generateScramble) {
         targetCs > 8640000
       )
         throw bad('Elige un puzzle, una marca sub-X válida y cómo medirla.');
+      if (typeof medal !== 'string' || !Object.hasOwn(MEDAL_LABELS, medal))
+        throw bad('Elige bronce, plata u oro para el trofeo.');
       const duplicate = db
-        .prepare('SELECT id FROM goals WHERE event=? AND kind=? AND target_cs=? AND source=?')
+        .prepare('SELECT id,medal FROM goals WHERE event=? AND kind=? AND target_cs=? AND source=?')
         .get(event, kind, targetCs, source);
+      if (duplicate && duplicate.medal !== medal)
+        throw bad(
+          'Ya tienes este objetivo. Usa «Cambiar color» en su tarjeta para modificar el trofeo.',
+          409,
+        );
       const id = duplicate?.id ?? randomUUID();
       if (!duplicate) {
         if (db.prepare('SELECT COUNT(*) AS n FROM goals').get().n >= 100)
           throw bad('Puedes tener hasta 100 objetivos. Elimina alguno para añadir otro.');
-        db.prepare('INSERT INTO goals VALUES (?,?,?,?,?,?)').run(
-          id,
-          event,
-          kind,
-          targetCs,
-          source,
-          new Date().toISOString(),
-        );
+        db.prepare(
+          'INSERT INTO goals(id,event,kind,target_cs,source,created_at,medal) VALUES (?,?,?,?,?,?,?)',
+        ).run(id, event, kind, targetCs, source, new Date().toISOString(), medal);
       }
       res.status(duplicate ? 200 : 201).json(goals().find((goal) => goal.id === id));
+    });
+    app.patch('/api/goals/:id', requireAuth, (req, res) => {
+      const { medal } = req.body;
+      if (typeof medal !== 'string' || !Object.hasOwn(MEDAL_LABELS, medal))
+        throw bad('Elige bronce, plata u oro para el trofeo.');
+      if (!db.prepare('SELECT id FROM goals WHERE id=?').get(req.params.id))
+        throw bad('No encontramos ese objetivo.', 404);
+      db.exec('BEGIN IMMEDIATE');
+      try {
+        db.prepare('UPDATE goals SET medal=? WHERE id=?').run(medal, req.params.id);
+        const publication = db
+          .prepare('SELECT id,snapshot FROM goal_publications WHERE goal_id=?')
+          .get(req.params.id);
+        // An explicit color edit updates only the appearance of an already shared trophy.
+        if (publication)
+          db.prepare('UPDATE goal_publications SET snapshot=? WHERE id=?').run(
+            JSON.stringify({ ...JSON.parse(publication.snapshot), medal }),
+            publication.id,
+          );
+        db.exec('COMMIT');
+      } catch (error) {
+        db.exec('ROLLBACK');
+        throw error;
+      }
+      res.json(goals().find((goal) => goal.id === req.params.id));
     });
     app.delete('/api/goals/:id', requireAuth, (req, res) => {
       db.prepare('DELETE FROM goals WHERE id=?').run(req.params.id);
@@ -202,6 +238,7 @@ export function createTraining(store, generateScramble) {
         kind: goal.kind,
         targetCs: goal.targetCs,
         source: goal.source,
+        medal: goal.medal,
         value: goal.best.value,
         achievedAt: goal.best.achievedAt,
         measurementSource: goal.best.measurementSource,

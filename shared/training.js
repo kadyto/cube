@@ -1,5 +1,7 @@
 import { averageOfFive, consecutiveWindow, effectiveTime } from './domain.js';
 
+export const MEDAL_LABELS = { bronze: 'Bronce', silver: 'Plata', gold: 'Oro' };
+
 export const SOURCE_LABELS = {
   manual: 'A mano',
   timer: 'Cronómetro web',

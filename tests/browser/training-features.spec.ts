@@ -118,6 +118,75 @@ test('sub-X trophies distinguish manual criteria and strict thresholds, and appe
   await expect(page.locator('body')).toHaveJSProperty('scrollWidth', 390);
 });
 
+test('bronze, silver and gold are selectable colors with separate achievement states and editable public appearances', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await prepare(page);
+  await add(page, 1800);
+  await page.goto('/#/entrenar');
+  await page.getByText('Mis objetivos y trofeos', { exact: true }).click();
+  const form = page.locator('.goal-form');
+  for (const [target, color] of [
+    ['25', 'Bronce'],
+    ['20', 'Plata'],
+    ['15', 'Oro'],
+  ]) {
+    await form.getByLabel('Objetivo sub… (segundos)').fill(target);
+    await form.getByRole('radio', { name: color, exact: true }).check();
+    await form.getByRole('button', { name: 'Añadir objetivo', exact: true }).click();
+    await expect(
+      page.locator('.goals-panel .goal-card').filter({ hasText: `Sub-${target}` }),
+    ).toContainText(color);
+  }
+  const bronze = page.locator('.goals-panel .goal-card').filter({ hasText: 'Sub-25' });
+  const silver = page.locator('.goals-panel .goal-card').filter({ hasText: 'Sub-20' });
+  const gold = page.locator('.goals-panel .goal-card').filter({ hasText: 'Sub-15' });
+  await expect(bronze).toHaveClass(/medal-bronze/);
+  await expect(silver).toHaveClass(/medal-silver/);
+  await expect(bronze).toContainText('Trofeo conseguido');
+  await expect(silver).toContainText('Trofeo conseguido');
+  await expect(gold).toHaveClass(/medal-gold/);
+  await expect(gold).toContainText('Objetivo pendiente');
+  await expect(gold.getByRole('button', { name: 'Publicar trofeo', exact: true })).toHaveCount(0);
+  await expect(page.locator('body')).toHaveJSProperty('scrollWidth', 390);
+  await page.locator('.goals-panel').screenshot({ path: 'test-results/trophy-colors-mobile.png' });
+  expect((await (await page.request.get('/api/public')).json()).achievements).toEqual([]);
+  await bronze.getByRole('button', { name: 'Cambiar color', exact: true }).click();
+  let dialog = page.getByRole('dialog');
+  await expect(dialog.getByRole('radio', { name: 'Bronce', exact: true })).toBeChecked();
+  await dialog.getByRole('radio', { name: 'Plata', exact: true }).check();
+  await dialog.getByRole('button', { name: 'Cancelar', exact: true }).click();
+  await expect(bronze).toHaveClass(/medal-bronze/);
+  await bronze.getByRole('button', { name: 'Cambiar color', exact: true }).click();
+  dialog = page.getByRole('dialog');
+  await dialog.getByRole('radio', { name: 'Plata', exact: true }).check();
+  await dialog.getByRole('button', { name: 'Guardar color', exact: true }).click();
+  await expect(bronze).toHaveClass(/medal-silver/);
+  expect((await (await page.request.get('/api/public')).json()).achievements).toEqual([]);
+  await page.reload();
+  await page.getByText('Mis objetivos y trofeos', { exact: true }).click();
+  await expect(bronze).toHaveClass(/medal-silver/);
+  await bronze.getByRole('button', { name: 'Publicar trofeo', exact: true }).click();
+  await expect(page.getByRole('dialog').locator('.medal-label')).toHaveText('Plata');
+  await page.getByRole('button', { name: 'Publicar este trofeo', exact: true }).click();
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await bronze.getByRole('button', { name: 'Cambiar color', exact: true }).click();
+  await expect(page.getByRole('dialog')).toContainText(
+    'El color también cambiará en el trofeo que ya has publicado',
+  );
+  await page.getByRole('dialog').getByRole('radio', { name: 'Bronce', exact: true }).check();
+  await page.getByRole('button', { name: 'Guardar color', exact: true }).click();
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Mi rincón', exact: true }).click();
+  const shared = page.getByRole('region', { name: 'Trofeos compartidos' });
+  await expect(shared.locator('.goal-card')).toHaveClass(/medal-bronze/);
+  await expect(shared).toContainText('18.00');
+  await expect(shared.locator('.medal-label')).toHaveText('Bronce');
+  await shared.screenshot({ path: 'test-results/trophy-color-public-mobile.png' });
+  await expect(page.locator('body')).toHaveJSProperty('scrollWidth', 390);
+});
+
 test('competition resumes its fixed five scrambles, publishes its own ao5 explicitly and recalculates after an edit or deletion', async ({
   page,
 }) => {

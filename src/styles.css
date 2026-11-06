@@ -3211,6 +3211,30 @@ th:first-child {
   gap: 13px;
   margin: 18px 0;
 }
+.medal-gold {
+  --medal-ink: #765d27;
+  --medal-icon: #9e7014;
+  --medal-halo: #f5e8b9;
+  --medal-border: #e5d7a1;
+  --medal-start: #fff9e8;
+  --medal-end: #f6f6e8;
+}
+.medal-silver {
+  --medal-ink: #465567;
+  --medal-icon: #61758d;
+  --medal-halo: #dfe6ef;
+  --medal-border: #c3cdd9;
+  --medal-start: #f7f9fc;
+  --medal-end: #e9eef4;
+}
+.medal-bronze {
+  --medal-ink: #784827;
+  --medal-icon: #a65e2c;
+  --medal-halo: #f2d9c4;
+  --medal-border: #dcb797;
+  --medal-start: #fff5ea;
+  --medal-end: #f4e7db;
+}
 .goal-card {
   display: flex;
   flex-direction: column;
@@ -3224,9 +3248,9 @@ th:first-child {
   min-width: 0;
 }
 .goal-card.achieved {
-  background: linear-gradient(140deg, #fff9e8, #f6f6e8);
-  border-color: #e5d7a1;
-  color: #765d27;
+  background: linear-gradient(140deg, var(--medal-start), var(--medal-end));
+  border-color: var(--medal-border);
+  color: var(--medal-ink);
 }
 .goal-cup {
   width: 44px;
@@ -3234,12 +3258,81 @@ th:first-child {
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: #eef0e9;
-  color: #9aa58e;
+  background: var(--medal-halo);
+  color: var(--medal-icon);
 }
-.achieved .goal-cup {
-  color: #b08322;
-  background: #f5e8b9;
+.medal-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--medal-ink);
+  font-size: 11px;
+  font-weight: 600;
+}
+.medal-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--medal-icon);
+}
+.trophy-color-picker {
+  margin: 14px 0;
+  min-width: 0;
+}
+.trophy-color-picker legend {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.trophy-color-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 360px;
+  gap: 8px;
+}
+.trophy-color-option {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 8px;
+  margin: 0;
+  border: 1px solid #dfe5da;
+  border-radius: 9px;
+  background: #fff;
+  cursor: pointer;
+  color: var(--medal-ink);
+}
+.trophy-color-option input {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  width: 13px;
+  height: 13px;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+  accent-color: var(--medal-icon);
+}
+.trophy-color-option svg {
+  color: var(--medal-icon);
+  flex-shrink: 0;
+}
+.trophy-color-option.selected {
+  border-color: var(--medal-icon);
+  background: var(--medal-start);
+  box-shadow: 0 0 0 1px var(--medal-icon);
+}
+.trophy-color-option:focus-within {
+  outline: 2px solid var(--medal-icon);
+  outline-offset: 3px;
+}
+.trophy-preview {
+  color: var(--medal-ink);
+}
+.trophy-preview svg {
+  color: var(--medal-icon);
 }
 .goal-target {
   font-size: 22px;
@@ -3272,6 +3365,10 @@ th:first-child {
 }
 .goal-form .button {
   width: fit-content;
+}
+.goal-form .trophy-color-picker {
+  grid-column: 1 / -1;
+  margin: 0;
 }
 .shared-trophies {
   margin-bottom: 28px;
