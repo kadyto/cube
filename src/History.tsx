@@ -10,7 +10,7 @@ import {
   statistics,
 } from '../shared/domain.js';
 import { api, errorMessage } from './api';
-import { Empty, PuzzleIcon, SolveTime } from './components';
+import { Empty, PuzzleIcon, SolveTime, SourceBadge } from './components';
 import { SolveEditor } from './SolveEditor';
 import type { EventId, Solve } from './types';
 
@@ -25,14 +25,18 @@ export function History({
 }) {
   const [event, setEvent] = useState<EventId>('333'),
     [search, setSearch] = useState('');
+  const [source, setSource] = useState('all');
   const [selected, setSelected] = useState<Solve | null>(null),
     [error, setError] = useState(''),
     [deleting, setDeleting] = useState(false);
   const eventSolves = solves.filter((s) => s.event === event).sort((a, b) => a.number - b.number),
-    stats = statistics(eventSolves);
+    stats = statistics(
+      source === 'all' ? eventSolves : eventSolves.filter((solve) => solve.source === source),
+    );
   const filtered = eventSolves
     .map((solve, index) => ({ solve, index }))
     .reverse()
+    .filter(({ solve }) => source === 'all' || solve.source === source)
     .filter(({ solve }) =>
       `${solve.scramble} ${solve.note} ${formatTime(solve.timeCs)}`
         .toLowerCase()
@@ -52,6 +56,14 @@ export function History({
           <Download size={16} /> Exportar JSON
         </a>
       </div>
+      <label className="source-filter">
+        Filtrar por cronómetro
+        <select value={source} onChange={(e) => setSource(e.target.value)}>
+          <option value="all">Todos los tiempos</option>
+          <option value="manual">Introducidos a mano</option>
+          <option value="timer">Cronómetro web</option>
+        </select>
+      </label>
       <div className="history-toolbar">
         <div className="segmented">
           {(EVENT_IDS as EventId[]).map((id) => (
@@ -113,6 +125,10 @@ export function History({
                       >
                         <SolveTime solve={solve} />
                       </button>
+                      <SourceBadge source={solve.source} />
+                      {solve.roundId && (
+                        <span className="round-badge">Ronda de 5 · {solve.roundSlot}/5</span>
+                      )}
                       <div className="solve-row-actions">
                         <button
                           className="text-button"
@@ -137,7 +153,16 @@ export function History({
                       </div>
                     </td>
                     <td className="mono muted">
-                      {formatTime(averageOfFive(consecutiveWindow(eventSolves, index)))}
+                      {formatTime(
+                        averageOfFive(
+                          source === 'all' ||
+                            consecutiveWindow(eventSolves, index).every(
+                              (item: Solve) => item.source === source,
+                            )
+                            ? consecutiveWindow(eventSolves, index)
+                            : [],
+                        ),
+                      )}
                     </td>
                     <td className="date-cell">
                       {new Date(solve.createdAt).toLocaleDateString('es', {

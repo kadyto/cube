@@ -3120,3 +3120,263 @@ th:first-child {
   line-height: 1.7;
   margin: 6px 0 0;
 }
+
+.source-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 7px;
+  border: 1px solid #dde5d7;
+  border-radius: 6px;
+  font-size: 10px;
+  line-height: 1.4;
+  font-weight: 500;
+  color: #567048;
+  background: #f0f5eb;
+  vertical-align: middle;
+}
+.source-badge svg {
+  flex-shrink: 0;
+}
+.source-manual {
+  background: #edf3fc;
+  border-color: #d8e4f4;
+  color: #41658d;
+}
+.source-mixed {
+  background: #fcf4e8;
+  color: #876b3b;
+  border-color: #ebdfc9;
+}
+.source-unknown {
+  background: #f5f5f2;
+  color: #858a7e;
+}
+.round-badge {
+  display: block;
+  font-size: 9px;
+  color: #788b65;
+  margin-top: 5px;
+}
+.source-filter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  margin-bottom: 18px;
+}
+.source-filter select {
+  max-width: 220px;
+}
+.history-panel td > .source-badge {
+  display: flex;
+  width: fit-content;
+  margin: 5px 0;
+}
+.recent-list .source-badge {
+  font-size: 9px;
+}
+.training-mode {
+  width: fit-content;
+  margin-bottom: 16px;
+}
+.goals-panel {
+  margin-bottom: 28px;
+  padding: 18px 22px;
+}
+.goals-panel > summary {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 650;
+  list-style: none;
+}
+.goals-panel > summary::-webkit-details-marker {
+  display: none;
+}
+.goals-panel > summary > .help {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.goals-panel[open] > summary {
+  margin-bottom: 18px;
+}
+.goal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 13px;
+  margin: 18px 0;
+}
+.goal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  border: 1px solid #e1e6db;
+  border-radius: 12px;
+  padding: 18px;
+  color: #74816c;
+  background: #f8faf6;
+  min-width: 0;
+}
+.goal-card.achieved {
+  background: linear-gradient(140deg, #fff9e8, #f6f6e8);
+  border-color: #e5d7a1;
+  color: #765d27;
+}
+.goal-cup {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #eef0e9;
+  color: #9aa58e;
+}
+.achieved .goal-cup {
+  color: #b08322;
+  background: #f5e8b9;
+}
+.goal-target {
+  font-size: 22px;
+  line-height: 1.3;
+}
+.goal-card p {
+  margin: 0;
+  font-size: 12px;
+}
+.goal-status {
+  font-size: 11px;
+}
+.goal-actions {
+  margin-top: auto;
+  padding-top: 8px;
+  gap: 10px;
+}
+.goal-actions .text-button {
+  font-size: 10px;
+}
+.goal-form {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  align-items: end;
+  margin-top: 20px;
+}
+.goal-form label {
+  font-size: 11px;
+}
+.goal-form .button {
+  width: fit-content;
+}
+.shared-trophies {
+  margin-bottom: 28px;
+}
+.round-panel {
+  margin-bottom: 20px;
+}
+.round-panel > .row h2 {
+  margin: 0;
+}
+.round-panel > .row > strong {
+  font-size: 13px;
+}
+.round-slots {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin: 20px 0;
+}
+.round-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+  padding: 15px 10px;
+  border: 1px solid #e3e9de;
+  border-radius: 10px;
+  background: #f8faf6;
+}
+.round-slot.current {
+  border-color: #a8c18f;
+  background: #f0f6e9;
+}
+.round-slot .time-button {
+  font-size: 20px;
+}
+.round-slot > .help {
+  font-size: 9px;
+}
+.round-slot > .source-badge {
+  font-size: 9px;
+  padding: 2px 4px;
+}
+.round-result {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 18px;
+  margin-bottom: 16px;
+  background: #f1f6e9;
+  border-radius: 10px;
+  color: #4d6c3c;
+}
+.round-result strong {
+  font-size: 34px;
+}
+.round-pending {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0;
+}
+.round-pending p {
+  margin: 0;
+}
+@media (max-width: 640px) {
+  .training-mode {
+    width: 100%;
+  }
+  .training-mode button {
+    flex: 1;
+    font-size: 10px;
+    padding: 9px 7px;
+  }
+  .goals-panel > summary {
+    font-size: 12px;
+  }
+  .goals-panel > summary > .help {
+    font-size: 9px;
+  }
+  .goal-grid,
+  .goal-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .goal-card {
+    padding: 13px;
+  }
+  .goal-target {
+    font-size: 21px;
+  }
+  .round-slots {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .round-slot .time-button {
+    font-size: 18px;
+  }
+  .round-panel > .row {
+    gap: 12px;
+  }
+  .source-filter {
+    flex-wrap: wrap;
+  }
+}

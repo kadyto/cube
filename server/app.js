@@ -10,6 +10,7 @@ import { hashPassword, verifyPassword, tokenHash, sessionToken, setSession } fro
 import { normalizeWcaId } from './wca.js';
 import { createWcaSync } from './wca-sync.js';
 import { createUpcomingSync } from './upcoming.js';
+import { createTraining } from './training.js';
 
 const DEFAULT_PROFILE = {
   name: 'Mi rincón de cubos',
@@ -180,6 +181,7 @@ export async function createApp(options = {}) {
         .prepare('SELECT * FROM publications ORDER BY created_at DESC, rowid DESC')
         .all()
         .map(readPublication),
+      achievements: training.publicGoals(),
     });
   });
   app.get('/api/profile', requireAuth, (_req, res) =>
@@ -253,6 +255,8 @@ export async function createApp(options = {}) {
       queuedScrambles--;
     }
   };
+  const training = createTraining(store, generateScramble);
+  training.routes(app, requireAuth);
   app.post('/api/demo/scramble', async (req, res) => {
     // Public generation is stateless: no scramble ID, database row, session or solve.
     res.json({ event: req.body.event, alg: await generateScramble(req.body.event, true) });
@@ -270,9 +274,7 @@ export async function createApp(options = {}) {
     );
     res.json(scramble);
   });
-  app.get('/api/solves', requireAuth, (_req, res) =>
-    res.json(db.prepare('SELECT * FROM solves ORDER BY rowid').all().map(readSolve)),
-  );
+  app.get('/api/solves', requireAuth, (_req, res) => res.json(training.allSolves()));
   app.post('/api/solves', requireAuth, (req, res) => {
     const { timeCs, penalty, source, scrambleId } = req.body;
     if (!Number.isInteger(timeCs) || timeCs < 1 || timeCs > 8640000)
@@ -280,13 +282,14 @@ export async function createApp(options = {}) {
     if (!['none', '+2', 'DNF'].includes(penalty) || !['manual', 'timer'].includes(source))
       throw bad('Resultado no válido.');
     const existing = db.prepare('SELECT * FROM solves WHERE scramble_id=?').get(scrambleId ?? '');
-    if (existing) return res.json(readSolve(existing)); // Safe retry after a lost network response.
+    if (existing) return res.json(training.solve(existing)); // Safe retry after a lost network response.
     const scramble = db.prepare('SELECT * FROM scrambles WHERE id=?').get(scrambleId ?? '');
     if (!scramble) throw bad('Genera una mezcla antes de guardar el tiempo.');
     const id = randomUUID();
     const note = text(req.body.note ?? '', 500, 'La nota');
     db.exec('BEGIN IMMEDIATE');
     try {
+      training.assertSlot(scramble.id);
       const number = nextSolveNumber(db, scramble.event);
       db.prepare(
         'INSERT INTO solves(id,event,time_cs,penalty,scramble,scramble_id,source,note,created_at,number) VALUES (?,?,?,?,?,?,?,?,?,?)',
@@ -307,7 +310,7 @@ export async function createApp(options = {}) {
       db.exec('ROLLBACK');
       throw error;
     }
-    res.status(201).json(readSolve(db.prepare('SELECT * FROM solves WHERE id=?').get(id)));
+    res.status(201).json(training.solve(db.prepare('SELECT * FROM solves WHERE id=?').get(id)));
   });
   app.patch('/api/solves/:id', requireAuth, (req, res) => {
     const previous = db.prepare('SELECT * FROM solves WHERE id=?').get(req.params.id);
@@ -323,7 +326,7 @@ export async function createApp(options = {}) {
       req.body.note === undefined ? previous.note : text(req.body.note, 500, 'La nota'),
       req.params.id,
     );
-    res.json(readSolve(db.prepare('SELECT * FROM solves WHERE id=?').get(req.params.id)));
+    res.json(training.solve(db.prepare('SELECT * FROM solves WHERE id=?').get(req.params.id)));
   });
   app.delete('/api/solves/:id', requireAuth, (req, res) => {
     db.prepare('DELETE FROM solves WHERE id=?').run(req.params.id);
@@ -338,12 +341,20 @@ export async function createApp(options = {}) {
     ),
   );
   app.post('/api/publications', requireAuth, (req, res) => {
-    const { kind, solveId } = req.body;
-    const selected = db.prepare('SELECT * FROM solves WHERE id=?').get(solveId ?? '');
+    const { kind, solveId, roundId } = req.body;
+    const competition = roundId ? training.round(roundId) : null;
+    if (competition && (kind !== 'ao5' || competition.completed !== 5 || competition.cancelledAt))
+      throw bad('Completa los cinco intentos de la ronda antes de publicar su ao5.');
+    const selected = competition
+      ? db.prepare('SELECT * FROM solves WHERE scramble_id=?').get(competition.slots[4].scramble.id)
+      : db.prepare('SELECT * FROM solves WHERE id=?').get(solveId ?? '');
     if (!selected || !['single', 'ao5'].includes(kind))
       throw bad('Elige el tiempo que quieres publicar.');
-    const rows =
-      kind === 'single'
+    const rows = competition
+      ? competition.slots.map((slot) =>
+          db.prepare('SELECT * FROM solves WHERE scramble_id=?').get(slot.scramble.id),
+        )
+      : kind === 'single'
         ? [selected]
         : db
             .prepare(
@@ -353,16 +364,21 @@ export async function createApp(options = {}) {
             .reverse();
     if (rows.length !== (kind === 'single' ? 1 : 5))
       throw bad('Necesitas cinco resoluciones de este puzzle para publicar un ao5.');
-    if (kind === 'ao5' && rows.some((row, i) => row.number !== selected.number - 4 + i))
+    if (
+      !competition &&
+      kind === 'ao5' &&
+      rows.some((row, i) => row.number !== selected.number - 4 + i)
+    )
       throw bad(
         'Completa los intentos pendientes de estos cinco números antes de publicar su ao5.',
       );
     // An explicit immutable snapshot. Private notes never enter the public record.
-    const solves = rows.map(readSolve).map(({ timeCs, penalty, scramble, createdAt }) => ({
+    const solves = rows.map(readSolve).map(({ timeCs, penalty, scramble, createdAt, source }) => ({
       timeCs,
       penalty,
       scramble,
       createdAt,
+      source,
     }));
     const result =
       kind === 'single'
@@ -393,7 +409,10 @@ export async function createApp(options = {}) {
       version: 1,
       exportedAt: new Date().toISOString(),
       profile: get('profile', DEFAULT_PROFILE),
-      solves: db.prepare('SELECT * FROM solves ORDER BY rowid').all().map(readSolve),
+      solves: training.allSolves(),
+      goals: training.goals(),
+      rounds: training.rounds(),
+      achievements: training.publicGoals(),
       publications: db
         .prepare('SELECT * FROM publications ORDER BY rowid')
         .all()

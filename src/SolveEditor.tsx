@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Trash2, Upload } from 'lucide-react';
 import { EVENTS, parseTime } from '../shared/domain.js';
 import { errorMessage } from './api';
-import { Modal, SolveTime } from './components';
+import { Modal, SolveTime, SourceBadge } from './components';
 import type { Penalty, Solve } from './types';
 
 export function SolveEditor({
@@ -89,6 +89,7 @@ export function SolveEditor({
         <small>s</small>
       </div>
       <p className="alg small boxed">{solve.scramble}</p>
+      <SourceBadge source={solve.source} />
       <p className="help">
         {new Date(solve.createdAt).toLocaleString('es')} ·{' '}
         {solve.source === 'timer' ? 'Cronómetro de Cube' : 'Introducido a mano'}

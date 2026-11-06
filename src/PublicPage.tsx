@@ -15,6 +15,7 @@ import { JB_CUBE_FACES } from '../shared/jb-cube.js';
 import { Empty, Modal, PublicationCard, PuzzleIcon } from './components';
 import { CompetitionTimeline } from './CompetitionTimeline';
 import { UpcomingCompetitions } from './UpcomingCompetitions';
+import { TrophyCard } from './TrophyCard';
 import type { EventId, PublicData, Publication } from './types';
 
 export function PublicPage({
@@ -24,6 +25,7 @@ export function PublicPage({
   onSettings,
   onOpen,
   onRemove,
+  onRemoveAchievement,
 }: {
   data: PublicData;
   authenticated: boolean;
@@ -31,11 +33,13 @@ export function PublicPage({
   onSettings: () => void;
   onOpen: (p: Publication) => void;
   onRemove: (id: string) => Promise<void>;
+  onRemoveAchievement: (id: string) => Promise<void>;
 }) {
   const [filter, setFilter] = useState<EventId | 'all'>('all'),
     [removing, setRemoving] = useState<string | null>(null),
     [busy, setBusy] = useState(false),
     [error, setError] = useState('');
+  const [retiringTrophy, setRetiringTrophy] = useState<string | null>(null);
   const profile = data.profile,
     publications = data.publications.filter((p) => filter === 'all' || p.event === filter);
   const singles = data.publications.filter(
@@ -99,6 +103,28 @@ export function PublicPage({
       </section>
       <div className="public-layout">
         <div className="public-main">
+          {!!data.achievements?.length && (
+            <section className="panel shared-trophies" aria-label="Trofeos compartidos">
+              <h2 className="row">
+                <Trophy size={20} /> Trofeos compartidos
+              </h2>
+              <div className="goal-grid">
+                {data.achievements.map((achievement) => (
+                  <div key={achievement.id}>
+                    <TrophyCard achievement={achievement} />
+                    {authenticated && (
+                      <button
+                        className="text-button"
+                        onClick={() => setRetiringTrophy(achievement.id)}
+                      >
+                        Retirar trofeo
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
           {profile.wca?.upcoming && <UpcomingCompetitions data={profile.wca.upcoming} />}
           {!!profile.wca?.competitions.length && (
             <CompetitionTimeline
@@ -256,6 +282,47 @@ export function PublicPage({
           )}
         </aside>
       </div>
+      {retiringTrophy && (
+        <Modal
+          title="Retirar este trofeo"
+          onClose={() => {
+            if (!busy) setRetiringTrophy(null);
+          }}
+        >
+          <p>El trofeo dejará de verse en público. Tus tiempos y tu objetivo siguen en privado.</p>
+          {error && (
+            <p className="error-box" role="alert">
+              {error}
+            </p>
+          )}
+          <div className="modal-actions">
+            <button
+              className="button secondary"
+              disabled={busy}
+              onClick={() => setRetiringTrophy(null)}
+            >
+              Cancelar
+            </button>
+            <button
+              className="button primary"
+              disabled={busy}
+              onClick={async () => {
+                setBusy(true);
+                try {
+                  await onRemoveAchievement(retiringTrophy);
+                  setRetiringTrophy(null);
+                } catch {
+                  setError('No se pudo retirar el trofeo. Vuelve a intentarlo.');
+                } finally {
+                  setBusy(false);
+                }
+              }}
+            >
+              Retirar trofeo público
+            </button>
+          </div>
+        </Modal>
+      )}
       {removing && (
         <Modal
           title="¿Retirar esta publicación?"

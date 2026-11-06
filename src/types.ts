@@ -11,8 +11,49 @@ export type Solve = {
   source: 'manual' | 'timer';
   note: string;
   createdAt: string;
+  roundId?: string;
+  roundSlot?: number;
 };
-export type Scramble = { id: string; event: EventId; alg: string; createdAt: string };
+export type Scramble = {
+  id: string;
+  event: EventId;
+  alg: string;
+  createdAt: string;
+  roundId?: string;
+  roundSlot?: number;
+};
+export type TrainingRound = {
+  id: string;
+  event: EventId;
+  createdAt: string;
+  cancelledAt: string | null;
+  completed: number;
+  average: number | 'DNF' | null;
+  slots: { slot: number; scramble: Scramble; solve: Solve | null }[];
+};
+export type Source = 'manual' | 'timer';
+export type Goal = {
+  id: string;
+  event: EventId;
+  kind: 'single' | 'ao5';
+  targetCs: number;
+  source: Source | 'all';
+  createdAt: string;
+  achieved: boolean;
+  publicationId: string | null;
+  best: { value: number; achievedAt: string; solveIds: string[]; measurementSource: string } | null;
+};
+export type Achievement = {
+  id: string;
+  event: EventId;
+  kind: 'single' | 'ao5';
+  targetCs: number;
+  source: Source | 'all';
+  value: number;
+  achievedAt: string;
+  publishedAt: string;
+  measurementSource: string;
+};
 export type WcaRound = {
   round: string;
   position: number | null;
@@ -101,10 +142,11 @@ export type Publication = {
   kind: 'single' | 'ao5';
   title: string;
   result: number | 'DNF';
-  solves: Pick<Solve, 'timeCs' | 'penalty' | 'scramble' | 'createdAt'>[];
+  solves: (Pick<Solve, 'timeCs' | 'penalty' | 'scramble' | 'createdAt'> & { source?: Source })[];
   createdAt: string;
 };
 export type PublicData = {
   profile: Omit<Profile, 'showWca' | 'showCompetitions' | 'showUpcoming' | 'calculateForecasts'>;
   publications: Publication[];
+  achievements?: Achievement[];
 };

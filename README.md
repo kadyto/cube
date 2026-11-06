@@ -10,6 +10,9 @@ Un rincón de speedcubing para entrenar, ver el progreso y compartir los logros 
 - **Pantalla encendida al entrenar.** Evita el apagado automático durante toda la vista de Entrenamiento: mirando una mezcla, durante la inspección, cronometrando o introduciendo tiempos a mano. Se libera al salir o poner la página en segundo plano y se solicita de nuevo al volver.
 - **Dibujo de la mezcla.** Desplegado en color del estado exacto que produce la secuencia actual en 3×3×3, 2×2×2 y Pyraminx, con opción de ampliarlo en el móvil. Se actualiza con cada nueva mezcla y al cambiar de puzzle, también en el modo de entrada manual.
 - **Entrada manual.** Acepta `12.34`, `12,34` y `1:02.45`. Cada intento conserva su mezcla, fecha y forma de registro.
+- **Origen visible de cada tiempo.** Etiquetas «A mano» y «Cronómetro web» en el historial, los últimos resultados y las publicaciones nuevas. Puedes filtrar el historial por origen. «A mano» permite distinguir lo que se introduce desde un cronómetro externo; la aplicación no detecta ni certifica el dispositivo utilizado.
+- **Objetivos personales y trofeos sub-X.** Objetivos separados de single y ao5, por puzzle y origen del tiempo. Incluye sub-25 y sub-20 de 3×3 para empezar; puedes añadir otros. Son privados hasta que publiques cada trofeo expresamente.
+- **Modo competición de cinco.** Rondas privadas con cinco mezclas fijas, entradas manuales o cronómetro web, inspección opcional y su propio ao5. Se retoman tras recargar y conservan sus cinco intentos al editar o reponer tiempos. Puedes publicar su ao5 mediante confirmación.
 - **ao5 automático**, mejores singles, mejor ao5, gráfico de las últimas 30 resoluciones e historial por puzzle. Las medias se calculan dentro de cada puzzle; los cinco últimos intentos del historial de ese puzzle forman el ao5 actual.
 - **Edición y borrado individual.** Botones visibles en cada tiempo del historial y acceso directo junto al último tiempo guardado. Puedes corregir el tiempo, marcar +2 o DNF, añadir una nota privada o borrar el intento con confirmación.
 - **Publicación expresamente elegida.** Elige un single o los cinco intentos consecutivos que terminan en el seleccionado. La confirmación muestra el resultado antes de publicar. Puedes retirar la publicación cuando quieras.
@@ -31,6 +34,24 @@ Los ao5 siguen el orden de los números de intento y necesitan cinco números co
 Si arrancas y paras el cronómetro por error, pulsa «Borrar último tiempo» y confirma. Se recuperan el número disponible y la mezcla del intento accidental para repetirlo. También puedes pulsar «Editar último tiempo» o abrir cualquier tiempo del historial.
 
 Las publicaciones son copias de los resultados que elegiste compartir: editar, borrar o reponer un intento privado no las cambia automáticamente. Para cambiar una publicación, retírala y publica el resultado corregido. Las bases de datos anteriores se actualizan al arrancar, conservando los tiempos, sus identificadores, mezclas y notas.
+
+### Origen de los tiempos y objetivos personales
+
+Los tiempos guardados llevan «A mano» o «Cronómetro web». El origen se conserva al editar una cifra; la etiqueta describe cómo se capturó el tiempo, no verifica un modelo de cronómetro. El historial permite filtrar por origen y muestra sus estadísticas para ese filtro. Los ao5 necesitan cinco números consecutivos: filtrar no une intentos separados por otros tiempos. Las publicaciones nuevas incluyen el origen; en las antiguas que no lo guardaban aparece «Origen no registrado».
+
+En Entrenamiento, abre «Mis objetivos y trofeos». Hay cuatro objetivos iniciales para 3×3: single y ao5 sub-25 y sub-20. Puedes añadir objetivos de cualquier marca para los tres puzzles, y elegir si cuentan todos los tiempos, sólo los introducidos a mano o sólo el cronómetro web. Un sub-25 exige **menos de 25,00 s**, no exactamente 25,00; los +2 se aplican antes de comparar y los DNF no consiguen un objetivo. Para un ao5 filtrado, los cinco intentos deben tener el origen elegido. También se consideran los ao5 de rondas completas de competición.
+
+Los trofeos conseguidos se calculan con el historial privado existente y se recalculan al corregir o borrar tiempos. «Publicar trofeo» abre una confirmación: sólo se comparte una copia del objetivo, marca, fecha y origen, sin notas ni identificadores de intentos privados. Puedes retirarla desde el objetivo o desde «Trofeos compartidos» en Mi rincón. Las copias ya publicadas conservan sus datos hasta que las retires; eliminar un objetivo también retira su trofeo público, con confirmación.
+
+### Competición de cinco resoluciones
+
+En Entrenamiento, elige «Competición · 5» y «Empezar ronda de 5». Se preparan y guardan cinco mezclas del puzzle elegido; cada resultado ocupa su posición de la ronda. Puedes introducir tiempos de un cronómetro externo o usar el de la web con inspección opcional. Con el cronómetro externo se controla la inspección fuera de Cube y se indica +2 o DNF al introducir el resultado.
+
+Al completar cinco, aparece el ao5 de esa ronda, descartando el mejor y el peor tras aplicar penalizaciones. Un DNF se descarta; dos o más producen DNF. Este ao5 utiliza **los cinco intentos de la ronda**, aunque sus números en el historial tengan huecos o haya otros entrenamientos entre ellos. El historial sigue calculando sus medias por números consecutivos.
+
+La ronda se conserva al salir o recargar. Puedes retomarla o revisar las anteriores. Los tiempos individuales siguen disponibles para editar y borrar: borrar uno reabre su posición con la misma mezcla, y al registrar de nuevo ese intento se utiliza el primer hueco disponible del historial. El guardado se puede reintentar sin duplicar intentos tras una pérdida de conexión. «Abandonar ronda» conserva lo ya guardado y permite comenzar otra.
+
+«Publicar ao5 de esta ronda» muestra los cinco resultados y pide confirmación. Entrenar, completar rondas o conseguir objetivos nunca publica resultados automáticamente. La exportación JSON y la copia SQLite incluyen los objetivos y las rondas. La actualización crea las tablas necesarias sin borrar tiempos, mezclas, números o publicaciones anteriores; los objetivos iniciales no reaparecen si los eliminas. La demo sigue ofreciendo sólo mezclas y cronómetro sin persistencia.
 
 ### Mantener la pantalla encendida
 
@@ -148,4 +169,4 @@ WCA es opcional y no requiere OAuth ni credenciales WCA. Vincular un ID **no acr
 
 Cube no carga fuentes, analítica ni recursos de terceros en el navegador. No hay registro abierto, cuentas múltiples, sincronización con csTimer ni funcionamiento sin conexión. Si falla el guardado de un tiempo, conserva un intento pendiente en ese navegador para reintentarlo; no cierres sesión en un dispositivo compartido con un intento pendiente sin haberlo guardado. La exportación JSON permite consultar y conservar datos; la restauración completa se hace con la copia SQLite, no importando JSON.
 
-Posibles siguientes pasos: objetivos personales «sub-X», sesiones de entrenamiento independientes y modo competición de cinco resoluciones. La base actual prioriza entrenar y compartir de forma sencilla.
+Posibles siguientes pasos: sesiones de entrenamiento independientes. La base actual prioriza entrenar y compartir de forma sencilla.

@@ -1,7 +1,31 @@
 import { useEffect, useRef, type ReactNode } from 'react';
-import { X, ArrowUpRight, Triangle, Box } from 'lucide-react';
+import { X, ArrowUpRight, Triangle, Box, Keyboard, Timer } from 'lucide-react';
 import { EVENTS, effectiveTime, formatTime } from '../shared/domain.js';
 import type { EventId, Solve, Publication } from './types';
+import { measurementSource, SOURCE_LABELS } from '../shared/training.js';
+
+export function SourceBadge({ source }: { source?: string }) {
+  const label = SOURCE_LABELS[source as keyof typeof SOURCE_LABELS] ?? SOURCE_LABELS.unknown;
+  return (
+    <span
+      className={`source-badge source-${source ?? 'unknown'}`}
+      title={
+        source === 'manual'
+          ? 'Tiempo introducido a mano, por ejemplo desde un cronómetro externo.'
+          : source === 'timer'
+            ? 'Tiempo medido con el cronómetro de Cube.'
+            : label
+      }
+    >
+      {source === 'manual' ? (
+        <Keyboard size={12} aria-hidden="true" />
+      ) : source === 'timer' ? (
+        <Timer size={12} aria-hidden="true" />
+      ) : null}
+      {label}
+    </span>
+  );
+}
 
 export function PuzzleIcon({ event = '333', size = 36 }: { event?: EventId; size?: number }) {
   if (event === 'pyram') return <Triangle size={size} strokeWidth={1.5} />;
@@ -135,6 +159,7 @@ export function PublicationCard({
             ? 'Una resolución para recordar'
             : 'Cinco intentos, un logro')}
       </h3>
+      <SourceBadge source={measurementSource(publication.solves)} />
       <div className="row between muted">
         <span>
           {new Date(publication.createdAt).toLocaleDateString('es', {
@@ -175,6 +200,7 @@ export function PublicationDetails({
           se descarta; dos o más hacen que la media sea DNF.
         </p>
       )}
+      <SourceBadge source={measurementSource(publication.solves)} />
       <div className="publication-solves">
         {publication.solves.map((solve, i) => (
           <div key={i} className="solve-detail">
@@ -184,6 +210,7 @@ export function PublicationDetails({
                 <SolveTime solve={solve} />
               </strong>
             </div>
+            <SourceBadge source={solve.source} />
             <p className="alg small">{solve.scramble}</p>
           </div>
         ))}

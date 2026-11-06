@@ -24,7 +24,7 @@ import {
   consecutiveWindow,
 } from '../shared/domain.js';
 import { api, errorMessage } from './api';
-import { Empty, ProgressChart, SolveTime } from './components';
+import { Empty, ProgressChart, SolveTime, SourceBadge } from './components';
 import { useTimer } from './useTimer';
 import { useScreenWakeLock } from './useScreenWakeLock';
 import { SolveEditor } from './SolveEditor';
@@ -48,11 +48,13 @@ export function Trainer({
   onSaved,
   onPublish,
   onHistory,
+  onBusy,
 }: {
   solves: Solve[];
   onSaved: () => Promise<void>;
   onPublish: (solve: Solve, kind: 'single' | 'ao5') => void;
   onHistory: () => void;
+  onBusy?: (value: boolean) => void;
 }) {
   const screen = useScreenWakeLock();
   const [pending, setPending] = useState<Pending | null>(restoredPending);
@@ -175,6 +177,9 @@ export function Trainer({
     timer.reset();
   };
   const busy = timer.active || saving || !!pending;
+  useEffect(() => {
+    onBusy?.(busy);
+  }, [busy, onBusy]);
   return (
     <>
       <div className="page-heading">
@@ -308,7 +313,8 @@ export function Trainer({
               </>
             ) : lastSaved ? (
               <>
-                <Check size={14} /> {formatTime(effectiveTime(lastSaved))} guardado en privado
+                <Check size={14} /> {formatTime(effectiveTime(lastSaved))} guardado en privado{' '}
+                <SourceBadge source={lastSaved.source} />
               </>
             ) : (
               <>
@@ -421,6 +427,7 @@ export function Trainer({
                   >
                     <SolveTime solve={solve} />
                   </button>
+                  <SourceBadge source={solve.source} />
                   <span className="help">
                     {new Date(solve.createdAt).toLocaleTimeString('es', {
                       hour: '2-digit',

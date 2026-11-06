@@ -24,8 +24,8 @@ import {
   formatTime,
 } from '../shared/domain.js';
 import { api, errorMessage } from './api';
-import { Modal, PublicationDetails, PuzzleIcon, SolveTime } from './components';
-import { Trainer } from './Trainer';
+import { Modal, PublicationDetails, PuzzleIcon, SolveTime, SourceBadge } from './components';
+import { TrainingPage } from './TrainingPage';
 import { Demo } from './Demo';
 import { History } from './History';
 import { PublicPage } from './PublicPage';
@@ -292,6 +292,10 @@ export default function App() {
                 <PublicPage
                   data={publicData}
                   authenticated={authenticated}
+                  onRemoveAchievement={async (id) => {
+                    await api(`/goal-publications/${id}`, 'DELETE', {});
+                    await refreshPublic();
+                  }}
                   onTrain={() => navigate('train')}
                   onSettings={() => navigate('settings')}
                   onOpen={setPublication}
@@ -303,9 +307,10 @@ export default function App() {
               )}{' '}
               {view === 'demo' && <Demo />}
               {view === 'train' && authenticated && (
-                <Trainer
+                <TrainingPage
                   solves={solves}
                   onSaved={refreshPrivate}
+                  onPublicChanged={refreshPublic}
                   onPublish={(solve, kind) => setPublish({ solve, kind })}
                   onHistory={() => navigate('history')}
                 />
@@ -495,6 +500,7 @@ function PublishDialog({
           <div className="row between" key={s.id}>
             <span className="help">Intento #{s.number}</span>
             <SolveTime solve={s} />
+            <SourceBadge source={s.source} />
           </div>
         ))}
       </div>

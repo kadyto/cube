@@ -1,6 +1,7 @@
 import { DatabaseSync } from 'node:sqlite';
 import { mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
+import { randomUUID } from 'node:crypto';
 
 export function openStore(path) {
   if (path !== ':memory:') mkdirSync(dirname(path), { recursive: true });
@@ -24,6 +25,25 @@ export function openStore(path) {
     CREATE TABLE IF NOT EXISTS publications (
       id TEXT PRIMARY KEY, event TEXT NOT NULL, kind TEXT NOT NULL CHECK(kind IN ('single', 'ao5')),
       title TEXT NOT NULL, solves TEXT NOT NULL, result TEXT NOT NULL, created_at TEXT NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS training_rounds (
+      id TEXT PRIMARY KEY, event TEXT NOT NULL, created_at TEXT NOT NULL, cancelled_at TEXT
+    );
+    CREATE TABLE IF NOT EXISTS round_slots (
+      round_id TEXT NOT NULL REFERENCES training_rounds(id) ON DELETE CASCADE,
+      slot INTEGER NOT NULL CHECK(slot BETWEEN 1 AND 5),
+      scramble_id TEXT NOT NULL UNIQUE REFERENCES scrambles(id),
+      PRIMARY KEY(round_id,slot)
+    );
+    CREATE TABLE IF NOT EXISTS goals (
+      id TEXT PRIMARY KEY, event TEXT NOT NULL, kind TEXT NOT NULL CHECK(kind IN ('single','ao5')),
+      target_cs INTEGER NOT NULL CHECK(target_cs > 0),
+      source TEXT NOT NULL CHECK(source IN ('all','manual','timer')), created_at TEXT NOT NULL,
+      UNIQUE(event,kind,target_cs,source)
+    );
+    CREATE TABLE IF NOT EXISTS goal_publications (
+      id TEXT PRIMARY KEY, goal_id TEXT NOT NULL UNIQUE REFERENCES goals(id) ON DELETE CASCADE,
+      snapshot TEXT NOT NULL, created_at TEXT NOT NULL
     );
   `);
   // Preserve the existing per-puzzle display order when upgrading older databases.
@@ -59,6 +79,27 @@ export function openStore(path) {
         'INSERT INTO settings(key,value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value',
       )
       .run(key, JSON.stringify(value));
+  if (!get('training-goals-v1')) {
+    db.exec('BEGIN IMMEDIATE');
+    try {
+      for (const kind of ['single', 'ao5'])
+        for (const target of [2500, 2000])
+          db.prepare('INSERT OR IGNORE INTO goals VALUES (?,?,?,?,?,?)').run(
+            randomUUID(),
+            '333',
+            kind,
+            target,
+            'all',
+            new Date().toISOString(),
+          );
+      set('training-goals-v1', true);
+      db.exec('COMMIT');
+    } catch (error) {
+      db.exec('ROLLBACK');
+      db.close();
+      throw error;
+    }
+  }
   return { db, get, set };
 }
 
