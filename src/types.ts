@@ -62,6 +62,7 @@ export type WcaRound = {
   position: number | null;
   best: number | null;
   average: number | null;
+  format?: 'a' | 'm' | '1' | '2' | '3';
 };
 export type Competition = {
   id: string;

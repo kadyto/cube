@@ -78,6 +78,7 @@ export function competitionResults(rows) {
       position: Number.isInteger(row.pos) && row.pos > 0 ? row.pos : null,
       best: resultValue(row.best),
       average: resultValue(row.average),
+      ...(['a', 'm', '1', '2', '3'].includes(row.format_id) ? { format: row.format_id } : {}),
     });
   }
   return new Map(

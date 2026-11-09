@@ -16,6 +16,7 @@ import { Empty, Modal, PublicationCard, PuzzleIcon } from './components';
 import { CompetitionTimeline } from './CompetitionTimeline';
 import { UpcomingCompetitions } from './UpcomingCompetitions';
 import { TrophyCard } from './TrophyCard';
+import { WcaProgress } from './WcaProgress';
 import type { EventId, PublicData, Publication } from './types';
 
 export function PublicPage({
@@ -126,6 +127,9 @@ export function PublicPage({
             </section>
           )}
           {profile.wca?.upcoming && <UpcomingCompetitions data={profile.wca.upcoming} />}
+          {!!profile.wca?.competitions.length && (
+            <WcaProgress competitions={profile.wca.competitions} />
+          )}
           {!!profile.wca?.competitions.length && (
             <CompetitionTimeline
               competitions={profile.wca.competitions}

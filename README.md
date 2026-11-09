@@ -18,6 +18,7 @@ Un rincón de speedcubing para entrenar, ver el progreso y compartir los logros 
 - **Publicación expresamente elegida.** Elige un single o los cinco intentos consecutivos que terminan en el seleccionado. La confirmación muestra el resultado antes de publicar. Puedes retirar la publicación cuando quieras.
 - **Perfil público personalizable y WCA opcional.** Un apodo, una presentación, el enlace WCA y, si lo autorizas, el nombre, las mejores marcas oficiales (single y media) y las competiciones importadas. Las marcas WCA incluyen también las pruebas que no tienen cronómetro de entrenamiento en Cube. Al guardar un ID WCA, sus datos se actualizan automáticamente cada hora; «Consultar WCA» permite adelantar la actualización.
 - **Timeline de competiciones WCA.** Fecha, competición y puesto en la última ronda disputada de cada prueba, con filtro por puzzle, tiempos y rondas anteriores desplegables. Muestra tres competiciones recientes y permite cargar las anteriores. Solo es pública al habilitar las competiciones en Ajustes.
+- **Gráficas de progreso oficial WCA.** Evolución del mejor single y la mejor media de cada competición, por prueba. Los puntos permiten consultar la competición y la ronda de cada marca, con una tabla cronológica accesible. Utilizan resultados oficiales, sin mezclar tiempos de entrenamiento, y comparten la opción de visibilidad de las competiciones.
 - **Próximas inscripciones WCA y comparación diaria opcional.** Consulta las competiciones futuras con inscripción aceptada y elige si mostrarlas en público. Puedes activar un corte de puestos por marcas oficiales de los inscritos, como máximo una vez cada 24 horas. Ambas opciones empiezan desactivadas.
 - **Contraseña sencilla y modificable**, exportación JSON y copias completas de SQLite.
 
@@ -138,6 +139,16 @@ La timeline agrupa los resultados por competición y prueba, ordenados desde la 
 Cada puesto procede del campo oficial `pos` de su ronda. No es una clasificación global de todos los participantes de la competición; no se inventan denominadores de participantes ni variaciones de ranking. Un puesto entre los tres primeros de una primera ronda o una final B no se presenta como podio. Los trofeos se reservan para resultados válidos entre los tres primeros de una final. DNF y DNS se conservan como tales.
 
 Las competiciones ya importadas que carecen de rondas y puestos se completan automáticamente al revisar el perfil. Si no hay información de una ronda, se indica que falta en lugar de mostrar una posición inventada. Estas actualizaciones no alteran las publicaciones de entrenamiento.
+
+### Gráficas de progreso oficial
+
+En la home, «Mi progreso oficial» muestra dos gráficas por prueba: single y media. El selector incluye las pruebas con resultados del perfil WCA, también las que no están disponibles para entrenar en Cube. Para mostrarlas, activa en Ajustes tanto el perfil WCA como «Mostrar también mis competiciones, puestos por ronda y gráficas de progreso», y guarda. Si ya mostrabas tus competiciones, las gráficas aparecen al actualizar la aplicación.
+
+Cada competición aporta su mejor single válido y su mejor media oficial válida entre todas las rondas disputadas; pueden proceder de rondas distintas. No es una curva de récords acumulados: una marca peor que la de la competición anterior también se representa. La fecha corresponde al inicio de la competición. Al tocar un punto o seleccionarlo con el teclado, se ven el nombre, la fecha, ambas marcas y sus rondas, junto con un enlace a WCA. «Ver todos los resultados oficiales» abre la tabla cronológica.
+
+Se usan directamente los campos oficiales `best` y `average` de los resultados por ronda de WCA. El campo `format_id` distingue un ao5 de un mo3: no se calculan medias nuevas combinando rondas o competiciones. Los datos antiguos sin formato usan el título «Media oficial» hasta la siguiente sincronización. DNF, DNS y resultados ausentes se conservan en el detalle y la tabla, y dejan huecos en las curvas; nunca se dibujan como cero. Con una sola competición se muestra un punto. En menos movimientos se usan movimientos; multiciego conserva su puntuación textual en la tabla, sin convertirla en segundos.
+
+Las gráficas aprovechan la sincronización horaria existente y la actualización de la home cada minuto mientras está visible. No necesitan nuevas consultas, servicios, credenciales ni cambios en Compose, y no publican los tiempos privados de entrenamiento.
 
 ### Actualizaciones automáticas de WCA
 

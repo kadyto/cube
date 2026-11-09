@@ -181,7 +181,9 @@ export function Settings({ profile, onSaved }: { profile: Profile; onSaved: () =
                   disabled={!form.showWca}
                   onChange={(e) => update('showCompetitions', e.target.checked)}
                 />
-                <span>Mostrar también mis competiciones y puestos por ronda</span>
+                <span>
+                  Mostrar también mis competiciones, puestos por ronda y gráficas de progreso
+                </span>
               </label>
               <label className="checkbox-row">
                 <input
