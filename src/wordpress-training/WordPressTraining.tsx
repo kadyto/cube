@@ -86,8 +86,11 @@ export function WordPressTraining() {
             <button
               type="button"
               className="cbt-next"
-              onClick={() => void generate()}
-              disabled={timer.active || loading}
+              onClick={() => {
+                if (!loading) void generate();
+              }}
+              disabled={timer.active}
+              aria-disabled={loading || undefined}
             >
               <RefreshCw size={16} aria-hidden="true" />
               {error ? 'Reintentar mezcla' : result ? 'Siguiente mezcla' : 'Nueva mezcla'}
