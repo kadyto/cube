@@ -33,26 +33,30 @@ export function EventTabs({
   event,
   disabled,
   onChange,
+  compact = false,
 }: {
   event: EventId;
   disabled: boolean;
   onChange: (event: EventId) => void;
+  compact?: boolean;
 }) {
   return (
     <div className="event-tabs" role="group" aria-label="Elige un puzzle">
       {(EVENT_IDS as EventId[]).map((id) => (
         <button
+          type="button"
           key={id}
           className={`event-tab ${event === id ? 'selected' : ''}`}
           onClick={() => onChange(id)}
           disabled={disabled}
+          aria-pressed={event === id}
         >
-          <PuzzleIcon event={id} />
+          <PuzzleIcon event={id} size={compact ? 22 : 36} />
           <span>
-            <strong>{EVENTS[id].name}</strong>
-            <small>{EVENTS[id].label}</small>
+            <strong>{compact ? EVENTS[id].name.replace(/×[23]$/, '') : EVENTS[id].name}</strong>
+            {!compact && <small>{EVENTS[id].label}</small>}
           </span>
-          {event === id && <Check className="tab-check" size={17} />}
+          {!compact && event === id && <Check className="tab-check" size={17} />}
         </button>
       ))}
     </div>
@@ -71,7 +75,7 @@ export function ScramblePanel({
   alg: string | null;
   loading: boolean;
   disabled: boolean;
-  onGenerate: () => void;
+  onGenerate?: () => void;
   number?: number;
 }) {
   return (
@@ -79,7 +83,11 @@ export function ScramblePanel({
       <div className="row between">
         <span className="section-label">
           <RefreshCw size={15} />{' '}
-          {number === undefined ? 'TU MEZCLA' : `INTENTO #${number} · TU MEZCLA`}
+          {onGenerate
+            ? number === undefined
+              ? 'TU MEZCLA'
+              : `INTENTO #${number} · TU MEZCLA`
+            : 'Mezcla'}
         </span>
         <details className="legend">
           <summary>
@@ -134,7 +142,7 @@ export function ScramblePanel({
       </div>
       <div className={`scramble-content ${loading ? 'loading' : ''}`}>
         {loading ? (
-          <span className="row">
+          <span className="row" role="status">
             <LoaderCircle className="spin" size={20} /> Preparando tu próxima mezcla…
           </span>
         ) : (
@@ -143,12 +151,14 @@ export function ScramblePanel({
           </p>
         )}
       </div>
-      <div className="row between">
-        <span className="help">Mezcla de estado aleatorio</span>
-        <button className="text-button" onClick={onGenerate} disabled={disabled || loading}>
-          <RefreshCw size={14} /> Nueva mezcla
-        </button>
-      </div>
+      {onGenerate && (
+        <div className="row between">
+          <span className="help">Mezcla de estado aleatorio</span>
+          <button className="text-button" onClick={onGenerate} disabled={disabled || loading}>
+            <RefreshCw size={14} /> Nueva mezcla
+          </button>
+        </div>
+      )}
     </section>
   );
 }
@@ -158,15 +168,31 @@ export function TimerFace({
   disabled,
   lastTime = null,
   finishedTime = null,
+  embedded = false,
 }: {
   timer: ReturnType<typeof useTimer>;
   disabled: boolean;
   lastTime?: number | 'DNF' | null;
   finishedTime?: number | 'DNF' | null;
+  embedded?: boolean;
 }) {
+  const captions = embedded
+    ? {
+        running: 'En marcha',
+        ready: 'Suelta para empezar',
+        result: 'Intento actual',
+        idle: 'Cronómetro',
+      }
+    : {
+        running: 'A TU RITMO',
+        ready: '¡LISTO! SUELTA PARA EMPEZAR',
+        result: 'ÚLTIMO TIEMPO',
+        idle: 'TU PRÓXIMO RETO EMPIEZA AQUÍ',
+      };
   return (
     <>
       <button
+        type="button"
         data-timer
         className={`timer-face ${timer.phase === 'ready' ? 'ready' : ''} ${timer.phase === 'holding' ? 'holding' : ''}`}
         aria-label="Cronómetro: mantén pulsado y suelta para empezar; pulsa para detener"
@@ -174,6 +200,7 @@ export function TimerFace({
         onPointerDown={(e) => {
           if (e.button !== 0) return;
           e.preventDefault();
+          if (embedded) e.currentTarget.focus({ preventScroll: true });
           e.currentTarget.setPointerCapture(e.pointerId);
           timer.press();
         }}
@@ -192,14 +219,14 @@ export function TimerFace({
                 ? 'INSPECCIÓN · +2'
                 : 'TIEMPO DE INSPECCIÓN'
             : timer.phase === 'running'
-              ? 'A TU RITMO'
+              ? captions.running
               : timer.phase === 'ready'
-                ? '¡LISTO! SUELTA PARA EMPEZAR'
+                ? captions.ready
                 : timer.phase === 'holding'
                   ? 'MANTÉN UN INSTANTE…'
                   : lastTime !== null || finishedTime !== null
-                    ? 'ÚLTIMO TIEMPO'
-                    : 'TU PRÓXIMO RETO EMPIEZA AQUÍ'}
+                    ? captions.result
+                    : captions.idle}
         </span>
         <span className="timer-digits mono">
           {timer.inspecting
@@ -221,6 +248,11 @@ export function TimerFace({
             </>
           ) : timer.phase === 'stopped' && finishedTime !== null ? (
             'Genera una nueva mezcla para continuar'
+          ) : embedded ? (
+            <>
+              <span>Mantén pulsado y suelta</span>
+              <span className="keycap">Espacio</span>
+            </>
           ) : (
             <>
               <span className="keycap">espacio</span>
