@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "concurrently -k -n api,web \"node --env-file-if-exists=.env --watch server/index.js\" \"vite --host 0.0.0.0\"",
     "build": "tsc --noEmit && vite build",
+    "build:wordpress": "tsc --noEmit && vite build --config vite.wordpress.config.ts && node wordpress/package.mjs",
     "start": "node --env-file-if-exists=.env server/index.js",
     "test": "node --test tests/*.test.js",
     "test:e2e": "playwright test"
