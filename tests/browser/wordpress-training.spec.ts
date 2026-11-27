@@ -92,6 +92,14 @@ test('WordPress training runs locally under a nested uploads path and isolates t
   await page.getByRole('button', { name: 'Siguiente mezcla' }).click();
   await expect(timer).toBeEnabled();
   await expect(stage.locator('.timer-digits')).toHaveText('0.00');
+  await expect(page.getByRole('button', { name: 'Nueva mezcla' })).toBeFocused();
+  await page.keyboard.down('Space');
+  await expect(stage).toHaveAttribute('data-phase', 'ready');
+  await expect(timer).toBeFocused();
+  await page.keyboard.up('Space');
+  await expect(stage).toHaveAttribute('data-phase', 'running');
+  await page.keyboard.press('Escape');
+  await expect(stage).toHaveAttribute('data-phase', 'idle');
 
   for (const [event, name] of [
     ['222', '2×2'],
@@ -137,4 +145,42 @@ test('WordPress training runs locally under a nested uploads path and isolates t
   ).toEqual([0, 0, '']);
   expect(outside).toEqual([]);
   expect(failed).toEqual([]);
+});
+
+test('WordPress training fixes the inspection penalty before the hold and times from release', async ({
+  page,
+}) => {
+  await page.goto(`${origin}/herramientas/entrenamiento/`);
+  const timer = page.getByRole('button', { name: /^Cronómetro: mantén/ });
+  const stage = page.locator('.cbt-stage');
+  const inspection = page.getByLabel('Inspección de 15 s');
+  await expect(timer).toBeEnabled();
+  await inspection.check();
+  await page.clock.install({ time: new Date('2026-01-01T00:00:00Z') });
+  await page.clock.pauseAt(new Date('2026-01-01T00:01:00Z'));
+
+  for (const [duration, caption, result] of [
+    [14999, 'TIEMPO DE INSPECCIÓN', '1.20'],
+    [15000, 'INSPECCIÓN · +2', '3.20'],
+    [16999, 'INSPECCIÓN · +2', '3.20'],
+    [17000, 'INSPECCIÓN · DNF', 'DNF'],
+  ] as const) {
+    await page.getByRole('button', { name: 'Nueva mezcla' }).focus();
+    await page.keyboard.down('Space');
+    await page.clock.runFor(400);
+    await expect(stage).toHaveAttribute('data-phase', 'ready');
+    await page.keyboard.up('Space');
+    await expect(stage).toHaveAttribute('data-phase', 'inspection');
+    await page.clock.fastForward(duration);
+    await page.keyboard.down('Space');
+    await page.clock.runFor(400);
+    await expect(timer).toContainText(caption);
+    await page.keyboard.up('Space');
+    await expect(stage).toHaveAttribute('data-phase', 'running');
+    await page.clock.runFor(1200);
+    await page.keyboard.press('Space');
+    await expect(stage.locator('.timer-digits')).toHaveText(result);
+    await page.getByRole('button', { name: 'Siguiente mezcla' }).click();
+    await expect(timer).toBeEnabled();
+  }
 });
