@@ -16,7 +16,8 @@ export function useTimer({
     [inspectionElapsed, setInspectionElapsed] = useState(0);
   const phaseRef = useRef<Phase>('idle'),
     startRef = useRef(0),
-    inspectionRef = useRef(0),
+    inspectionRef = useRef<number | null>(null),
+    spaceHeld = useRef(false),
     holdRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const penaltyRef = useRef<Penalty>('none'),
     finishRef = useRef(onFinish);
@@ -28,7 +29,7 @@ export function useTimer({
   const reset = useCallback(() => {
     if (holdRef.current) clearTimeout(holdRef.current);
     holdRef.current = null;
-    inspectionRef.current = 0;
+    inspectionRef.current = null;
     penaltyRef.current = 'none';
     setElapsed(0);
     setInspectionElapsed(0);
@@ -41,14 +42,20 @@ export function useTimer({
       setElapsed(cs);
       changePhase('stopped');
       finishRef.current(cs, penaltyRef.current);
-      return;
+      return true;
     }
-    if (disabled || !['idle', 'inspection'].includes(current)) return;
+    if (disabled || (current !== 'idle' && current !== 'inspection')) return false;
+    if (inspectionRef.current !== null) {
+      const seconds = (performance.now() - inspectionRef.current) / 1000;
+      penaltyRef.current = seconds >= 17 ? 'DNF' : seconds >= 15 ? '+2' : 'none';
+      setInspectionElapsed(seconds);
+    }
     changePhase('holding');
     holdRef.current = setTimeout(() => {
       holdRef.current = null;
       changePhase('ready');
     }, 350);
+    return true;
   }, [disabled, changePhase]);
   const release = useCallback(() => {
     if (holdRef.current) {
@@ -56,35 +63,32 @@ export function useTimer({
       holdRef.current = null;
     }
     if (phaseRef.current === 'ready') {
-      if (inspection && !inspectionRef.current) {
-        inspectionRef.current = performance.now();
+      const now = performance.now();
+      if (inspection && inspectionRef.current === null) {
+        inspectionRef.current = now;
         setInspectionElapsed(0);
         changePhase('inspection');
       } else {
-        const seconds = inspectionRef.current
-          ? (performance.now() - inspectionRef.current) / 1000
-          : 0;
-        penaltyRef.current = seconds >= 17 ? 'DNF' : seconds >= 15 ? '+2' : 'none';
-        inspectionRef.current = 0;
-        startRef.current = performance.now();
+        inspectionRef.current = null;
+        startRef.current = now;
         setElapsed(0);
         changePhase('running');
       }
     } else if (phaseRef.current === 'holding')
-      changePhase(inspectionRef.current ? 'inspection' : 'idle');
+      changePhase(inspectionRef.current !== null ? 'inspection' : 'idle');
   }, [inspection, changePhase]);
   const cancelPress = useCallback(() => {
     if (holdRef.current) clearTimeout(holdRef.current);
     holdRef.current = null;
     if (['holding', 'ready'].includes(phaseRef.current))
-      changePhase(inspectionRef.current ? 'inspection' : 'idle');
+      changePhase(inspectionRef.current !== null ? 'inspection' : 'idle');
   }, [changePhase]);
   useEffect(() => {
     let frame = 0;
     const tick = () => {
       if (phaseRef.current === 'running')
         setElapsed(Math.floor((performance.now() - startRef.current) / 10));
-      else if (inspectionRef.current)
+      else if (phaseRef.current === 'inspection' && inspectionRef.current !== null)
         setInspectionElapsed((performance.now() - inspectionRef.current) / 1000);
       frame = requestAnimationFrame(tick);
     };
@@ -92,28 +96,33 @@ export function useTimer({
     return () => cancelAnimationFrame(frame);
   }, []);
   useEffect(() => {
-    let spaceHeld = false;
     const down = (event: KeyboardEvent) => {
       if (event.code === 'Escape') {
         if (['running', 'inspection', 'holding', 'ready'].includes(phaseRef.current)) reset();
         return;
       }
-      if (event.code !== 'Space' || event.repeat || document.querySelector('dialog[open]')) return;
-      const target = event.target as HTMLElement;
-      if (target.closest('input,textarea,select,a,summary,button:not([data-timer])')) return;
-      event.preventDefault();
-      spaceHeld = true;
-      press();
+      if (event.code !== 'Space') return;
+      if (spaceHeld.current) {
+        event.preventDefault();
+        return;
+      }
+      if (event.repeat || document.querySelector('dialog[open]')) return;
+      const target = event.target;
+      if (target instanceof Element && target.closest('input,textarea,select,a,summary')) return;
+      if (press()) {
+        event.preventDefault();
+        spaceHeld.current = true;
+      }
     };
     const up = (event: KeyboardEvent) => {
-      if (event.code === 'Space' && spaceHeld) {
+      if (event.code === 'Space' && spaceHeld.current) {
         event.preventDefault();
-        spaceHeld = false;
+        spaceHeld.current = false;
         release();
       }
     };
     const blur = () => {
-      spaceHeld = false;
+      spaceHeld.current = false;
       cancelPress();
     };
     window.addEventListener('keydown', down);
@@ -135,7 +144,7 @@ export function useTimer({
     phase,
     elapsed,
     inspectionElapsed,
-    inspecting: phase !== 'running' && inspectionRef.current > 0,
+    inspecting: phase !== 'running' && inspectionRef.current !== null,
     press,
     release,
     cancelPress,
