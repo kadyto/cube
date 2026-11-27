@@ -130,34 +130,42 @@ test('profile settings, simple password change and authenticated session', async
   });
 });
 
-test('inspection applies +2 after 15 seconds and DNF after 17 seconds', async ({ page }) => {
+test('Space locks inspection penalties on press and starts on release with another button focused', async ({
+  page,
+}) => {
   await login(page);
   await page.getByLabel('Inspección 15 s').check();
-  await page.locator('h1').click();
-  await page.clock.install();
-  await page.clock.pauseAt(new Date());
+  await page.clock.install({ time: new Date('2026-01-01T00:00:00Z') });
+  await page.clock.pauseAt(new Date('2026-01-01T00:01:00Z'));
   const timer = page.getByRole('button', { name: /^Cronómetro: mantén/ });
-  for (const [duration, penalty] of [
-    [15000, '+2'],
-    [17000, 'DNF'],
+  const history = page.getByRole('button', { name: 'Mi historial', exact: true });
+  for (const [duration, penalty, caption] of [
+    [14999, 'none', 'TIEMPO DE INSPECCIÓN'],
+    [15000, '+2', 'INSPECCIÓN · +2'],
+    [16999, '+2', 'INSPECCIÓN · +2'],
+    [17000, 'DNF', 'INSPECCIÓN · DNF'],
   ] as const) {
-    await page.clock.fastForward(1000);
+    await history.focus();
+    await expect(history).toBeFocused();
     await page.keyboard.down('Space');
     await page.clock.runFor(400);
+    await expect(timer).toContainText('¡LISTO!');
     await page.keyboard.up('Space');
     await expect(timer).toContainText('TIEMPO DE INSPECCIÓN');
     await page.clock.fastForward(duration);
     await page.keyboard.down('Space');
     await page.clock.runFor(400);
+    await expect(timer).toContainText('Preparado');
+    await expect(timer).toContainText(caption);
     await page.keyboard.up('Space');
     await expect(timer).toContainText('A TU RITMO');
     await page.clock.runFor(1200);
+    await expect(history).toBeFocused();
     await page.keyboard.press('Space');
     await expect(page.locator('.timer-footer')).toContainText('guardado en privado');
     await expect(timer).toBeEnabled();
     const all = await (await page.request.get('/api/solves')).json();
-    expect(all.at(-1).penalty).toBe(penalty);
-    expect(all.at(-1).source).toBe('timer');
+    expect(all.at(-1)).toMatchObject({ penalty, source: 'timer', timeCs: 120 });
   }
 });
 
