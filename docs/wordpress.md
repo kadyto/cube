@@ -1,5 +1,21 @@
 # Entrenamiento en Cubing.es
 
+## Actualizar desde wp-admin
+
+Cubing.es sirve el entrenamiento en un único HTML de Medios. Compila con Node 24 desde la revisión que quieras desplegar:
+
+```bash
+npm ci
+npm run build:wordpress
+node wordpress/package-media.mjs
+```
+
+Sube el archivo `dist-wordpress/media/cubing-entrenamiento-<version>.html` desde **Medios → Añadir medios** con el perfil autorizado. Copia su URL. En la página **Entrenamiento**, cambia el atributo `src` del marco `cubing-entrenamiento-marco` por la ruta relativa del nuevo adjunto. El bloque ajusta la altura con los mensajes del documento del cronómetro, verificando su origen y ventana. La versión anterior sigue sirviendo para revertir con una revisión de la página.
+
+Prueba la vista previa y luego la página publicada. Comprueba las tres modalidades, el dibujo, la inspección y el cronómetro. El HTML incluye JavaScript, estilos y licencias. El worker y el módulo se ejecutan en el navegador y el cronómetro usa las fuentes del sitio. La política de seguridad del HTML permite esos recursos e impide que se ejecute otro contador de Cloudflare dentro del marco. Deja activados los filtros de tipos de archivo de WordPress.
+
+## Variante de archivos estáticos
+
 La página **Entrenamiento** se crea como hija de **Herramientas**, con la plantilla de página habitual de Cubing.es. El bloque HTML monta una aplicación del mismo dominio. El resto de la página lo renderiza WordPress con Twenty Twenty-Five, incluidos el título, el menú y el pie.
 
 La demo usa el cronómetro, la inspección, la notación y el dibujo de Cube. `cubing.js` genera las mezclas de 3×3, 2×2 y Pyraminx mediante un worker local al navegador. El intento actual vive en memoria. Cambiar de mezcla o recargar lo descarta. La compilación web incluye solo la interfaz de entrenamiento y sus dependencias. Los cambios de estilo quedan bajo `.cb-training` y el atajo de espacio responde cuando el foco está dentro de la herramienta.
