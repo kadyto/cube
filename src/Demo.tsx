@@ -1,66 +1,42 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
 import { Github, Play, RefreshCw, Timer } from 'lucide-react';
 import { effectiveTime } from '../shared/domain.js';
-import { errorMessage } from './api';
 import { ScramblePreview } from './ScramblePreview';
 import { EventTabs, ScramblePanel, ScreenAwakeStatus, TimerFace } from './TrainingWidgets';
+import { useDemoTraining } from './useDemoTraining';
 import { useScreenWakeLock } from './useScreenWakeLock';
-import { useTimer } from './useTimer';
-import type { EventId, Penalty } from './types';
+import type { EventId } from './types';
+
+async function fetchDemoScramble(event: EventId, signal: AbortSignal) {
+  const response = await fetch('/api/demo/scramble', {
+    method: 'POST',
+    credentials: 'omit',
+    cache: 'no-store',
+    signal,
+    headers: { 'Content-Type': 'application/json', 'X-Cube-Request': '1' },
+    body: JSON.stringify({ event }),
+  });
+  const data = await response.json();
+  if (!response.ok)
+    throw new Error(data.error ?? 'No se pudo generar la mezcla. Vuelve a intentarlo.');
+  if (data.event !== event || typeof data.alg !== 'string' || !data.alg.trim())
+    throw new Error('No se pudo leer la mezcla. Vuelve a intentarlo.');
+  return data.alg;
+}
 
 export function Demo() {
-  // This view keeps only the current attempt in memory. It never reads or writes browser storage.
-  const [event, setEvent] = useState<EventId>('333');
-  const [alg, setAlg] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true),
-    [error, setError] = useState('');
-  const [inspection, setInspection] = useState(false);
-  const [result, setResult] = useState<{ timeCs: number; penalty: Penalty } | null>(null);
-  const request = useRef<AbortController | null>(null);
-  const screen = useScreenWakeLock();
-  const timer = useTimer({
-    disabled: loading || !alg,
+  const {
+    event,
+    chooseEvent,
+    alg,
+    loading,
+    error,
     inspection,
-    onFinish: (timeCs, penalty) => setResult({ timeCs, penalty }),
-  });
-  const generate = useCallback(async () => {
-    request.current?.abort();
-    const controller = new AbortController();
-    request.current = controller;
-    setLoading(true);
-    setError('');
-    setAlg(null);
-    setResult(null);
-    timer.reset();
-    try {
-      const response = await fetch('/api/demo/scramble', {
-        method: 'POST',
-        credentials: 'omit',
-        cache: 'no-store',
-        signal: controller.signal,
-        headers: { 'Content-Type': 'application/json', 'X-Cube-Request': '1' },
-        body: JSON.stringify({ event }),
-      });
-      const data = await response.json();
-      if (!response.ok)
-        throw new Error(data.error ?? 'No se pudo generar la mezcla. Vuelve a intentarlo.');
-      if (data.event !== event || typeof data.alg !== 'string' || !data.alg.trim())
-        throw new Error('No se pudo leer la mezcla. Vuelve a intentarlo.');
-      if (!controller.signal.aborted) setAlg(data.alg);
-    } catch (e) {
-      if (!controller.signal.aborted) setError(errorMessage(e));
-    } finally {
-      if (!controller.signal.aborted) setLoading(false);
-    }
-  }, [event, timer.reset]);
-  useEffect(() => {
-    void generate();
-    return () => request.current?.abort();
-  }, [generate]);
-  const cancel = () => {
-    timer.reset();
-    setResult(null);
-  };
+    setInspection,
+    result,
+    generate,
+    timer,
+  } = useDemoTraining(fetchDemoScramble);
+  const screen = useScreenWakeLock();
   return (
     <>
       <div className="page-heading">
@@ -80,16 +56,7 @@ export function Demo() {
         recargar.
       </p>
       <ScreenAwakeStatus screen={screen} />
-      <EventTabs
-        event={event}
-        disabled={timer.active}
-        onChange={(next) => {
-          if (!timer.active && next !== event) {
-            cancel();
-            setEvent(next);
-          }
-        }}
-      />
+      <EventTabs event={event} disabled={timer.active} onChange={chooseEvent} />
       <ScramblePanel
         event={event}
         alg={alg}
@@ -123,7 +90,7 @@ export function Demo() {
           </label>
         </div>
         <TimerFace
-          timer={{ ...timer, reset: cancel }}
+          timer={timer}
           disabled={!alg || loading || timer.phase === 'stopped'}
           finishedTime={result ? effectiveTime(result) : null}
         />
