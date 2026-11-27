@@ -359,7 +359,7 @@
   background: #edf3ff;
   color: #173879;
 }
-.cb-training .cbt-next:not(:disabled):hover {
+.cb-training .cbt-next:not(:disabled):not([aria-disabled='true']):hover {
   background: #dfeaff;
 }
 .cb-training .text-button:not(:disabled):hover {
@@ -371,8 +371,10 @@
 .cb-training .cancel-timer:not(:disabled):hover {
   background: #ffffff20;
 }
-.cb-training :is(.cbt-next, .text-button):disabled {
+.cb-training :is(.cbt-next, .text-button):disabled,
+.cb-training .cbt-next[aria-disabled='true'] {
   opacity: 0.55;
+  cursor: default;
 }
 
 .cb-training .scramble-preview {
