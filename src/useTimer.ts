@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, type RefObject } from 'react';
 import type { Penalty } from './types';
 
 type Phase = 'idle' | 'holding' | 'ready' | 'inspection' | 'running' | 'stopped';
@@ -6,10 +6,12 @@ export function useTimer({
   disabled,
   inspection,
   onFinish,
+  keyboardScope,
 }: {
   disabled: boolean;
   inspection: boolean;
   onFinish: (cs: number, penalty: Penalty) => void;
+  keyboardScope?: RefObject<HTMLElement | null>;
 }) {
   const [phase, setPhase] = useState<Phase>('idle'),
     [elapsed, setElapsed] = useState(0),
@@ -94,6 +96,11 @@ export function useTimer({
   useEffect(() => {
     let spaceHeld = false;
     const down = (event: KeyboardEvent) => {
+      if (
+        keyboardScope &&
+        (!(event.target instanceof Node) || !keyboardScope.current?.contains(event.target))
+      )
+        return;
       if (event.code === 'Escape') {
         if (['running', 'inspection', 'holding', 'ready'].includes(phaseRef.current)) reset();
         return;
@@ -116,15 +123,25 @@ export function useTimer({
       spaceHeld = false;
       cancelPress();
     };
+    const scope = keyboardScope?.current;
+    const focusOut = (event: FocusEvent) => {
+      if (
+        spaceHeld &&
+        (!(event.relatedTarget instanceof Node) || !scope?.contains(event.relatedTarget))
+      )
+        blur();
+    };
     window.addEventListener('keydown', down);
     window.addEventListener('keyup', up);
     window.addEventListener('blur', blur);
+    scope?.addEventListener('focusout', focusOut);
     return () => {
       window.removeEventListener('keydown', down);
       window.removeEventListener('keyup', up);
       window.removeEventListener('blur', blur);
+      scope?.removeEventListener('focusout', focusOut);
     };
-  }, [press, release, reset, cancelPress]);
+  }, [press, release, reset, cancelPress, keyboardScope]);
   useEffect(
     () => () => {
       if (holdRef.current) clearTimeout(holdRef.current);
