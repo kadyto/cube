@@ -1,5 +1,6 @@
 import { Github, Play, RefreshCw, Timer } from 'lucide-react';
 import { effectiveTime } from '../shared/domain.js';
+import { CaseSetup, PracticeMode } from './CasePractice';
 import { ScramblePreview } from './ScramblePreview';
 import { EventTabs, ScramblePanel, ScreenAwakeStatus, TimerFace } from './TrainingWidgets';
 import { useDemoTraining } from './useDemoTraining';
@@ -27,13 +28,17 @@ export function Demo() {
   const {
     event,
     chooseEvent,
+    casePractice,
+    chooseMode,
+    chooseCase,
+    setShowingAlgorithm,
     alg,
     loading,
     error,
     inspection,
     setInspection,
     result,
-    generate,
+    restart,
     timer,
   } = useDemoTraining(fetchDemoScramble);
   const screen = useScreenWakeLock();
@@ -45,7 +50,9 @@ export function Demo() {
           <h1>
             Demo<span className="green-dot">.</span>
           </h1>
-          <p className="muted">Genera una mezcla y pon en marcha el cronómetro. Sin contraseña.</p>
+          <p className="muted">
+            Practica con una mezcla completa o un caso de 3×3. Sin contraseña.
+          </p>
         </div>
         <span className="private-pill">
           <Play size={15} /> Modo demo
@@ -57,17 +64,29 @@ export function Demo() {
       </p>
       <ScreenAwakeStatus screen={screen} />
       <EventTabs event={event} disabled={timer.active} onChange={chooseEvent} />
-      <ScramblePanel
-        event={event}
-        alg={alg}
-        loading={loading}
-        disabled={timer.active}
-        onGenerate={() => void generate()}
-      />
+      {event === '333' && (
+        <PracticeMode byCase={!!casePractice} disabled={timer.active} onChange={chooseMode} />
+      )}
+      {casePractice ? (
+        <CaseSetup
+          practice={casePractice}
+          disabled={timer.active}
+          onChooseCase={chooseCase}
+          onShowAlgorithm={setShowingAlgorithm}
+        />
+      ) : (
+        <ScramblePanel
+          event={event}
+          alg={alg}
+          loading={loading}
+          disabled={timer.active}
+          onGenerate={restart}
+        />
+      )}
       {error && (
         <div className="error-box row between" role="alert">
           <span>{error}</span>
-          <button className="text-button" onClick={() => void generate()}>
+          <button className="text-button" onClick={restart}>
             Reintentar mezcla
           </button>
         </div>
@@ -93,23 +112,25 @@ export function Demo() {
           timer={timer}
           disabled={!alg || loading || timer.phase === 'stopped'}
           finishedTime={result ? effectiveTime(result) : null}
+          finishedInstruction={casePractice ? 'Pulsa «Repetir caso» para continuar' : undefined}
         />
         <div className="timer-footer demo-timer-footer">
           <span>
             {result
               ? `Intento terminado${result.penalty === '+2' ? ' · +2 de inspección' : result.penalty === 'DNF' ? ' · DNF de inspección' : ''}. Este tiempo no se guarda.`
-              : 'Sólo mezclar y cronometrar, sin historial.'}
+              : 'Cronómetro sin historial.'}
           </span>
-          <button
-            className="text-button"
-            onClick={() => void generate()}
-            disabled={timer.active || loading}
-          >
-            <RefreshCw size={14} /> Siguiente mezcla
+          <button className="text-button" onClick={restart} disabled={timer.active || loading}>
+            <RefreshCw size={14} /> {casePractice ? 'Repetir caso' : 'Siguiente mezcla'}
           </button>
         </div>
       </section>
-      <ScramblePreview event={event} alg={alg} disabled={timer.active || loading} />
+      <ScramblePreview
+        event={event}
+        alg={alg}
+        disabled={timer.active || loading}
+        caseOrientation={!!casePractice}
+      />
       <div className="demo-install">
         <p>¿Quieres instalar tu propio Cube?</p>
         <a

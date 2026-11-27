@@ -1,0 +1,1165 @@
+{
+  "version": 1,
+  "source": "https://cubing.es/cubos/3x3/casos/",
+  "groups": {
+    "f2l": [
+      {
+        "id": "f2l-01",
+        "name": "F2L 01 · UFR / UF · blanco arriba · color de F arriba",
+        "algorithm": "R U R' F' U F R U R'",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UF",
+          "cornerFace": "U",
+          "edgeFace": "U"
+        }
+      },
+      {
+        "id": "f2l-02",
+        "name": "F2L 02 · UFR / UF · blanco arriba · color de F al frente",
+        "algorithm": "F' U2 F U F' U' F",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UF",
+          "cornerFace": "U",
+          "edgeFace": "F"
+        }
+      },
+      {
+        "id": "f2l-03",
+        "name": "F2L 03 · UFR / UR · blanco arriba · color de F arriba",
+        "algorithm": "R U2 R' U' R U R'",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UR",
+          "cornerFace": "U",
+          "edgeFace": "U"
+        }
+      },
+      {
+        "id": "f2l-04",
+        "name": "F2L 04 · UFR / UR · blanco arriba · color de F a la derecha",
+        "algorithm": "F' U' F R U' R' F' U' F",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UR",
+          "cornerFace": "U",
+          "edgeFace": "R"
+        }
+      },
+      {
+        "id": "f2l-05",
+        "name": "F2L 05 · UFR / UB · blanco arriba · color de F arriba",
+        "algorithm": "U R U2 R' U R U' R'",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UB",
+          "cornerFace": "U",
+          "edgeFace": "U"
+        }
+      },
+      {
+        "id": "f2l-06",
+        "name": "F2L 06 · UFR / UB · blanco arriba · color de F atrás",
+        "algorithm": "U2 R U R' F' U' F",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UB",
+          "cornerFace": "U",
+          "edgeFace": "B"
+        }
+      },
+      {
+        "id": "f2l-07",
+        "name": "F2L 07 · UFR / UL · blanco arriba · color de F arriba",
+        "algorithm": "U2 F' U' F R U R'",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UL",
+          "cornerFace": "U",
+          "edgeFace": "U"
+        }
+      },
+      {
+        "id": "f2l-08",
+        "name": "F2L 08 · UFR / UL · blanco arriba · color de F a la izquierda",
+        "algorithm": "U' F' U2 F U' F' U F",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UL",
+          "cornerFace": "U",
+          "edgeFace": "L"
+        }
+      },
+      {
+        "id": "f2l-09",
+        "name": "F2L 09 · UFR / UF · blanco a la derecha · color de F arriba",
+        "algorithm": "U F' U2 F U' R U R'",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UF",
+          "cornerFace": "R",
+          "edgeFace": "U"
+        }
+      },
+      {
+        "id": "f2l-10",
+        "name": "F2L 10 · UFR / UF · blanco a la derecha · color de F al frente",
+        "algorithm": "U' F' U F",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UF",
+          "cornerFace": "R",
+          "edgeFace": "F"
+        }
+      },
+      {
+        "id": "f2l-11",
+        "name": "F2L 11 · UFR / UR · blanco a la derecha · color de F arriba",
+        "algorithm": "U' R U' R' U R U R'",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UR",
+          "cornerFace": "R",
+          "edgeFace": "U"
+        }
+      },
+      {
+        "id": "f2l-12",
+        "name": "F2L 12 · UFR / UR · blanco a la derecha · color de F a la derecha",
+        "algorithm": "R U' R' U2 F' U' F",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UR",
+          "cornerFace": "R",
+          "edgeFace": "R"
+        }
+      },
+      {
+        "id": "f2l-13",
+        "name": "F2L 13 · UFR / UB · blanco a la derecha · color de F arriba",
+        "algorithm": "R U R'",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UB",
+          "cornerFace": "R",
+          "edgeFace": "U"
+        }
+      },
+      {
+        "id": "f2l-14",
+        "name": "F2L 14 · UFR / UB · blanco a la derecha · color de F atrás",
+        "algorithm": "U F' U2 F U2 F' U F",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UB",
+          "cornerFace": "R",
+          "edgeFace": "B"
+        }
+      },
+      {
+        "id": "f2l-15",
+        "name": "F2L 15 · UFR / UL · blanco a la derecha · color de F arriba",
+        "algorithm": "U F' U F U' R U R'",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UL",
+          "cornerFace": "R",
+          "edgeFace": "U"
+        }
+      },
+      {
+        "id": "f2l-16",
+        "name": "F2L 16 · UFR / UL · blanco a la derecha · color de F a la izquierda",
+        "algorithm": "U F' U' F U2 F' U F",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UL",
+          "cornerFace": "R",
+          "edgeFace": "L"
+        }
+      },
+      {
+        "id": "f2l-17",
+        "name": "F2L 17 · UFR / UF · blanco al frente · color de F arriba",
+        "algorithm": "F' U F U2 R U R'",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UF",
+          "cornerFace": "F",
+          "edgeFace": "U"
+        }
+      },
+      {
+        "id": "f2l-18",
+        "name": "F2L 18 · UFR / UF · blanco al frente · color de F al frente",
+        "algorithm": "U F' U F U' F' U' F",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UF",
+          "cornerFace": "F",
+          "edgeFace": "F"
+        }
+      },
+      {
+        "id": "f2l-19",
+        "name": "F2L 19 · UFR / UR · blanco al frente · color de F arriba",
+        "algorithm": "U R U' R'",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UR",
+          "cornerFace": "F",
+          "edgeFace": "U"
+        }
+      },
+      {
+        "id": "f2l-20",
+        "name": "F2L 20 · UFR / UR · blanco al frente · color de F a la derecha",
+        "algorithm": "U' R U2 R' U F' U' F",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UR",
+          "cornerFace": "F",
+          "edgeFace": "R"
+        }
+      },
+      {
+        "id": "f2l-21",
+        "name": "F2L 21 · UFR / UB · blanco al frente · color de F arriba",
+        "algorithm": "U' R U R' U2 R U' R'",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UB",
+          "cornerFace": "F",
+          "edgeFace": "U"
+        }
+      },
+      {
+        "id": "f2l-22",
+        "name": "F2L 22 · UFR / UB · blanco al frente · color de F atrás",
+        "algorithm": "U F' U' F U' F' U' F",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UB",
+          "cornerFace": "F",
+          "edgeFace": "B"
+        }
+      },
+      {
+        "id": "f2l-23",
+        "name": "F2L 23 · UFR / UL · blanco al frente · color de F arriba",
+        "algorithm": "U' R U2 R' U2 R U' R'",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UL",
+          "cornerFace": "F",
+          "edgeFace": "U"
+        }
+      },
+      {
+        "id": "f2l-24",
+        "name": "F2L 24 · UFR / UL · blanco al frente · color de F a la izquierda",
+        "algorithm": "F' U' F",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "UL",
+          "cornerFace": "F",
+          "edgeFace": "L"
+        }
+      },
+      {
+        "id": "f2l-25",
+        "name": "F2L 25 · DFR / UF · blanco abajo · color de F arriba",
+        "algorithm": "F' U2 F U2 R U R'",
+        "reference": {
+          "cornerPosition": "DFR",
+          "edgePosition": "UF",
+          "cornerFace": "D",
+          "edgeFace": "U"
+        }
+      },
+      {
+        "id": "f2l-26",
+        "name": "F2L 26 · DFR / UF · blanco abajo · color de F al frente",
+        "algorithm": "U' R U2 R' U2 F' U' F",
+        "reference": {
+          "cornerPosition": "DFR",
+          "edgePosition": "UF",
+          "cornerFace": "D",
+          "edgeFace": "F"
+        }
+      },
+      {
+        "id": "f2l-27",
+        "name": "F2L 27 · DFR / UF · blanco al frente · color de F arriba",
+        "algorithm": "U' F' U2 F R U2 R'",
+        "reference": {
+          "cornerPosition": "DFR",
+          "edgePosition": "UF",
+          "cornerFace": "F",
+          "edgeFace": "U"
+        }
+      },
+      {
+        "id": "f2l-28",
+        "name": "F2L 28 · DFR / UF · blanco al frente · color de F al frente",
+        "algorithm": "U2 R U' R' F' U' F",
+        "reference": {
+          "cornerPosition": "DFR",
+          "edgePosition": "UF",
+          "cornerFace": "F",
+          "edgeFace": "F"
+        }
+      },
+      {
+        "id": "f2l-29",
+        "name": "F2L 29 · DFR / UF · blanco a la derecha · color de F arriba",
+        "algorithm": "U F' U F R U R'",
+        "reference": {
+          "cornerPosition": "DFR",
+          "edgePosition": "UF",
+          "cornerFace": "R",
+          "edgeFace": "U"
+        }
+      },
+      {
+        "id": "f2l-30",
+        "name": "F2L 30 · DFR / UF · blanco a la derecha · color de F al frente",
+        "algorithm": "R U2 R' F' U2 F",
+        "reference": {
+          "cornerPosition": "DFR",
+          "edgePosition": "UF",
+          "cornerFace": "R",
+          "edgeFace": "F"
+        }
+      },
+      {
+        "id": "f2l-31",
+        "name": "F2L 31 · UFR / FR · blanco arriba · color de F al frente",
+        "algorithm": "R U2 R' F' U2 F U' R U R'",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "FR",
+          "cornerFace": "U",
+          "edgeFace": "F"
+        }
+      },
+      {
+        "id": "f2l-32",
+        "name": "F2L 32 · UFR / FR · blanco arriba · color de F a la derecha",
+        "algorithm": "F' U F R U2 R'",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "FR",
+          "cornerFace": "U",
+          "edgeFace": "R"
+        }
+      },
+      {
+        "id": "f2l-33",
+        "name": "F2L 33 · UFR / FR · blanco a la derecha · color de F al frente",
+        "algorithm": "U' R U2 R' U R U R'",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "FR",
+          "cornerFace": "R",
+          "edgeFace": "F"
+        }
+      },
+      {
+        "id": "f2l-34",
+        "name": "F2L 34 · UFR / FR · blanco a la derecha · color de F a la derecha",
+        "algorithm": "U F' U' F U' R U R'",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "FR",
+          "cornerFace": "R",
+          "edgeFace": "R"
+        }
+      },
+      {
+        "id": "f2l-35",
+        "name": "F2L 35 · UFR / FR · blanco al frente · color de F al frente",
+        "algorithm": "U' F' U' F U2 F' U' F",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "FR",
+          "cornerFace": "F",
+          "edgeFace": "F"
+        }
+      },
+      {
+        "id": "f2l-36",
+        "name": "F2L 36 · UFR / FR · blanco al frente · color de F a la derecha",
+        "algorithm": "U2 R U' R' U' F' U' F",
+        "reference": {
+          "cornerPosition": "UFR",
+          "edgePosition": "FR",
+          "cornerFace": "F",
+          "edgeFace": "R"
+        }
+      },
+      {
+        "id": "f2l-37",
+        "name": "F2L 37 · DFR / FR · blanco abajo · color de F a la derecha",
+        "algorithm": "R U2 R' U R U2 R' U F' U' F",
+        "reference": {
+          "cornerPosition": "DFR",
+          "edgePosition": "FR",
+          "cornerFace": "D",
+          "edgeFace": "R"
+        }
+      },
+      {
+        "id": "f2l-38",
+        "name": "F2L 38 · DFR / FR · blanco al frente · color de F al frente",
+        "algorithm": "F' U2 F U' F' U F U' F' U' F",
+        "reference": {
+          "cornerPosition": "DFR",
+          "edgePosition": "FR",
+          "cornerFace": "F",
+          "edgeFace": "F"
+        }
+      },
+      {
+        "id": "f2l-39",
+        "name": "F2L 39 · DFR / FR · blanco al frente · color de F a la derecha",
+        "algorithm": "F' U F U2 F' U' F R U R'",
+        "reference": {
+          "cornerPosition": "DFR",
+          "edgePosition": "FR",
+          "cornerFace": "F",
+          "edgeFace": "R"
+        }
+      },
+      {
+        "id": "f2l-40",
+        "name": "F2L 40 · DFR / FR · blanco a la derecha · color de F al frente",
+        "algorithm": "F' U' F U F' U2 F U F' U' F",
+        "reference": {
+          "cornerPosition": "DFR",
+          "edgePosition": "FR",
+          "cornerFace": "R",
+          "edgeFace": "F"
+        }
+      },
+      {
+        "id": "f2l-41",
+        "name": "F2L 41 · DFR / FR · blanco a la derecha · color de F a la derecha",
+        "algorithm": "R U' R' U2 R U R' F' U' F",
+        "reference": {
+          "cornerPosition": "DFR",
+          "edgePosition": "FR",
+          "cornerFace": "R",
+          "edgeFace": "R"
+        }
+      }
+    ],
+    "oll": [
+      {
+        "id": "oll-01",
+        "name": "OLL 01 · 0012 / 0000",
+        "algorithm": "R U R' U R U2 R' U2 R U2 R' U' R U' R' U R U2 R' U' R U' R'",
+        "reference": {
+          "corners": "0012",
+          "edges": "0000"
+        }
+      },
+      {
+        "id": "oll-02",
+        "name": "OLL 02 · 0021 / 0000",
+        "algorithm": "R U R' U R U2 R' U' R U2 R' U' R U' R'",
+        "reference": {
+          "corners": "0021",
+          "edges": "0000"
+        }
+      },
+      {
+        "id": "oll-03",
+        "name": "OLL 03 · 0102 / 0000",
+        "algorithm": "U2 R U R' U R U2 R' U2 R U2 R' U' R U' R'",
+        "reference": {
+          "corners": "0102",
+          "edges": "0000"
+        }
+      },
+      {
+        "id": "oll-04",
+        "name": "OLL 04 · 0111 / 0000",
+        "algorithm": "U' R U2 R' U' R U' R'",
+        "reference": {
+          "corners": "0111",
+          "edges": "0000"
+        }
+      },
+      {
+        "id": "oll-05",
+        "name": "OLL 05 · 0222 / 0000",
+        "algorithm": "U R U R' U R U2 R'",
+        "reference": {
+          "corners": "0222",
+          "edges": "0000"
+        }
+      },
+      {
+        "id": "oll-06",
+        "name": "OLL 06 · 1122 / 0000",
+        "algorithm": "R U R' U R U2 R' U R U R' U R U2 R'",
+        "reference": {
+          "corners": "1122",
+          "edges": "0000"
+        }
+      },
+      {
+        "id": "oll-07",
+        "name": "OLL 07 · 1212 / 0000",
+        "algorithm": "R U R' U R U2 R' R U R' U R U2 R'",
+        "reference": {
+          "corners": "1212",
+          "edges": "0000"
+        }
+      },
+      {
+        "id": "oll-08",
+        "name": "OLL 08 · 0000 / 0011",
+        "algorithm": "U2 F R U R' U' F' U2 F R U R' U' F'",
+        "reference": {
+          "corners": "0000",
+          "edges": "0011"
+        }
+      },
+      {
+        "id": "oll-09",
+        "name": "OLL 09 · 0000 / 0101",
+        "algorithm": "F U R U' R' F' U2 F U R U' R' F'",
+        "reference": {
+          "corners": "0000",
+          "edges": "0101"
+        }
+      },
+      {
+        "id": "oll-10",
+        "name": "OLL 10 · 0012 / 0011",
+        "algorithm": "U2 F U R U' R' F'",
+        "reference": {
+          "corners": "0012",
+          "edges": "0011"
+        }
+      },
+      {
+        "id": "oll-11",
+        "name": "OLL 11 · 0012 / 0101",
+        "algorithm": "R U R' U R U2 R' U F R U R' U' F' F R U R' U' F'",
+        "reference": {
+          "corners": "0012",
+          "edges": "0101"
+        }
+      },
+      {
+        "id": "oll-12",
+        "name": "OLL 12 · 0012 / 0110",
+        "algorithm": "R U2 R' U' R U' R' U' F R U R' U' F'",
+        "reference": {
+          "corners": "0012",
+          "edges": "0110"
+        }
+      },
+      {
+        "id": "oll-13",
+        "name": "OLL 13 · 0012 / 1001",
+        "algorithm": "U' F U R U' R' F' R U2 R' U' R U' R'",
+        "reference": {
+          "corners": "0012",
+          "edges": "1001"
+        }
+      },
+      {
+        "id": "oll-14",
+        "name": "OLL 14 · 0012 / 1010",
+        "algorithm": "F R U R' U' F'",
+        "reference": {
+          "corners": "0012",
+          "edges": "1010"
+        }
+      },
+      {
+        "id": "oll-15",
+        "name": "OLL 15 · 0012 / 1100",
+        "algorithm": "R U R' U R U2 R' U2 R U2 R' U' R U' R' R U2 R' U' R U' R' U' F U R U' R' F'",
+        "reference": {
+          "corners": "0012",
+          "edges": "1100"
+        }
+      },
+      {
+        "id": "oll-16",
+        "name": "OLL 16 · 0021 / 0011",
+        "algorithm": "R U R' U R U2 R' U2 R U2 R' U' R U' R' U2 R U R' U R U2 R' F R U R' U' F'",
+        "reference": {
+          "corners": "0021",
+          "edges": "0011"
+        }
+      },
+      {
+        "id": "oll-17",
+        "name": "OLL 17 · 0021 / 0101",
+        "algorithm": "U' F R U R' U' F' R U R' U R U2 R' U2 R U2 R' U' R U' R'",
+        "reference": {
+          "corners": "0021",
+          "edges": "0101"
+        }
+      },
+      {
+        "id": "oll-18",
+        "name": "OLL 18 · 0021 / 0110",
+        "algorithm": "R U R' U R U2 R' U2 R U2 R' U' R U' R' U' F U R U' R' F'",
+        "reference": {
+          "corners": "0021",
+          "edges": "0110"
+        }
+      },
+      {
+        "id": "oll-19",
+        "name": "OLL 19 · 0021 / 1001",
+        "algorithm": "R U2 R' U' R U' R' R U2 R' U' R U' R' F U R U' R' F'",
+        "reference": {
+          "corners": "0021",
+          "edges": "1001"
+        }
+      },
+      {
+        "id": "oll-20",
+        "name": "OLL 20 · 0021 / 1010",
+        "algorithm": "R U R' U R U2 R' U2 R U2 R' U' R U' R' U F R U R' U' F'",
+        "reference": {
+          "corners": "0021",
+          "edges": "1010"
+        }
+      },
+      {
+        "id": "oll-21",
+        "name": "OLL 21 · 0021 / 1100",
+        "algorithm": "F U R U' R' F' R U R' U R U2 R' R U R' U R U2 R'",
+        "reference": {
+          "corners": "0021",
+          "edges": "1100"
+        }
+      },
+      {
+        "id": "oll-22",
+        "name": "OLL 22 · 0102 / 0011",
+        "algorithm": "F R U R' U' F' R U R' U R U2 R' U2 R U2 R' U' R U' R' U2 F R U R' U' F'",
+        "reference": {
+          "corners": "0102",
+          "edges": "0011"
+        }
+      },
+      {
+        "id": "oll-23",
+        "name": "OLL 23 · 0102 / 0101",
+        "algorithm": "U R U2 R' U' R U' R' F U R U' R' F'",
+        "reference": {
+          "corners": "0102",
+          "edges": "0101"
+        }
+      },
+      {
+        "id": "oll-24",
+        "name": "OLL 24 · 0102 / 0110",
+        "algorithm": "U' R U R' U R U2 R' U F R U R' U' F'",
+        "reference": {
+          "corners": "0102",
+          "edges": "0110"
+        }
+      },
+      {
+        "id": "oll-25",
+        "name": "OLL 25 · 0102 / 1001",
+        "algorithm": "F U R U' R' F' F U R U' R' F' R U2 R' U' R U' R' F R U R' U' F'",
+        "reference": {
+          "corners": "0102",
+          "edges": "1001"
+        }
+      },
+      {
+        "id": "oll-26",
+        "name": "OLL 26 · 0102 / 1010",
+        "algorithm": "U2 F R U R' U' F' R U R' U R U2 R'",
+        "reference": {
+          "corners": "0102",
+          "edges": "1010"
+        }
+      },
+      {
+        "id": "oll-27",
+        "name": "OLL 27 · 0102 / 1100",
+        "algorithm": "F U R U' R' F' U2 R U R' U R U2 R'",
+        "reference": {
+          "corners": "0102",
+          "edges": "1100"
+        }
+      },
+      {
+        "id": "oll-28",
+        "name": "OLL 28 · 0111 / 0011",
+        "algorithm": "U F U R U' R' F' U F U R U' R' F'",
+        "reference": {
+          "corners": "0111",
+          "edges": "0011"
+        }
+      },
+      {
+        "id": "oll-29",
+        "name": "OLL 29 · 0111 / 0101",
+        "algorithm": "U2 R U R' U R U2 R' U2 R U2 R' U' R U' R' F R U R' U' F'",
+        "reference": {
+          "corners": "0111",
+          "edges": "0101"
+        }
+      },
+      {
+        "id": "oll-30",
+        "name": "OLL 30 · 0111 / 0110",
+        "algorithm": "U' F R U R' U' F' U F R U R' U' F'",
+        "reference": {
+          "corners": "0111",
+          "edges": "0110"
+        }
+      },
+      {
+        "id": "oll-31",
+        "name": "OLL 31 · 0111 / 1001",
+        "algorithm": "R U R' U R U2 R' F R U R' U' F' F R U R' U' F'",
+        "reference": {
+          "corners": "0111",
+          "edges": "1001"
+        }
+      },
+      {
+        "id": "oll-32",
+        "name": "OLL 32 · 0111 / 1010",
+        "algorithm": "F U R U' R' F' F U R U' R' F' R U R' U R U2 R'",
+        "reference": {
+          "corners": "0111",
+          "edges": "1010"
+        }
+      },
+      {
+        "id": "oll-33",
+        "name": "OLL 33 · 0111 / 1100",
+        "algorithm": "F R U R' U' F' R U R' U R U2 R' U' F U R U' R' F'",
+        "reference": {
+          "corners": "0111",
+          "edges": "1100"
+        }
+      },
+      {
+        "id": "oll-34",
+        "name": "OLL 34 · 0222 / 0011",
+        "algorithm": "F R U R' U' F' U' F R U R' U' F'",
+        "reference": {
+          "corners": "0222",
+          "edges": "0011"
+        }
+      },
+      {
+        "id": "oll-35",
+        "name": "OLL 35 · 0222 / 0101",
+        "algorithm": "R U R' U R U2 R' U2 R U2 R' U' R U' R' F R U R' U' F' R U R' U R U2 R' R U R' U R U2 R'",
+        "reference": {
+          "corners": "0222",
+          "edges": "0101"
+        }
+      },
+      {
+        "id": "oll-36",
+        "name": "OLL 36 · 0222 / 0110",
+        "algorithm": "F R U R' U' F' U F U R U' R' F'",
+        "reference": {
+          "corners": "0222",
+          "edges": "0110"
+        }
+      },
+      {
+        "id": "oll-37",
+        "name": "OLL 37 · 0222 / 1001",
+        "algorithm": "F U R U' R' F' R U R' U R U2 R' F U R U' R' F'",
+        "reference": {
+          "corners": "0222",
+          "edges": "1001"
+        }
+      },
+      {
+        "id": "oll-38",
+        "name": "OLL 38 · 0222 / 1010",
+        "algorithm": "R U2 R' U' R U' R' F U R U' R' F' R U R' U R U2 R'",
+        "reference": {
+          "corners": "0222",
+          "edges": "1010"
+        }
+      },
+      {
+        "id": "oll-39",
+        "name": "OLL 39 · 0222 / 1100",
+        "algorithm": "F U R U' R' F' U' R U R' U R U2 R'",
+        "reference": {
+          "corners": "0222",
+          "edges": "1100"
+        }
+      },
+      {
+        "id": "oll-40",
+        "name": "OLL 40 · 1122 / 0011",
+        "algorithm": "R U2 R' U' R U' R' R U2 R' U' R U' R' U F R U R' U' F'",
+        "reference": {
+          "corners": "1122",
+          "edges": "0011"
+        }
+      },
+      {
+        "id": "oll-41",
+        "name": "OLL 41 · 1122 / 0101",
+        "algorithm": "U F U R U' R' F' F U R U' R' F'",
+        "reference": {
+          "corners": "1122",
+          "edges": "0101"
+        }
+      },
+      {
+        "id": "oll-42",
+        "name": "OLL 42 · 1122 / 0110",
+        "algorithm": "U2 R U2 R' U' R U' R' F R U R' U' F'",
+        "reference": {
+          "corners": "1122",
+          "edges": "0110"
+        }
+      },
+      {
+        "id": "oll-43",
+        "name": "OLL 43 · 1122 / 1001",
+        "algorithm": "U' F R U R' U' F' F R U R' U' F'",
+        "reference": {
+          "corners": "1122",
+          "edges": "1001"
+        }
+      },
+      {
+        "id": "oll-44",
+        "name": "OLL 44 · 1122 / 1010",
+        "algorithm": "F R U R' U' F' U' R U2 R' U' R U' R'",
+        "reference": {
+          "corners": "1122",
+          "edges": "1010"
+        }
+      },
+      {
+        "id": "oll-45",
+        "name": "OLL 45 · 1122 / 1100",
+        "algorithm": "F U R U' R' F' R U R' U R U2 R'",
+        "reference": {
+          "corners": "1122",
+          "edges": "1100"
+        }
+      },
+      {
+        "id": "oll-46",
+        "name": "OLL 46 · 1212 / 0011",
+        "algorithm": "F R U R' U' F' U' F R U R' U' F' R U R' U R U2 R' U2 R U2 R' U' R U' R'",
+        "reference": {
+          "corners": "1212",
+          "edges": "0011"
+        }
+      },
+      {
+        "id": "oll-47",
+        "name": "OLL 47 · 1212 / 0101",
+        "algorithm": "R U R' U R U2 R' U2 R U2 R' U' R U' R' F R U R' U' F' R U2 R' U' R U' R'",
+        "reference": {
+          "corners": "1212",
+          "edges": "0101"
+        }
+      },
+      {
+        "id": "oll-48",
+        "name": "OLL 48 · 1212 / 0110",
+        "algorithm": "F R U R' U' F' R U R' U R U2 R' U2 R U2 R' U' R U' R' U' F U R U' R' F'",
+        "reference": {
+          "corners": "1212",
+          "edges": "0110"
+        }
+      },
+      {
+        "id": "oll-49",
+        "name": "OLL 49 · 1212 / 1010",
+        "algorithm": "F U R U' R' F' R U2 R' U' R U' R' R U2 R' U' R U' R' F R U R' U' F'",
+        "reference": {
+          "corners": "1212",
+          "edges": "1010"
+        }
+      },
+      {
+        "id": "oll-50",
+        "name": "OLL 50 · 0000 / 1111",
+        "algorithm": "R U2 R' U' R U' R' U F U R U' R' F' U F R U R' U' F'",
+        "reference": {
+          "corners": "0000",
+          "edges": "1111"
+        }
+      },
+      {
+        "id": "oll-51",
+        "name": "OLL 51 · 0012 / 1111",
+        "algorithm": "R U R' U R U2 R' F U R U' R' F' R U R' U R U2 R' U2 R U2 R' U' R U' R' F R U R' U' F'",
+        "reference": {
+          "corners": "0012",
+          "edges": "1111"
+        }
+      },
+      {
+        "id": "oll-52",
+        "name": "OLL 52 · 0021 / 1111",
+        "algorithm": "F U R U' R' F' R U R' U R U2 R' U2 R U2 R' U' R U' R' F R U R' U' F' R U2 R' U' R U' R'",
+        "reference": {
+          "corners": "0021",
+          "edges": "1111"
+        }
+      },
+      {
+        "id": "oll-53",
+        "name": "OLL 53 · 0102 / 1111",
+        "algorithm": "U2 R U R' U R U2 R' F U R U' R' F' U' F R U R' U' F'",
+        "reference": {
+          "corners": "0102",
+          "edges": "1111"
+        }
+      },
+      {
+        "id": "oll-54",
+        "name": "OLL 54 · 0111 / 1111",
+        "algorithm": "F R U R' U' F' R U R' U R U2 R' U F R U R' U' F'",
+        "reference": {
+          "corners": "0111",
+          "edges": "1111"
+        }
+      },
+      {
+        "id": "oll-55",
+        "name": "OLL 55 · 0222 / 1111",
+        "algorithm": "U2 F U R U' R' F' U F R U R' U' F'",
+        "reference": {
+          "corners": "0222",
+          "edges": "1111"
+        }
+      },
+      {
+        "id": "oll-56",
+        "name": "OLL 56 · 1122 / 1111",
+        "algorithm": "U2 F U R U' R' F' R U R' U R U2 R' U2 R U2 R' U' R U' R' F R U R' U' F'",
+        "reference": {
+          "corners": "1122",
+          "edges": "1111"
+        }
+      },
+      {
+        "id": "oll-57",
+        "name": "OLL 57 · 1212 / 1111",
+        "algorithm": "R U R' U R U2 R' U2 R U2 R' U' R U' R' F U R U' R' F' U' F R U R' U' F'",
+        "reference": {
+          "corners": "1212",
+          "edges": "1111"
+        }
+      }
+    ],
+    "pll": [
+      {
+        "id": "pll-01",
+        "name": "PLL 01 · 1234 / 1342",
+        "algorithm": "R U' R U R U R U' R' U' R2 M2 U M2 U M' U2 M2 U2 M' U2",
+        "reference": {
+          "corners": "1234",
+          "edges": "1342"
+        }
+      },
+      {
+        "id": "pll-02",
+        "name": "PLL 02 · 1234 / 1423",
+        "algorithm": "M2 U M2 U M' U2 M2 U2 M' U2 R2 U R U R' U' R' U' R' U R'",
+        "reference": {
+          "corners": "1234",
+          "edges": "1423"
+        }
+      },
+      {
+        "id": "pll-03",
+        "name": "PLL 03 · 1234 / 2143",
+        "algorithm": "M2 U M2 U M' U2 M2 U2 M' U2",
+        "reference": {
+          "corners": "1234",
+          "edges": "2143"
+        }
+      },
+      {
+        "id": "pll-04",
+        "name": "PLL 04 · 1234 / 3412",
+        "algorithm": "M2 U M2 U2 M2 U M2",
+        "reference": {
+          "corners": "1234",
+          "edges": "3412"
+        }
+      },
+      {
+        "id": "pll-05",
+        "name": "PLL 05 · 1243 / 1243",
+        "algorithm": "R U R' U' R' F R2 U' R' U' R U R' F' F R U' R' U' R U R' F' R U R' U' R' F R F' R U' R U R U R U' R' U' R2 U",
+        "reference": {
+          "corners": "1243",
+          "edges": "1243"
+        }
+      },
+      {
+        "id": "pll-06",
+        "name": "PLL 06 · 1243 / 1324",
+        "algorithm": "R U R' U' R' F R2 U' R' U' R U R' F' M2 U M2 U M' U2 M2 U2 M' U2 F R U' R' U' R U R' F' R U R' U' R' F R F' U",
+        "reference": {
+          "corners": "1243",
+          "edges": "1324"
+        }
+      },
+      {
+        "id": "pll-07",
+        "name": "PLL 07 · 1243 / 1432",
+        "algorithm": "U2 R U R' U' R' F R2 U' R' U' R U R' F' U2",
+        "reference": {
+          "corners": "1243",
+          "edges": "1432"
+        }
+      },
+      {
+        "id": "pll-08",
+        "name": "PLL 08 · 1243 / 2134",
+        "algorithm": "F R U' R' U' R U R' F' R U R' U' R' F R F' U R U R' U' R' F R2 U' R' U' R U R' F'",
+        "reference": {
+          "corners": "1243",
+          "edges": "2134"
+        }
+      },
+      {
+        "id": "pll-09",
+        "name": "PLL 09 · 1243 / 2341",
+        "algorithm": "U2 R U R' U' R' F R2 U' R' U' R U R' F' M2 U M2 U M' U2 M2 U2 M' U2 U2",
+        "reference": {
+          "corners": "1243",
+          "edges": "2341"
+        }
+      },
+      {
+        "id": "pll-10",
+        "name": "PLL 10 · 1243 / 2413",
+        "algorithm": "M2 U M2 U M' U2 M2 U2 M' U2 R U R' U' R' F R2 U' R' U' R U R' F' F R U' R' U' R U R' F' R U R' U' R' F R F' U",
+        "reference": {
+          "corners": "1243",
+          "edges": "2413"
+        }
+      },
+      {
+        "id": "pll-11",
+        "name": "PLL 11 · 1243 / 3142",
+        "algorithm": "M2 U M2 U2 M2 U M2 R U R' U' R' F R2 U' R' U' R U R' F' F R U' R' U' R U R' F' R U R' U' R' F R F' U",
+        "reference": {
+          "corners": "1243",
+          "edges": "3142"
+        }
+      },
+      {
+        "id": "pll-12",
+        "name": "PLL 12 · 1243 / 3214",
+        "algorithm": "R U R' U' R' F R2 U' R' U' R U R' F' F R U' R' U' R U R' F' R U R' U' R' F R F' R2 U R U R' U' R' U' R' U R' U",
+        "reference": {
+          "corners": "1243",
+          "edges": "3214"
+        }
+      },
+      {
+        "id": "pll-13",
+        "name": "PLL 13 · 1243 / 3421",
+        "algorithm": "M2 U M2 U2 M2 U M2 F R U' R' U' R U R' F' R U R' U' R' F R F' U R U R' U' R' F R2 U' R' U' R U R' F'",
+        "reference": {
+          "corners": "1243",
+          "edges": "3421"
+        }
+      },
+      {
+        "id": "pll-14",
+        "name": "PLL 14 · 1243 / 4123",
+        "algorithm": "M2 U M2 U M' U2 M2 U2 M' U2 U2 R U R' U' R' F R2 U' R' U' R U R' F' U2",
+        "reference": {
+          "corners": "1243",
+          "edges": "4123"
+        }
+      },
+      {
+        "id": "pll-15",
+        "name": "PLL 15 · 1243 / 4231",
+        "algorithm": "R U R' U' R' F R2 U' R' U' R U R' F' F R U' R' U' R U R' F' R U R' U' R' F R F' U",
+        "reference": {
+          "corners": "1243",
+          "edges": "4231"
+        }
+      },
+      {
+        "id": "pll-16",
+        "name": "PLL 16 · 1243 / 4312",
+        "algorithm": "F R U' R' U' R U R' F' R U R' U' R' F R F' M2 U M2 U2 M2 U M2 U R U R' U' R' F R2 U' R' U' R U R' F'",
+        "reference": {
+          "corners": "1243",
+          "edges": "4312"
+        }
+      },
+      {
+        "id": "pll-17",
+        "name": "PLL 17 · 1432 / 1243",
+        "algorithm": "F R U' R' U' R U R' F' R U R' U' R' F R F' M2 U M2 U2 M2 U M2 U2",
+        "reference": {
+          "corners": "1432",
+          "edges": "1243"
+        }
+      },
+      {
+        "id": "pll-18",
+        "name": "PLL 18 · 1432 / 1324",
+        "algorithm": "U' F R U' R' U' R U R' F' R U R' U' R' F R F' U",
+        "reference": {
+          "corners": "1432",
+          "edges": "1324"
+        }
+      },
+      {
+        "id": "pll-19",
+        "name": "PLL 19 · 1432 / 1432",
+        "algorithm": "R2 U R U R' U' R' U' R' U R' U F R U' R' U' R U R' F' R U R' U' R' F R F' U'",
+        "reference": {
+          "corners": "1432",
+          "edges": "1432"
+        }
+      },
+      {
+        "id": "pll-20",
+        "name": "PLL 20 · 1432 / 2341",
+        "algorithm": "F R U' R' U' R U R' F' R U R' U' R' F R F' R2 U R U R' U' R' U' R' U R' U2",
+        "reference": {
+          "corners": "1432",
+          "edges": "2341"
+        }
+      },
+      {
+        "id": "pll-21",
+        "name": "PLL 21 · 1432 / 3214",
+        "algorithm": "R U' R U R U R U' R' U' R2 U2 F R U' R' U' R U R' F' R U R' U' R' F R F'",
+        "reference": {
+          "corners": "1432",
+          "edges": "3214"
+        }
+      }
+    ]
+  }
+}

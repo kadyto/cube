@@ -99,6 +99,26 @@ test('mobile previews show the exact cube and Pyraminx state; enlargement preser
   await expect(page.locator('body')).toHaveJSProperty('scrollWidth', 1280);
 });
 
+test('case previews show the prepared stickers with yellow up and green front', async ({
+  page,
+}) => {
+  for (const id of ['f2l-01', 'oll-01', 'pll-01']) {
+    await page.goto(`/?caso=${id}#/demo`);
+    const preparation = await page.getByLabel('Preparación del caso').innerText();
+    const expected = await expectedColors('333', `z2 ${preparation}`);
+    const picture = page
+      .getByRole('region', { name: 'Dibujo del caso' })
+      .locator('.scramble-picture');
+    await expect(picture).toHaveAttribute('data-state', 'ready');
+    expect(await actualColors(picture)).toEqual(expected);
+    await page.getByRole('button', { name: 'Ampliar dibujo', exact: true }).click();
+    const expanded = page.getByRole('dialog').locator('.scramble-picture');
+    await expect(expanded).toHaveAttribute('data-state', 'ready');
+    expect(await actualColors(expanded)).toEqual(expected);
+    await page.getByRole('button', { name: 'Cerrar', exact: true }).click();
+  }
+});
+
 test('new scrambles, manual saves and undoing an accidental solve keep the drawing in sync', async ({
   page,
 }) => {

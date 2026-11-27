@@ -10,9 +10,13 @@ npm run build:wordpress
 node wordpress/package-media.mjs
 ```
 
-Sube el archivo `dist-wordpress/media/cubing-entrenamiento-<version>.html` desde **Medios → Añadir medios** con el perfil autorizado. Copia su URL. En la página **Entrenamiento**, cambia el atributo `src` del marco `cubing-entrenamiento-marco` por la ruta relativa del nuevo adjunto. El bloque ajusta la altura con los mensajes del documento del cronómetro, verificando su origen y ventana. La versión anterior sigue sirviendo para revertir con una revisión de la página.
+1. Sube `dist-wordpress/media/cubing-entrenamiento-<version>.html` desde **Medios → Añadir medios** con el perfil autorizado. Copia la ruta del adjunto en Cubing.es.
+2. Abre `dist-wordpress/media/page-media.blocks.html`. Sustituye `AAAA/MM` por el año y mes de la ruta del adjunto. Si WordPress le asigna otra ruta o nombre, usa la ruta completa del adjunto en `data-src`.
+3. En el editor de código de la página **Entrenamiento**, reemplaza el bloque de HTML personalizado que contiene `cubing-entrenamiento-marco` por el contenido de `page-media.blocks.html`. Conserva el grupo y el resto de la página. Si editas el bloque desde el editor visual, pega el contenido entre los comentarios `<!-- wp:html -->` y `<!-- /wp:html -->`.
 
-Prueba la vista previa y luego la página publicada. Comprueba las tres modalidades, el dibujo, la inspección y el cronómetro. El HTML incluye JavaScript, estilos y licencias. El worker y el módulo se ejecutan en el navegador y el cronómetro usa las fuentes del sitio. La política de seguridad del HTML permite esos recursos e impide que se ejecute otro contador de Cloudflare dentro del marco. Deja activados los filtros de tipos de archivo de WordPress.
+El bloque añade `caso` de la URL de **Entrenamiento** a la URL del adjunto antes de cargar el marco. El cronómetro valida el identificador con el catálogo, por ejemplo en `/herramientas/entrenamiento/?caso=f2l-01`. El bloque ajusta la altura con los mensajes del cronómetro tras verificar el origen y la ventana emisora. Puedes restaurar la versión anterior con una revisión de la página.
+
+Prueba la vista previa y luego la página publicada. Abre un enlace directo de F2L, OLL y PLL. Comprueba las mezclas completas de los tres puzzles, el dibujo, la inspección y el cronómetro. El HTML incluye JavaScript, estilos y licencias. El worker y el módulo se ejecutan en el navegador y el cronómetro usa las fuentes del sitio. La política de seguridad del HTML permite esos recursos e impide que se ejecute otro contador de Cloudflare dentro del marco. Deja activados los filtros de tipos de archivo de WordPress.
 
 ## Variante de archivos estáticos
 

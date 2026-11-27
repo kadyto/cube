@@ -4,10 +4,16 @@ import { EVENTS } from '../shared/domain.js';
 import type { EventId } from './types';
 
 /** Render the final state of the actual scramble, starting from the solved puzzle. */
-export async function createScrambleDiagram(event: EventId, alg: string): Promise<SVGSVGElement> {
+export async function createScrambleDiagram(
+  event: EventId,
+  alg: string,
+  caseOrientation = false,
+): Promise<SVGSVGElement> {
   const loader = puzzles[EVENTS[event].puzzle];
   const [kpuzzle, source] = await Promise.all([loader.kpuzzle(), loader.svg()]);
-  const pattern = kpuzzle.defaultPattern().applyAlg(alg);
+  const solved = kpuzzle.defaultPattern();
+  // The 3×3 SVG starts white up. Case preparations start yellow up and green front.
+  const pattern = (caseOrientation ? solved.applyMove('z2') : solved).applyAlg(alg);
   // The SVG source comes exclusively from cubing.js, never from user input.
   const drawing = new ExperimentalSVGAnimator(kpuzzle, source);
   drawing.drawPattern(pattern);

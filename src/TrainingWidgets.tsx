@@ -168,12 +168,14 @@ export function TimerFace({
   disabled,
   lastTime = null,
   finishedTime = null,
+  finishedInstruction = 'Genera una nueva mezcla para continuar',
   embedded = false,
 }: {
   timer: ReturnType<typeof useTimer>;
   disabled: boolean;
   lastTime?: number | 'DNF' | null;
   finishedTime?: number | 'DNF' | null;
+  finishedInstruction?: string;
   embedded?: boolean;
 }) {
   const captions = embedded
@@ -247,7 +249,7 @@ export function TimerFace({
               <span className="ready-dot" /> Preparado
             </>
           ) : timer.phase === 'stopped' && finishedTime !== null ? (
-            'Genera una nueva mezcla para continuar'
+            finishedInstruction
           ) : embedded ? (
             <>
               <span>Mantén pulsado y suelta</span>

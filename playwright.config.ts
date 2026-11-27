@@ -18,7 +18,8 @@ export default defineConfig({
     launchOptions: { executablePath, args: ['--no-sandbox'] },
   },
   webServer: {
-    command: 'npm run build && npm run build:wordpress && npm start',
+    command:
+      'npm run build && npm run build:wordpress && node wordpress/package-media.mjs && npm start',
     url: 'http://127.0.0.1:3210/healthz',
     reuseExistingServer: false,
     env: {

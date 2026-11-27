@@ -1,0 +1,94 @@
+.case-practice-mode {
+  display: inline-flex;
+  gap: 0.2rem;
+  margin-bottom: 0.85rem;
+  padding: 0.2rem;
+  border: 1px solid var(--cbt-line, var(--line));
+  border-radius: 0.85rem;
+  background: var(--cbt-paper, var(--soft));
+}
+
+.case-practice-mode button {
+  min-height: 40px;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid transparent;
+  border-radius: 0.62rem;
+  background: transparent;
+  color: inherit;
+}
+
+.case-practice-mode button[aria-pressed='true'] {
+  border-color: var(--cbt-line, var(--line));
+  background: var(--paper, #fff);
+  color: var(--cbt-blue, var(--dark));
+  font-weight: 650;
+}
+
+.case-setup {
+  display: grid;
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+  padding: clamp(0.85rem, 2vw, 1.2rem);
+}
+
+.cb-training .case-setup {
+  margin-bottom: 0;
+}
+
+.case-selectors {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.75rem;
+}
+
+.case-selectors label {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.case-selectors select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.25rem 0.45rem;
+  border: 1px solid var(--cbt-line, var(--line));
+  border-radius: 0.5rem;
+  background: var(--paper, #fff);
+  color: inherit;
+  font: inherit;
+}
+
+.case-selectors select:focus-visible {
+  outline: 2px solid var(--cbt-blue, var(--green));
+  outline-offset: 2px;
+}
+
+.case-setup h2,
+.case-setup p {
+  margin: 0;
+}
+
+.case-orientation {
+  color: var(--cbt-muted, var(--ink));
+  font-size: 0.9rem;
+}
+
+.case-sequence {
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.5rem;
+  background: var(--cbt-paper, var(--soft));
+  overflow-wrap: anywhere;
+}
+
+.case-sequence code {
+  font-family: var(--cbt-mono, ui-monospace), monospace;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.case-setup .text-button {
+  justify-self: start;
+  min-height: 40px;
+}

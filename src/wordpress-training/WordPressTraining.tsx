@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { RefreshCw } from 'lucide-react';
 import { effectiveTime, formatTime } from '../../shared/domain.js';
+import { CaseSetup, PracticeMode } from '../CasePractice';
 import { ScramblePreview } from '../ScramblePreview';
 import { EventTabs, ScramblePanel, TimerFace } from '../TrainingWidgets';
 import type { EventId } from '../types';
@@ -22,13 +23,17 @@ export function WordPressTraining() {
   const {
     event,
     chooseEvent,
+    casePractice,
+    chooseMode,
+    chooseCase,
+    setShowingAlgorithm,
     alg,
     loading,
     error,
     inspection,
     setInspection,
     result,
-    generate,
+    restart,
     timer,
   } = useDemoTraining(localScramble, scope);
   const screen = useScreenWakeLock();
@@ -36,11 +41,11 @@ export function WordPressTraining() {
 
   useEffect(() => {
     const onPageShow = (event: PageTransitionEvent) => {
-      if (event.persisted) void generate();
+      if (event.persisted) restart();
     };
     window.addEventListener('pageshow', onPageShow);
     return () => window.removeEventListener('pageshow', onPageShow);
-  }, [generate]);
+  }, [restart]);
 
   return (
     <div ref={scope}>
@@ -56,9 +61,21 @@ export function WordPressTraining() {
           <span>Inspección de 15 s</span>
         </label>
       </div>
+      {event === '333' && (
+        <PracticeMode byCase={!!casePractice} disabled={timer.active} onChange={chooseMode} />
+      )}
       <div className="cbt-grid">
         <div className="cbt-scramble">
-          <ScramblePanel event={event} alg={alg} loading={loading} disabled={timer.active} />
+          {casePractice ? (
+            <CaseSetup
+              practice={casePractice}
+              disabled={timer.active}
+              onChooseCase={chooseCase}
+              onShowAlgorithm={setShowingAlgorithm}
+            />
+          ) : (
+            <ScramblePanel event={event} alg={alg} loading={loading} disabled={timer.active} />
+          )}
           {error && (
             <p className="cbt-error" role="alert">
               {error}
@@ -71,6 +88,7 @@ export function WordPressTraining() {
               timer={timer}
               disabled={!alg || loading || timer.phase === 'stopped'}
               finishedTime={finishedTime}
+              finishedInstruction={casePractice ? 'Pulsa «Repetir caso» para continuar' : undefined}
               embedded
             />
           </div>
@@ -87,18 +105,29 @@ export function WordPressTraining() {
               type="button"
               className="cbt-next"
               onClick={() => {
-                if (!loading) void generate();
+                if (!loading) restart();
               }}
               disabled={timer.active}
               aria-disabled={loading || undefined}
             >
               <RefreshCw size={16} aria-hidden="true" />
-              {error ? 'Reintentar mezcla' : result ? 'Siguiente mezcla' : 'Nueva mezcla'}
+              {casePractice
+                ? 'Repetir caso'
+                : error
+                  ? 'Reintentar mezcla'
+                  : result
+                    ? 'Siguiente mezcla'
+                    : 'Nueva mezcla'}
             </button>
           </div>
         </section>
         <div className="cbt-diagram">
-          <ScramblePreview event={event} alg={alg} disabled={timer.active || loading} />
+          <ScramblePreview
+            event={event}
+            alg={alg}
+            disabled={timer.active || loading}
+            caseOrientation={!!casePractice}
+          />
         </div>
       </div>
     </div>

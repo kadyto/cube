@@ -140,6 +140,33 @@ new ResizeObserver(() => {
 
 const version = createHash('sha256').update(widget).digest('hex').slice(0, 12);
 const file = `cubing-entrenamiento-${version}.html`;
+const pageBlock = `<!-- wp:html -->
+<style>
+#cubing-entrenamiento-marco{display:block;width:min(100%,68rem);height:570px;margin-inline:auto;border:0;background:transparent}
+@media(max-width:55rem){#cubing-entrenamiento-marco{height:890px}}
+</style>
+<iframe id="cubing-entrenamiento-marco" title="Cronómetro de entrenamiento" data-src="/wp-content/uploads/AAAA/MM/${file}" allow="screen-wake-lock"></iframe>
+<script data-cfasync="false">
+(() => {
+  const frame = document.getElementById('cubing-entrenamiento-marco');
+  window.addEventListener('message', ({ origin, source, data }) => {
+    if (origin === location.origin && source === frame.contentWindow &&
+        data?.type === 'cubing-entrenamiento-altura' &&
+        Number.isInteger(data.height) && data.height >= 240 && data.height <= 2400) {
+      frame.style.height = data.height + 'px';
+    }
+  });
+  const url = new URL(frame.dataset.src, location.origin);
+  const caso = new URLSearchParams(location.search).get('caso');
+  if (caso !== null) url.searchParams.set('caso', caso);
+  frame.src = url.href;
+})();
+</script>
+<!-- /wp:html -->
+`;
 await mkdir(output, { recursive: true });
-await writeFile(new URL(file, output), widget);
+await Promise.all([
+  writeFile(new URL(file, output), widget),
+  writeFile(new URL('page-media.blocks.html', output), pageBlock),
+]);
 console.log(file);
