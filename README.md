@@ -74,6 +74,8 @@ Entra en «Demo» desde el menú, desde la pantalla de acceso o directamente por
 
 La demo conserva sólo el intento actual en memoria y lo descarta al salir o recargar. No lee ni escribe preferencias o intentos pendientes del entrenamiento privado en el navegador. El cronómetro no envía tiempos al servidor. La ruta pública `POST /api/demo/scramble` sólo devuelve evento y secuencia, sin crear identificadores, filas de SQLite ni sesiones; la generación se sirve con `Cache-Control: no-store`. Entrenamiento, historial, ajustes, exportaciones y publicaciones conservan su contraseña. Usar la demo con una sesión del propietario abierta tampoco guarda tiempos ni modifica su historial.
 
+Para instalar el entrenamiento público dentro de Cubing.es, consulta la [integración con WordPress](docs/wordpress.md).
+
 ## Desplegar en Dockhand
 
 Después de incorporar estos archivos en la rama `main` de `kadyto/cube`:
