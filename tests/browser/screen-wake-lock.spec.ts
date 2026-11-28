@@ -249,6 +249,48 @@ test('denied requests do not spin or break timing, and the retry button recovers
   expect(errors).toEqual([]);
 });
 
+for (const input of ['mouse', 'touch'] as const) {
+  test(`the first ${input} gesture opens manual entry while the screen lock retries`, async ({
+    page,
+    context,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await mockWakeLock(page, { deny: true, defer: false });
+    await login(page);
+    const status = page.locator('.screen-awake');
+    const retry = status.getByRole('button', { name: 'Reintentar', exact: true });
+    await expect(retry).toBeVisible();
+    await page.evaluate(() => {
+      window.wakeLockProbe.defer = true;
+    });
+
+    const manual = page.getByRole('button', { name: 'A mano', exact: true });
+    await manual.scrollIntoViewIfNeeded();
+    const box = (await manual.boundingBox())!;
+    // Release at the same point near the bottom edge, where an upward shift can lose the click.
+    const point = { x: box.x + box.width / 2, y: box.y + box.height - 2 };
+    const touch = input === 'touch' ? await context.newCDPSession(page) : null;
+    if (touch) {
+      await touch.send('Emulation.setTouchEmulationEnabled', { enabled: true });
+      await touch.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [point] });
+    } else {
+      await page.mouse.move(point.x, point.y);
+      await page.mouse.down();
+    }
+    await expect(status).toHaveText('Preparando la pantalla para entrenar…');
+    expect(await manual.boundingBox()).toEqual(box);
+    if (touch) {
+      await touch.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    } else {
+      await page.mouse.up();
+    }
+    await expect(page.getByLabel('Tu tiempo, con tu cronómetro')).toBeVisible();
+    await expect(status).toHaveText('Preparando la pantalla para entrenar…');
+    await page.evaluate(() => window.wakeLockProbe.finishNext());
+    await expect(retry).toBeVisible();
+  });
+}
+
 test('browsers without wake lock explain the limitation and manual training still works', async ({
   page,
 }) => {

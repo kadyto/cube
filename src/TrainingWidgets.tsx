@@ -6,25 +6,36 @@ import type { useTimer } from './useTimer';
 import type { useScreenWakeLock } from './useScreenWakeLock';
 
 export function ScreenAwakeStatus({ screen }: { screen: ReturnType<typeof useScreenWakeLock> }) {
+  const unavailableMessage =
+    'No se pudo mantener la pantalla encendida. Revisa el ahorro de batería.';
+  const retryLabel = 'Reintentar';
+  const active = screen.state === 'active';
+  const unavailable = screen.state === 'unavailable';
+  const message = active
+    ? 'Pantalla encendida durante el entrenamiento'
+    : screen.state === 'unsupported'
+      ? 'Para mantener la pantalla encendida, abre Cube por HTTPS con un navegador compatible.'
+      : unavailable
+        ? unavailableMessage
+        : 'Preparando la pantalla para entrenar…';
+
   return (
-    <div className={`screen-awake ${screen.state === 'active' ? 'is-active' : ''}`} role="status">
-      <Monitor size={14} aria-hidden="true" />
-      {screen.state === 'active' ? (
-        <span>Pantalla encendida durante el entrenamiento</span>
-      ) : screen.state === 'unsupported' ? (
-        <span>
-          Para mantener la pantalla encendida, abre Cube por HTTPS con un navegador compatible.
-        </span>
-      ) : screen.state === 'unavailable' ? (
-        <>
-          <span>No se pudo mantener la pantalla encendida. Revisa el ahorro de batería.</span>
+    <div className="screen-awake-slot">
+      {/* Keep the controls below in place when pointerdown starts a retry. */}
+      <div className="screen-awake-reserve" aria-hidden="true">
+        <Monitor size={14} />
+        <span className="screen-awake-message">{unavailableMessage}</span>
+        <span className="text-button">{retryLabel}</span>
+      </div>
+      <div className={`screen-awake ${active ? 'is-active' : ''}`} role="status">
+        <Monitor size={14} aria-hidden="true" />
+        <span className="screen-awake-message">{message}</span>
+        {unavailable && (
           <button type="button" className="text-button" onClick={screen.retry}>
-            Reintentar
+            {retryLabel}
           </button>
-        </>
-      ) : (
-        <span>Preparando la pantalla para entrenar…</span>
-      )}
+        )}
+      </div>
     </div>
   );
 }

@@ -683,27 +683,37 @@ main {
   gap: 12px;
   margin-bottom: 20px;
 }
-.screen-awake {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px;
+.screen-awake-slot {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   margin: -6px 0 18px;
   color: #78836e;
   font-size: 11px;
   line-height: 1.6;
 }
-.screen-awake > svg {
+.screen-awake,
+.screen-awake-reserve {
+  grid-area: 1 / 1;
+  align-self: start;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.screen-awake-reserve {
+  visibility: hidden;
+}
+.screen-awake-slot svg {
   flex-shrink: 0;
 }
-.screen-awake > span {
+.screen-awake-message {
   flex: 1;
   min-width: 180px;
 }
 .screen-awake.is-active {
   color: #5b7f46;
 }
-.screen-awake .text-button {
+.screen-awake-slot .text-button {
   font-size: inherit;
   padding: 3px 0;
 }
