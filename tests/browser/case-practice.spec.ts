@@ -58,9 +58,12 @@ test('keyboard inspection, repetition and selection keep the demo case attempt i
   const preparation = page.getByLabel('Preparación del caso');
   const caseSelect = page.getByRole('combobox', { name: 'Caso', exact: true });
   const reveal = page.getByRole('button', { name: 'Ver algoritmo', exact: true });
+  const picture = page.locator('.scramble-picture');
+  const diagram = picture.locator('.scramble-picture-canvas svg');
   await expect(timer).toBeEnabled();
+  await expect(picture).toHaveAttribute('data-state', 'ready');
   const moves = await preparation.textContent();
-  const diagram = await page.locator('.scramble-picture svg').innerHTML();
+  const diagramBefore = await diagram.innerHTML();
   await page.getByLabel('Inspección 15 s', { exact: true }).check();
   await reveal.focus();
   await page.keyboard.down('Space');
@@ -78,7 +81,7 @@ test('keyboard inspection, repetition and selection keep the demo case attempt i
   await page.getByRole('button', { name: 'Repetir caso', exact: true }).click();
   await expect(caseSelect).toHaveValue('f2l-01');
   await expect(preparation).toHaveText(moves!);
-  expect(await page.locator('.scramble-picture svg').innerHTML()).toBe(diagram);
+  expect(await diagram.innerHTML()).toBe(diagramBefore);
   await expect(page.locator('.timer-digits')).toHaveText('0.00');
   await expect(timer).toBeEnabled();
 
