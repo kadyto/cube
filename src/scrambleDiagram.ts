@@ -12,8 +12,10 @@ export async function createScrambleDiagram(
   const loader = puzzles[EVENTS[event].puzzle];
   const [kpuzzle, source] = await Promise.all([loader.kpuzzle(), loader.svg()]);
   const solved = kpuzzle.defaultPattern();
-  // The 3×3 SVG starts white up. Case preparations start yellow up and green front.
-  const pattern = (caseOrientation ? solved.applyMove('z2') : solved).applyAlg(alg);
+  // The cube nets start white up. Case practice uses yellow up on cubes and
+  // the Pyraminx net's existing yellow base and green front.
+  const oriented = caseOrientation && event !== 'pyram' ? solved.applyMove('z2') : solved;
+  const pattern = oriented.applyAlg(alg);
   // The SVG source comes exclusively from cubing.js, never from user input.
   const drawing = new ExperimentalSVGAnimator(kpuzzle, source);
   drawing.drawPattern(pattern);

@@ -61,9 +61,7 @@ export function WordPressTraining() {
           <span>Inspección de 15 s</span>
         </label>
       </div>
-      {event === '333' && (
-        <PracticeMode byCase={!!casePractice} disabled={timer.active} onChange={chooseMode} />
-      )}
+      <PracticeMode byCase={!!casePractice} disabled={timer.active} onChange={chooseMode} />
       <div className="cbt-grid">
         <div className="cbt-scramble">
           {casePractice ? (

@@ -99,13 +99,24 @@ test('mobile previews show the exact cube and Pyraminx state; enlargement preser
   await expect(page.locator('body')).toHaveJSProperty('scrollWidth', 1280);
 });
 
-test('case previews show the prepared stickers with yellow up and green front', async ({
+test('case previews show the prepared stickers with each puzzle held as instructed', async ({
   page,
 }) => {
-  for (const id of ['f2l-01', 'oll-01', 'pll-01']) {
+  for (const [id, event] of [
+    ['f2l-01', '333'],
+    ['oll-01', '333'],
+    ['pll-01', '333'],
+    ['cll-01', '222'],
+    ['eg1-01', '222'],
+    ['eg2-01', '222'],
+    ['l4e-01', 'pyram'],
+  ] as const) {
     await page.goto(`/?caso=${id}#/demo`);
     const preparation = await page.getByLabel('Preparación del caso').innerText();
-    const expected = await expectedColors('333', `z2 ${preparation}`);
+    const expected = await expectedColors(
+      event,
+      event === 'pyram' ? preparation : `z2 ${preparation}`,
+    );
     const picture = page
       .getByRole('region', { name: 'Dibujo del caso' })
       .locator('.scramble-picture');

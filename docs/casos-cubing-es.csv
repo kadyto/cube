@@ -118,3 +118,226 @@ PLL,PLL,19,1432 / 1324,pll-18,https://cubing.es/cubos/3x3/casos/#pll,https://cub
 PLL,PLL,20,1432 / 1432,pll-19,https://cubing.es/cubos/3x3/casos/#pll,https://cubing.es/herramientas/entrenamiento/?caso=pll-19,https://cube.reoyo.es/?caso=pll-19#/demo
 PLL,PLL,21,1432 / 2341,pll-20,https://cubing.es/cubos/3x3/casos/#pll,https://cubing.es/herramientas/entrenamiento/?caso=pll-20,https://cube.reoyo.es/?caso=pll-20#/demo
 PLL,PLL,22,1432 / 3214,pll-21,https://cubing.es/cubos/3x3/casos/#pll,https://cubing.es/herramientas/entrenamiento/?caso=pll-21,https://cube.reoyo.es/?caso=pll-21#/demo
+CLL,CLL · Orientación 1 1 2 2,1,1122 / 1234,cll-01,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-01,https://cube.reoyo.es/?caso=cll-01#/demo
+CLL,CLL · Orientación 1 1 2 2,2,1122 / 1243,cll-02,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-02,https://cube.reoyo.es/?caso=cll-02#/demo
+CLL,CLL · Orientación 1 1 2 2,3,1122 / 1324,cll-03,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-03,https://cube.reoyo.es/?caso=cll-03#/demo
+CLL,CLL · Orientación 1 1 2 2,4,1122 / 1342,cll-04,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-04,https://cube.reoyo.es/?caso=cll-04#/demo
+CLL,CLL · Orientación 1 1 2 2,5,1122 / 1423,cll-05,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-05,https://cube.reoyo.es/?caso=cll-05#/demo
+CLL,CLL · Orientación 1 1 2 2,6,1122 / 1432,cll-06,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-06,https://cube.reoyo.es/?caso=cll-06#/demo
+CLL,CLL · Orientación 1 2 1 2,1,1212 / 1234,cll-07,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-07,https://cube.reoyo.es/?caso=cll-07#/demo
+CLL,CLL · Orientación 1 2 1 2,2,1212 / 1243,cll-08,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-08,https://cube.reoyo.es/?caso=cll-08#/demo
+CLL,CLL · Orientación 1 2 1 2,3,1212 / 1324,cll-09,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-09,https://cube.reoyo.es/?caso=cll-09#/demo
+CLL,CLL · Orientación 1 2 1 2,4,1212 / 1432,cll-10,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-10,https://cube.reoyo.es/?caso=cll-10#/demo
+CLL,CLL · Orientación 0 0 0 0,2,0000 / 1243,cll-11,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-11,https://cube.reoyo.es/?caso=cll-11#/demo
+CLL,CLL · Orientación 0 0 0 0,3,0000 / 1432,cll-12,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-12,https://cube.reoyo.es/?caso=cll-12#/demo
+CLL,CLL · Orientación 0 0 1 2,1,0012 / 1234,cll-13,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-13,https://cube.reoyo.es/?caso=cll-13#/demo
+CLL,CLL · Orientación 0 0 1 2,2,0012 / 1243,cll-14,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-14,https://cube.reoyo.es/?caso=cll-14#/demo
+CLL,CLL · Orientación 0 0 1 2,3,0012 / 1324,cll-15,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-15,https://cube.reoyo.es/?caso=cll-15#/demo
+CLL,CLL · Orientación 0 0 1 2,4,0012 / 1342,cll-16,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-16,https://cube.reoyo.es/?caso=cll-16#/demo
+CLL,CLL · Orientación 0 0 1 2,5,0012 / 1423,cll-17,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-17,https://cube.reoyo.es/?caso=cll-17#/demo
+CLL,CLL · Orientación 0 0 1 2,6,0012 / 1432,cll-18,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-18,https://cube.reoyo.es/?caso=cll-18#/demo
+CLL,CLL · Orientación 0 0 2 1,1,0021 / 1234,cll-19,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-19,https://cube.reoyo.es/?caso=cll-19#/demo
+CLL,CLL · Orientación 0 0 2 1,2,0021 / 1243,cll-20,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-20,https://cube.reoyo.es/?caso=cll-20#/demo
+CLL,CLL · Orientación 0 0 2 1,3,0021 / 1324,cll-21,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-21,https://cube.reoyo.es/?caso=cll-21#/demo
+CLL,CLL · Orientación 0 0 2 1,4,0021 / 1342,cll-22,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-22,https://cube.reoyo.es/?caso=cll-22#/demo
+CLL,CLL · Orientación 0 0 2 1,5,0021 / 1423,cll-23,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-23,https://cube.reoyo.es/?caso=cll-23#/demo
+CLL,CLL · Orientación 0 0 2 1,6,0021 / 1432,cll-24,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-24,https://cube.reoyo.es/?caso=cll-24#/demo
+CLL,CLL · Orientación 0 1 0 2,1,0102 / 1234,cll-25,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-25,https://cube.reoyo.es/?caso=cll-25#/demo
+CLL,CLL · Orientación 0 1 0 2,2,0102 / 1243,cll-26,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-26,https://cube.reoyo.es/?caso=cll-26#/demo
+CLL,CLL · Orientación 0 1 0 2,3,0102 / 1324,cll-27,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-27,https://cube.reoyo.es/?caso=cll-27#/demo
+CLL,CLL · Orientación 0 1 0 2,4,0102 / 1342,cll-28,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-28,https://cube.reoyo.es/?caso=cll-28#/demo
+CLL,CLL · Orientación 0 1 0 2,5,0102 / 1423,cll-29,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-29,https://cube.reoyo.es/?caso=cll-29#/demo
+CLL,CLL · Orientación 0 1 0 2,6,0102 / 1432,cll-30,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-30,https://cube.reoyo.es/?caso=cll-30#/demo
+CLL,CLL · Orientación 0 1 1 1,1,0111 / 1234,cll-31,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-31,https://cube.reoyo.es/?caso=cll-31#/demo
+CLL,CLL · Orientación 0 1 1 1,2,0111 / 1243,cll-32,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-32,https://cube.reoyo.es/?caso=cll-32#/demo
+CLL,CLL · Orientación 0 1 1 1,3,0111 / 1324,cll-33,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-33,https://cube.reoyo.es/?caso=cll-33#/demo
+CLL,CLL · Orientación 0 1 1 1,4,0111 / 1342,cll-34,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-34,https://cube.reoyo.es/?caso=cll-34#/demo
+CLL,CLL · Orientación 0 1 1 1,5,0111 / 1423,cll-35,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-35,https://cube.reoyo.es/?caso=cll-35#/demo
+CLL,CLL · Orientación 0 1 1 1,6,0111 / 1432,cll-36,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-36,https://cube.reoyo.es/?caso=cll-36#/demo
+CLL,CLL · Orientación 0 2 2 2,1,0222 / 1234,cll-37,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-37,https://cube.reoyo.es/?caso=cll-37#/demo
+CLL,CLL · Orientación 0 2 2 2,2,0222 / 1243,cll-38,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-38,https://cube.reoyo.es/?caso=cll-38#/demo
+CLL,CLL · Orientación 0 2 2 2,3,0222 / 1324,cll-39,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-39,https://cube.reoyo.es/?caso=cll-39#/demo
+CLL,CLL · Orientación 0 2 2 2,4,0222 / 1342,cll-40,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-40,https://cube.reoyo.es/?caso=cll-40#/demo
+CLL,CLL · Orientación 0 2 2 2,5,0222 / 1423,cll-41,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-41,https://cube.reoyo.es/?caso=cll-41#/demo
+CLL,CLL · Orientación 0 2 2 2,6,0222 / 1432,cll-42,https://cubing.es/cubos/2x2/casos/#grupo-0,https://cubing.es/herramientas/entrenamiento/?caso=cll-42,https://cube.reoyo.es/?caso=cll-42#/demo
+EG-1,EG-1 · Orientación 1 1 2 2,1,1122 / 1234,eg1-01,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-01,https://cube.reoyo.es/?caso=eg1-01#/demo
+EG-1,EG-1 · Orientación 1 1 2 2,2,1122 / 1243,eg1-02,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-02,https://cube.reoyo.es/?caso=eg1-02#/demo
+EG-1,EG-1 · Orientación 1 1 2 2,3,1122 / 1324,eg1-03,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-03,https://cube.reoyo.es/?caso=eg1-03#/demo
+EG-1,EG-1 · Orientación 1 1 2 2,4,1122 / 1342,eg1-04,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-04,https://cube.reoyo.es/?caso=eg1-04#/demo
+EG-1,EG-1 · Orientación 1 1 2 2,5,1122 / 1423,eg1-05,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-05,https://cube.reoyo.es/?caso=eg1-05#/demo
+EG-1,EG-1 · Orientación 1 1 2 2,6,1122 / 1432,eg1-06,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-06,https://cube.reoyo.es/?caso=eg1-06#/demo
+EG-1,EG-1 · Orientación 1 2 1 2,1,1212 / 1234,eg1-07,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-07,https://cube.reoyo.es/?caso=eg1-07#/demo
+EG-1,EG-1 · Orientación 1 2 1 2,2,1212 / 1243,eg1-08,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-08,https://cube.reoyo.es/?caso=eg1-08#/demo
+EG-1,EG-1 · Orientación 1 2 1 2,3,1212 / 1324,eg1-09,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-09,https://cube.reoyo.es/?caso=eg1-09#/demo
+EG-1,EG-1 · Orientación 1 2 1 2,4,1212 / 1432,eg1-10,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-10,https://cube.reoyo.es/?caso=eg1-10#/demo
+EG-1,EG-1 · Orientación 0 0 0 0,1,0000 / 1234,eg1-11,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-11,https://cube.reoyo.es/?caso=eg1-11#/demo
+EG-1,EG-1 · Orientación 0 0 0 0,2,0000 / 1243,eg1-12,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-12,https://cube.reoyo.es/?caso=eg1-12#/demo
+EG-1,EG-1 · Orientación 0 0 0 0,3,0000 / 1432,eg1-13,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-13,https://cube.reoyo.es/?caso=eg1-13#/demo
+EG-1,EG-1 · Orientación 0 0 1 2,1,0012 / 1234,eg1-14,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-14,https://cube.reoyo.es/?caso=eg1-14#/demo
+EG-1,EG-1 · Orientación 0 0 1 2,2,0012 / 1243,eg1-15,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-15,https://cube.reoyo.es/?caso=eg1-15#/demo
+EG-1,EG-1 · Orientación 0 0 1 2,3,0012 / 1324,eg1-16,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-16,https://cube.reoyo.es/?caso=eg1-16#/demo
+EG-1,EG-1 · Orientación 0 0 1 2,4,0012 / 1342,eg1-17,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-17,https://cube.reoyo.es/?caso=eg1-17#/demo
+EG-1,EG-1 · Orientación 0 0 1 2,5,0012 / 1423,eg1-18,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-18,https://cube.reoyo.es/?caso=eg1-18#/demo
+EG-1,EG-1 · Orientación 0 0 1 2,6,0012 / 1432,eg1-19,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-19,https://cube.reoyo.es/?caso=eg1-19#/demo
+EG-1,EG-1 · Orientación 0 0 2 1,1,0021 / 1234,eg1-20,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-20,https://cube.reoyo.es/?caso=eg1-20#/demo
+EG-1,EG-1 · Orientación 0 0 2 1,2,0021 / 1243,eg1-21,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-21,https://cube.reoyo.es/?caso=eg1-21#/demo
+EG-1,EG-1 · Orientación 0 0 2 1,3,0021 / 1324,eg1-22,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-22,https://cube.reoyo.es/?caso=eg1-22#/demo
+EG-1,EG-1 · Orientación 0 0 2 1,4,0021 / 1342,eg1-23,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-23,https://cube.reoyo.es/?caso=eg1-23#/demo
+EG-1,EG-1 · Orientación 0 0 2 1,5,0021 / 1423,eg1-24,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-24,https://cube.reoyo.es/?caso=eg1-24#/demo
+EG-1,EG-1 · Orientación 0 0 2 1,6,0021 / 1432,eg1-25,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-25,https://cube.reoyo.es/?caso=eg1-25#/demo
+EG-1,EG-1 · Orientación 0 1 0 2,1,0102 / 1234,eg1-26,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-26,https://cube.reoyo.es/?caso=eg1-26#/demo
+EG-1,EG-1 · Orientación 0 1 0 2,2,0102 / 1243,eg1-27,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-27,https://cube.reoyo.es/?caso=eg1-27#/demo
+EG-1,EG-1 · Orientación 0 1 0 2,3,0102 / 1324,eg1-28,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-28,https://cube.reoyo.es/?caso=eg1-28#/demo
+EG-1,EG-1 · Orientación 0 1 0 2,4,0102 / 1342,eg1-29,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-29,https://cube.reoyo.es/?caso=eg1-29#/demo
+EG-1,EG-1 · Orientación 0 1 0 2,5,0102 / 1423,eg1-30,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-30,https://cube.reoyo.es/?caso=eg1-30#/demo
+EG-1,EG-1 · Orientación 0 1 0 2,6,0102 / 1432,eg1-31,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-31,https://cube.reoyo.es/?caso=eg1-31#/demo
+EG-1,EG-1 · Orientación 0 1 1 1,1,0111 / 1234,eg1-32,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-32,https://cube.reoyo.es/?caso=eg1-32#/demo
+EG-1,EG-1 · Orientación 0 1 1 1,2,0111 / 1243,eg1-33,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-33,https://cube.reoyo.es/?caso=eg1-33#/demo
+EG-1,EG-1 · Orientación 0 1 1 1,3,0111 / 1324,eg1-34,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-34,https://cube.reoyo.es/?caso=eg1-34#/demo
+EG-1,EG-1 · Orientación 0 1 1 1,4,0111 / 1342,eg1-35,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-35,https://cube.reoyo.es/?caso=eg1-35#/demo
+EG-1,EG-1 · Orientación 0 1 1 1,5,0111 / 1423,eg1-36,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-36,https://cube.reoyo.es/?caso=eg1-36#/demo
+EG-1,EG-1 · Orientación 0 1 1 1,6,0111 / 1432,eg1-37,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-37,https://cube.reoyo.es/?caso=eg1-37#/demo
+EG-1,EG-1 · Orientación 0 2 2 2,1,0222 / 1234,eg1-38,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-38,https://cube.reoyo.es/?caso=eg1-38#/demo
+EG-1,EG-1 · Orientación 0 2 2 2,2,0222 / 1243,eg1-39,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-39,https://cube.reoyo.es/?caso=eg1-39#/demo
+EG-1,EG-1 · Orientación 0 2 2 2,3,0222 / 1324,eg1-40,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-40,https://cube.reoyo.es/?caso=eg1-40#/demo
+EG-1,EG-1 · Orientación 0 2 2 2,4,0222 / 1342,eg1-41,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-41,https://cube.reoyo.es/?caso=eg1-41#/demo
+EG-1,EG-1 · Orientación 0 2 2 2,5,0222 / 1423,eg1-42,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-42,https://cube.reoyo.es/?caso=eg1-42#/demo
+EG-1,EG-1 · Orientación 0 2 2 2,6,0222 / 1432,eg1-43,https://cubing.es/cubos/2x2/casos/#grupo-1,https://cubing.es/herramientas/entrenamiento/?caso=eg1-43,https://cube.reoyo.es/?caso=eg1-43#/demo
+EG-2,EG-2 · Orientación 1 1 2 2,1,1122 / 1234,eg2-01,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-01,https://cube.reoyo.es/?caso=eg2-01#/demo
+EG-2,EG-2 · Orientación 1 1 2 2,2,1122 / 1243,eg2-02,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-02,https://cube.reoyo.es/?caso=eg2-02#/demo
+EG-2,EG-2 · Orientación 1 1 2 2,3,1122 / 1324,eg2-03,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-03,https://cube.reoyo.es/?caso=eg2-03#/demo
+EG-2,EG-2 · Orientación 1 1 2 2,4,1122 / 1342,eg2-04,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-04,https://cube.reoyo.es/?caso=eg2-04#/demo
+EG-2,EG-2 · Orientación 1 1 2 2,5,1122 / 1423,eg2-05,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-05,https://cube.reoyo.es/?caso=eg2-05#/demo
+EG-2,EG-2 · Orientación 1 1 2 2,6,1122 / 1432,eg2-06,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-06,https://cube.reoyo.es/?caso=eg2-06#/demo
+EG-2,EG-2 · Orientación 1 2 1 2,1,1212 / 1234,eg2-07,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-07,https://cube.reoyo.es/?caso=eg2-07#/demo
+EG-2,EG-2 · Orientación 1 2 1 2,2,1212 / 1243,eg2-08,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-08,https://cube.reoyo.es/?caso=eg2-08#/demo
+EG-2,EG-2 · Orientación 1 2 1 2,3,1212 / 1324,eg2-09,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-09,https://cube.reoyo.es/?caso=eg2-09#/demo
+EG-2,EG-2 · Orientación 1 2 1 2,4,1212 / 1432,eg2-10,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-10,https://cube.reoyo.es/?caso=eg2-10#/demo
+EG-2,EG-2 · Orientación 0 0 0 0,1,0000 / 1234,eg2-11,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-11,https://cube.reoyo.es/?caso=eg2-11#/demo
+EG-2,EG-2 · Orientación 0 0 0 0,2,0000 / 1243,eg2-12,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-12,https://cube.reoyo.es/?caso=eg2-12#/demo
+EG-2,EG-2 · Orientación 0 0 0 0,3,0000 / 1432,eg2-13,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-13,https://cube.reoyo.es/?caso=eg2-13#/demo
+EG-2,EG-2 · Orientación 0 0 1 2,1,0012 / 1234,eg2-14,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-14,https://cube.reoyo.es/?caso=eg2-14#/demo
+EG-2,EG-2 · Orientación 0 0 1 2,2,0012 / 1243,eg2-15,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-15,https://cube.reoyo.es/?caso=eg2-15#/demo
+EG-2,EG-2 · Orientación 0 0 1 2,3,0012 / 1324,eg2-16,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-16,https://cube.reoyo.es/?caso=eg2-16#/demo
+EG-2,EG-2 · Orientación 0 0 1 2,4,0012 / 1342,eg2-17,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-17,https://cube.reoyo.es/?caso=eg2-17#/demo
+EG-2,EG-2 · Orientación 0 0 1 2,5,0012 / 1423,eg2-18,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-18,https://cube.reoyo.es/?caso=eg2-18#/demo
+EG-2,EG-2 · Orientación 0 0 1 2,6,0012 / 1432,eg2-19,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-19,https://cube.reoyo.es/?caso=eg2-19#/demo
+EG-2,EG-2 · Orientación 0 0 2 1,1,0021 / 1234,eg2-20,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-20,https://cube.reoyo.es/?caso=eg2-20#/demo
+EG-2,EG-2 · Orientación 0 0 2 1,2,0021 / 1243,eg2-21,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-21,https://cube.reoyo.es/?caso=eg2-21#/demo
+EG-2,EG-2 · Orientación 0 0 2 1,3,0021 / 1324,eg2-22,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-22,https://cube.reoyo.es/?caso=eg2-22#/demo
+EG-2,EG-2 · Orientación 0 0 2 1,4,0021 / 1342,eg2-23,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-23,https://cube.reoyo.es/?caso=eg2-23#/demo
+EG-2,EG-2 · Orientación 0 0 2 1,5,0021 / 1423,eg2-24,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-24,https://cube.reoyo.es/?caso=eg2-24#/demo
+EG-2,EG-2 · Orientación 0 0 2 1,6,0021 / 1432,eg2-25,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-25,https://cube.reoyo.es/?caso=eg2-25#/demo
+EG-2,EG-2 · Orientación 0 1 0 2,1,0102 / 1234,eg2-26,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-26,https://cube.reoyo.es/?caso=eg2-26#/demo
+EG-2,EG-2 · Orientación 0 1 0 2,2,0102 / 1243,eg2-27,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-27,https://cube.reoyo.es/?caso=eg2-27#/demo
+EG-2,EG-2 · Orientación 0 1 0 2,3,0102 / 1324,eg2-28,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-28,https://cube.reoyo.es/?caso=eg2-28#/demo
+EG-2,EG-2 · Orientación 0 1 0 2,4,0102 / 1342,eg2-29,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-29,https://cube.reoyo.es/?caso=eg2-29#/demo
+EG-2,EG-2 · Orientación 0 1 0 2,5,0102 / 1423,eg2-30,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-30,https://cube.reoyo.es/?caso=eg2-30#/demo
+EG-2,EG-2 · Orientación 0 1 0 2,6,0102 / 1432,eg2-31,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-31,https://cube.reoyo.es/?caso=eg2-31#/demo
+EG-2,EG-2 · Orientación 0 1 1 1,1,0111 / 1234,eg2-32,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-32,https://cube.reoyo.es/?caso=eg2-32#/demo
+EG-2,EG-2 · Orientación 0 1 1 1,2,0111 / 1243,eg2-33,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-33,https://cube.reoyo.es/?caso=eg2-33#/demo
+EG-2,EG-2 · Orientación 0 1 1 1,3,0111 / 1324,eg2-34,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-34,https://cube.reoyo.es/?caso=eg2-34#/demo
+EG-2,EG-2 · Orientación 0 1 1 1,4,0111 / 1342,eg2-35,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-35,https://cube.reoyo.es/?caso=eg2-35#/demo
+EG-2,EG-2 · Orientación 0 1 1 1,5,0111 / 1423,eg2-36,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-36,https://cube.reoyo.es/?caso=eg2-36#/demo
+EG-2,EG-2 · Orientación 0 1 1 1,6,0111 / 1432,eg2-37,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-37,https://cube.reoyo.es/?caso=eg2-37#/demo
+EG-2,EG-2 · Orientación 0 2 2 2,1,0222 / 1234,eg2-38,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-38,https://cube.reoyo.es/?caso=eg2-38#/demo
+EG-2,EG-2 · Orientación 0 2 2 2,2,0222 / 1243,eg2-39,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-39,https://cube.reoyo.es/?caso=eg2-39#/demo
+EG-2,EG-2 · Orientación 0 2 2 2,3,0222 / 1324,eg2-40,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-40,https://cube.reoyo.es/?caso=eg2-40#/demo
+EG-2,EG-2 · Orientación 0 2 2 2,4,0222 / 1342,eg2-41,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-41,https://cube.reoyo.es/?caso=eg2-41#/demo
+EG-2,EG-2 · Orientación 0 2 2 2,5,0222 / 1423,eg2-42,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-42,https://cube.reoyo.es/?caso=eg2-42#/demo
+EG-2,EG-2 · Orientación 0 2 2 2,6,0222 / 1432,eg2-43,https://cubing.es/cubos/2x2/casos/#grupo-2,https://cubing.es/herramientas/entrenamiento/?caso=eg2-43,https://cube.reoyo.es/?caso=eg2-43#/demo
+L4E,Aristas 1 2 3 4,2,1234 / 0011,l4e-01,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-01,https://cube.reoyo.es/?caso=l4e-01#/demo
+L4E,Aristas 1 2 3 4,3,1234 / 0101,l4e-02,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-02,https://cube.reoyo.es/?caso=l4e-02#/demo
+L4E,Aristas 1 2 3 4,4,1234 / 0110,l4e-03,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-03,https://cube.reoyo.es/?caso=l4e-03#/demo
+L4E,Aristas 1 2 3 4,5,1234 / 1001,l4e-04,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-04,https://cube.reoyo.es/?caso=l4e-04#/demo
+L4E,Aristas 1 2 3 4,6,1234 / 1010,l4e-05,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-05,https://cube.reoyo.es/?caso=l4e-05#/demo
+L4E,Aristas 1 2 3 4,7,1234 / 1100,l4e-06,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-06,https://cube.reoyo.es/?caso=l4e-06#/demo
+L4E,Aristas 1 2 3 4,8,1234 / 1111,l4e-07,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-07,https://cube.reoyo.es/?caso=l4e-07#/demo
+L4E,Aristas 1 3 4 2,1,1342 / 0000,l4e-08,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-08,https://cube.reoyo.es/?caso=l4e-08#/demo
+L4E,Aristas 1 3 4 2,2,1342 / 0011,l4e-09,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-09,https://cube.reoyo.es/?caso=l4e-09#/demo
+L4E,Aristas 1 3 4 2,3,1342 / 0101,l4e-10,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-10,https://cube.reoyo.es/?caso=l4e-10#/demo
+L4E,Aristas 1 3 4 2,4,1342 / 0110,l4e-11,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-11,https://cube.reoyo.es/?caso=l4e-11#/demo
+L4E,Aristas 1 3 4 2,5,1342 / 1001,l4e-12,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-12,https://cube.reoyo.es/?caso=l4e-12#/demo
+L4E,Aristas 1 3 4 2,6,1342 / 1010,l4e-13,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-13,https://cube.reoyo.es/?caso=l4e-13#/demo
+L4E,Aristas 1 3 4 2,7,1342 / 1100,l4e-14,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-14,https://cube.reoyo.es/?caso=l4e-14#/demo
+L4E,Aristas 1 3 4 2,8,1342 / 1111,l4e-15,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-15,https://cube.reoyo.es/?caso=l4e-15#/demo
+L4E,Aristas 1 4 2 3,1,1423 / 0000,l4e-16,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-16,https://cube.reoyo.es/?caso=l4e-16#/demo
+L4E,Aristas 1 4 2 3,2,1423 / 0011,l4e-17,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-17,https://cube.reoyo.es/?caso=l4e-17#/demo
+L4E,Aristas 1 4 2 3,3,1423 / 0101,l4e-18,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-18,https://cube.reoyo.es/?caso=l4e-18#/demo
+L4E,Aristas 1 4 2 3,4,1423 / 0110,l4e-19,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-19,https://cube.reoyo.es/?caso=l4e-19#/demo
+L4E,Aristas 1 4 2 3,5,1423 / 1001,l4e-20,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-20,https://cube.reoyo.es/?caso=l4e-20#/demo
+L4E,Aristas 1 4 2 3,6,1423 / 1010,l4e-21,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-21,https://cube.reoyo.es/?caso=l4e-21#/demo
+L4E,Aristas 1 4 2 3,7,1423 / 1100,l4e-22,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-22,https://cube.reoyo.es/?caso=l4e-22#/demo
+L4E,Aristas 1 4 2 3,8,1423 / 1111,l4e-23,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-23,https://cube.reoyo.es/?caso=l4e-23#/demo
+L4E,Aristas 2 1 4 3,1,2143 / 0000,l4e-24,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-24,https://cube.reoyo.es/?caso=l4e-24#/demo
+L4E,Aristas 2 1 4 3,2,2143 / 0011,l4e-25,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-25,https://cube.reoyo.es/?caso=l4e-25#/demo
+L4E,Aristas 2 1 4 3,3,2143 / 0101,l4e-26,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-26,https://cube.reoyo.es/?caso=l4e-26#/demo
+L4E,Aristas 2 1 4 3,4,2143 / 0110,l4e-27,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-27,https://cube.reoyo.es/?caso=l4e-27#/demo
+L4E,Aristas 2 1 4 3,5,2143 / 1001,l4e-28,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-28,https://cube.reoyo.es/?caso=l4e-28#/demo
+L4E,Aristas 2 1 4 3,6,2143 / 1010,l4e-29,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-29,https://cube.reoyo.es/?caso=l4e-29#/demo
+L4E,Aristas 2 1 4 3,7,2143 / 1100,l4e-30,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-30,https://cube.reoyo.es/?caso=l4e-30#/demo
+L4E,Aristas 2 1 4 3,8,2143 / 1111,l4e-31,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-31,https://cube.reoyo.es/?caso=l4e-31#/demo
+L4E,Aristas 2 3 1 4,1,2314 / 0000,l4e-32,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-32,https://cube.reoyo.es/?caso=l4e-32#/demo
+L4E,Aristas 2 3 1 4,2,2314 / 0011,l4e-33,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-33,https://cube.reoyo.es/?caso=l4e-33#/demo
+L4E,Aristas 2 3 1 4,3,2314 / 0101,l4e-34,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-34,https://cube.reoyo.es/?caso=l4e-34#/demo
+L4E,Aristas 2 3 1 4,4,2314 / 0110,l4e-35,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-35,https://cube.reoyo.es/?caso=l4e-35#/demo
+L4E,Aristas 2 3 1 4,5,2314 / 1001,l4e-36,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-36,https://cube.reoyo.es/?caso=l4e-36#/demo
+L4E,Aristas 2 3 1 4,6,2314 / 1010,l4e-37,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-37,https://cube.reoyo.es/?caso=l4e-37#/demo
+L4E,Aristas 2 3 1 4,7,2314 / 1100,l4e-38,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-38,https://cube.reoyo.es/?caso=l4e-38#/demo
+L4E,Aristas 2 3 1 4,8,2314 / 1111,l4e-39,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-39,https://cube.reoyo.es/?caso=l4e-39#/demo
+L4E,Aristas 2 4 3 1,1,2431 / 0000,l4e-40,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-40,https://cube.reoyo.es/?caso=l4e-40#/demo
+L4E,Aristas 2 4 3 1,2,2431 / 0011,l4e-41,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-41,https://cube.reoyo.es/?caso=l4e-41#/demo
+L4E,Aristas 2 4 3 1,3,2431 / 0101,l4e-42,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-42,https://cube.reoyo.es/?caso=l4e-42#/demo
+L4E,Aristas 2 4 3 1,4,2431 / 0110,l4e-43,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-43,https://cube.reoyo.es/?caso=l4e-43#/demo
+L4E,Aristas 2 4 3 1,5,2431 / 1001,l4e-44,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-44,https://cube.reoyo.es/?caso=l4e-44#/demo
+L4E,Aristas 2 4 3 1,6,2431 / 1010,l4e-45,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-45,https://cube.reoyo.es/?caso=l4e-45#/demo
+L4E,Aristas 2 4 3 1,7,2431 / 1100,l4e-46,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-46,https://cube.reoyo.es/?caso=l4e-46#/demo
+L4E,Aristas 2 4 3 1,8,2431 / 1111,l4e-47,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-47,https://cube.reoyo.es/?caso=l4e-47#/demo
+L4E,Aristas 3 1 2 4,1,3124 / 0000,l4e-48,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-48,https://cube.reoyo.es/?caso=l4e-48#/demo
+L4E,Aristas 3 1 2 4,2,3124 / 0011,l4e-49,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-49,https://cube.reoyo.es/?caso=l4e-49#/demo
+L4E,Aristas 3 1 2 4,3,3124 / 0101,l4e-50,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-50,https://cube.reoyo.es/?caso=l4e-50#/demo
+L4E,Aristas 3 1 2 4,4,3124 / 0110,l4e-51,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-51,https://cube.reoyo.es/?caso=l4e-51#/demo
+L4E,Aristas 3 1 2 4,5,3124 / 1001,l4e-52,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-52,https://cube.reoyo.es/?caso=l4e-52#/demo
+L4E,Aristas 3 1 2 4,6,3124 / 1010,l4e-53,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-53,https://cube.reoyo.es/?caso=l4e-53#/demo
+L4E,Aristas 3 1 2 4,7,3124 / 1100,l4e-54,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-54,https://cube.reoyo.es/?caso=l4e-54#/demo
+L4E,Aristas 3 1 2 4,8,3124 / 1111,l4e-55,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-55,https://cube.reoyo.es/?caso=l4e-55#/demo
+L4E,Aristas 3 2 4 1,1,3241 / 0000,l4e-56,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-56,https://cube.reoyo.es/?caso=l4e-56#/demo
+L4E,Aristas 3 2 4 1,2,3241 / 0011,l4e-57,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-57,https://cube.reoyo.es/?caso=l4e-57#/demo
+L4E,Aristas 3 2 4 1,3,3241 / 0101,l4e-58,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-58,https://cube.reoyo.es/?caso=l4e-58#/demo
+L4E,Aristas 3 2 4 1,4,3241 / 0110,l4e-59,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-59,https://cube.reoyo.es/?caso=l4e-59#/demo
+L4E,Aristas 3 2 4 1,5,3241 / 1001,l4e-60,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-60,https://cube.reoyo.es/?caso=l4e-60#/demo
+L4E,Aristas 3 2 4 1,6,3241 / 1010,l4e-61,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-61,https://cube.reoyo.es/?caso=l4e-61#/demo
+L4E,Aristas 3 2 4 1,7,3241 / 1100,l4e-62,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-62,https://cube.reoyo.es/?caso=l4e-62#/demo
+L4E,Aristas 3 2 4 1,8,3241 / 1111,l4e-63,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-63,https://cube.reoyo.es/?caso=l4e-63#/demo
+L4E,Aristas 3 4 1 2,1,3412 / 0000,l4e-64,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-64,https://cube.reoyo.es/?caso=l4e-64#/demo
+L4E,Aristas 3 4 1 2,2,3412 / 0011,l4e-65,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-65,https://cube.reoyo.es/?caso=l4e-65#/demo
+L4E,Aristas 3 4 1 2,3,3412 / 0101,l4e-66,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-66,https://cube.reoyo.es/?caso=l4e-66#/demo
+L4E,Aristas 3 4 1 2,4,3412 / 0110,l4e-67,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-67,https://cube.reoyo.es/?caso=l4e-67#/demo
+L4E,Aristas 3 4 1 2,5,3412 / 1001,l4e-68,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-68,https://cube.reoyo.es/?caso=l4e-68#/demo
+L4E,Aristas 3 4 1 2,6,3412 / 1010,l4e-69,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-69,https://cube.reoyo.es/?caso=l4e-69#/demo
+L4E,Aristas 3 4 1 2,7,3412 / 1100,l4e-70,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-70,https://cube.reoyo.es/?caso=l4e-70#/demo
+L4E,Aristas 3 4 1 2,8,3412 / 1111,l4e-71,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-71,https://cube.reoyo.es/?caso=l4e-71#/demo
+L4E,Aristas 4 1 3 2,1,4132 / 0000,l4e-72,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-72,https://cube.reoyo.es/?caso=l4e-72#/demo
+L4E,Aristas 4 1 3 2,2,4132 / 0011,l4e-73,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-73,https://cube.reoyo.es/?caso=l4e-73#/demo
+L4E,Aristas 4 1 3 2,3,4132 / 0101,l4e-74,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-74,https://cube.reoyo.es/?caso=l4e-74#/demo
+L4E,Aristas 4 1 3 2,4,4132 / 0110,l4e-75,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-75,https://cube.reoyo.es/?caso=l4e-75#/demo
+L4E,Aristas 4 1 3 2,5,4132 / 1001,l4e-76,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-76,https://cube.reoyo.es/?caso=l4e-76#/demo
+L4E,Aristas 4 1 3 2,6,4132 / 1010,l4e-77,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-77,https://cube.reoyo.es/?caso=l4e-77#/demo
+L4E,Aristas 4 1 3 2,7,4132 / 1100,l4e-78,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-78,https://cube.reoyo.es/?caso=l4e-78#/demo
+L4E,Aristas 4 1 3 2,8,4132 / 1111,l4e-79,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-79,https://cube.reoyo.es/?caso=l4e-79#/demo
+L4E,Aristas 4 2 1 3,1,4213 / 0000,l4e-80,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-80,https://cube.reoyo.es/?caso=l4e-80#/demo
+L4E,Aristas 4 2 1 3,2,4213 / 0011,l4e-81,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-81,https://cube.reoyo.es/?caso=l4e-81#/demo
+L4E,Aristas 4 2 1 3,3,4213 / 0101,l4e-82,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-82,https://cube.reoyo.es/?caso=l4e-82#/demo
+L4E,Aristas 4 2 1 3,4,4213 / 0110,l4e-83,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-83,https://cube.reoyo.es/?caso=l4e-83#/demo
+L4E,Aristas 4 2 1 3,5,4213 / 1001,l4e-84,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-84,https://cube.reoyo.es/?caso=l4e-84#/demo
+L4E,Aristas 4 2 1 3,6,4213 / 1010,l4e-85,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-85,https://cube.reoyo.es/?caso=l4e-85#/demo
+L4E,Aristas 4 2 1 3,7,4213 / 1100,l4e-86,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-86,https://cube.reoyo.es/?caso=l4e-86#/demo
+L4E,Aristas 4 2 1 3,8,4213 / 1111,l4e-87,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-87,https://cube.reoyo.es/?caso=l4e-87#/demo
+L4E,Aristas 4 3 2 1,1,4321 / 0000,l4e-88,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-88,https://cube.reoyo.es/?caso=l4e-88#/demo
+L4E,Aristas 4 3 2 1,2,4321 / 0011,l4e-89,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-89,https://cube.reoyo.es/?caso=l4e-89#/demo
+L4E,Aristas 4 3 2 1,3,4321 / 0101,l4e-90,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-90,https://cube.reoyo.es/?caso=l4e-90#/demo
+L4E,Aristas 4 3 2 1,4,4321 / 0110,l4e-91,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-91,https://cube.reoyo.es/?caso=l4e-91#/demo
+L4E,Aristas 4 3 2 1,5,4321 / 1001,l4e-92,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-92,https://cube.reoyo.es/?caso=l4e-92#/demo
+L4E,Aristas 4 3 2 1,6,4321 / 1010,l4e-93,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-93,https://cube.reoyo.es/?caso=l4e-93#/demo
+L4E,Aristas 4 3 2 1,7,4321 / 1100,l4e-94,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-94,https://cube.reoyo.es/?caso=l4e-94#/demo
+L4E,Aristas 4 3 2 1,8,4321 / 1111,l4e-95,https://cubing.es/cubos/pyraminx/casos-l4e/,https://cubing.es/herramientas/entrenamiento/?caso=l4e-95,https://cube.reoyo.es/?caso=l4e-95#/demo

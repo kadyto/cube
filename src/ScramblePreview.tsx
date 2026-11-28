@@ -1,11 +1,12 @@
 import { memo, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Expand, LoaderCircle } from 'lucide-react';
+import { getCaseOrientation } from '../shared/case-practice.js';
 import { EVENTS } from '../shared/domain.js';
 import { Modal } from './components';
 import type { EventId } from './types';
 
 function orientation(event: EventId, caseOrientation: boolean) {
-  if (caseOrientation) return 'Empieza con amarillo arriba y verde delante.';
+  if (caseOrientation) return `Empieza con ${getCaseOrientation(event)}.`;
   return event === 'pyram'
     ? 'Verde delante y amarillo en la base. Incluye los giros de las puntas.'
     : 'Empieza con blanco arriba y verde delante.';

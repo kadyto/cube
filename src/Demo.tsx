@@ -50,9 +50,7 @@ export function Demo() {
           <h1>
             Demo<span className="green-dot">.</span>
           </h1>
-          <p className="muted">
-            Practica con una mezcla completa o un caso de 3×3. Sin contraseña.
-          </p>
+          <p className="muted">Practica con una mezcla completa o un caso. Sin contraseña.</p>
         </div>
         <span className="private-pill">
           <Play size={15} /> Modo demo
@@ -64,9 +62,7 @@ export function Demo() {
       </p>
       <ScreenAwakeStatus screen={screen} />
       <EventTabs event={event} disabled={timer.active} onChange={chooseEvent} />
-      {event === '333' && (
-        <PracticeMode byCase={!!casePractice} disabled={timer.active} onChange={chooseMode} />
-      )}
+      <PracticeMode byCase={!!casePractice} disabled={timer.active} onChange={chooseMode} />
       {casePractice ? (
         <CaseSetup
           practice={casePractice}
