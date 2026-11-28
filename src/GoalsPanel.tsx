@@ -177,7 +177,7 @@ export function GoalsPanel({
             <select value={event} onChange={(e) => setEvent(e.target.value as EventId)}>
               {EVENT_IDS.map((id) => (
                 <option key={id} value={id}>
-                  {EVENTS[id as EventId].name}
+                  {EVENTS[id].name}
                 </option>
               ))}
             </select>

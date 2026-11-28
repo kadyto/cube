@@ -16,15 +16,15 @@ node wordpress/package-media.mjs
 
 El bloque añade `caso` de la URL de **Entrenamiento** a la URL del adjunto antes de cargar el marco. El cronómetro valida el identificador con el catálogo, por ejemplo en `/herramientas/entrenamiento/?caso=f2l-01`. El bloque ajusta la altura con los mensajes del cronómetro tras verificar el origen y la ventana emisora. Puedes restaurar la versión anterior con una revisión de la página.
 
-Prueba la vista previa y luego la página publicada. Abre un enlace directo de cada familia en 3×3, 2×2 y Pyraminx. Para añadir «Practicar este caso» a las tablas, usa la columna `url_wordpress`. [Mapa de filas](casos-cubing-es.csv)
+Prueba la vista previa y luego la página publicada. Abre un enlace directo de cada familia, incluidas Sarah intermedio y Sarah avanzado en Skewb. Para añadir «Practicar este caso» a las tablas, usa la columna `url_wordpress`. [Mapa de filas](casos-cubing-es.csv)
 
-Comprueba las mezclas completas de los tres puzzles, el dibujo, la inspección y el cronómetro. El HTML incluye JavaScript, estilos y licencias. El worker y el módulo se ejecutan en el navegador y el cronómetro usa las fuentes del sitio. La política de seguridad del HTML permite esos recursos e impide que se ejecute otro contador de Cloudflare dentro del marco. Deja activados los filtros de tipos de archivo de WordPress.
+Comprueba las mezclas completas de los cuatro puzzles, el dibujo, la inspección y el cronómetro. El HTML incluye JavaScript, estilos y licencias. El worker y el módulo se ejecutan en el navegador y el cronómetro usa las fuentes del sitio. La política de seguridad del HTML permite esos recursos e impide que se ejecute otro contador de Cloudflare dentro del marco. Deja activados los filtros de tipos de archivo de WordPress.
 
 ## Variante de archivos estáticos
 
 La página **Entrenamiento** se crea como hija de **Herramientas**, con la plantilla de página habitual de Cubing.es. El bloque HTML monta una aplicación del mismo dominio. El resto de la página lo renderiza WordPress con Twenty Twenty-Five, incluidos el título, el menú y el pie.
 
-La demo usa el cronómetro, la inspección, la notación y el dibujo de Cube. `cubing.js` genera las mezclas de 3×3, 2×2 y Pyraminx mediante un worker local al navegador. El intento actual vive en memoria. Cambiar de mezcla o recargar lo descarta. La compilación web incluye solo la interfaz de entrenamiento y sus dependencias. Los cambios de estilo quedan bajo `.cb-training` y el atajo de espacio responde cuando el foco está dentro de la herramienta.
+La demo usa el cronómetro, la inspección, la notación y el dibujo de Cube. `cubing.js` genera localmente las mezclas de 3×3, 2×2, Pyraminx y Skewb en un worker del navegador. El intento actual vive en memoria. Cambiar de mezcla o recargar lo descarta. La compilación web incluye solo la interfaz de entrenamiento y sus dependencias. Los cambios de estilo quedan bajo `.cb-training` y el atajo de espacio responde cuando el foco está dentro de la herramienta.
 
 ## Compilar
 

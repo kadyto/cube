@@ -394,3 +394,93 @@ test('abandoning a round keeps existing solves and prevents new slot saves; a fr
     await h.close();
   }
 });
+
+test('Skewb can be added to an existing SQLite database with solves, a pending round, trophies and WCA settings', async () => {
+  const directory = mkdtempSync(join(tmpdir(), 'cube-existing-training-'));
+  const path = join(directory, 'cube.sqlite');
+  let h = await harness(path);
+  try {
+    const oldSolve = await add(h, 1200);
+    const oldRound = (await h.request('/rounds', 'POST', { event: '222' })).body;
+    assert.equal((await enter(h, oldRound, 0, 800)).status, 201);
+    const oldGoal = (
+      await h.request('/goals', 'POST', { ...goal({ targetCs: 1500 }), medal: 'silver' })
+    ).body;
+    assert.equal((await h.request(`/goals/${oldGoal.id}/publish`, 'POST', {})).status, 201);
+    const wcaId = '2015BORR01';
+    const importedAt = '2026-11-04T12:00:00Z';
+    const officialSkewb = { event: 'skewb', single: 475, average: 650 };
+    const profile = {
+      ...(await h.request('/profile')).body,
+      wcaId,
+      showWca: true,
+      showCompetitions: true,
+      showUpcoming: true,
+      calculateForecasts: true,
+      wca: {
+        id: wcaId,
+        name: 'Perfil existente',
+        country: 'ES',
+        importedAt,
+        personalRecords: [officialSkewb],
+        competitions: [
+          {
+            id: 'SkewbOpen2026',
+            name: 'Skewb Open',
+            date: '2026-10-01',
+            results: [
+              { event: 'skewb', rounds: [{ round: 'f', position: 4, best: 475, average: 650 }] },
+            ],
+          },
+        ],
+      },
+    };
+    const sync = { id: wcaId, lastAttemptAt: importedAt, error: null };
+    h.app.locals.store.set('profile', profile);
+    h.app.locals.store.set('wca-sync', sync);
+    const before = (await h.request('/export')).body;
+    await h.close();
+    h = await harness(path);
+
+    const round = await h.request('/rounds', 'POST', { event: 'skewb' });
+    assert.equal(round.status, 201);
+    const skewbSolve = await enter(h, round.body, 0, 930);
+    assert.equal(skewbSolve.status, 201);
+    assert.equal(skewbSolve.body.event, 'skewb');
+    assert.equal(skewbSolve.body.number, 1);
+    const skewbGoal = await h.request('/goals', 'POST', {
+      ...goal({ event: 'skewb', targetCs: 1000 }),
+      medal: 'bronze',
+    });
+    assert.equal(skewbGoal.status, 201);
+    assert.equal(skewbGoal.body.best.value, 930);
+    assert.equal(skewbGoal.body.publicationId, null);
+
+    const after = (await h.request('/export')).body;
+    assert.deepEqual(after.profile, profile);
+    assert.deepEqual(h.app.locals.store.get('wca-sync'), sync);
+    assert.deepEqual(
+      after.solves.filter((item) => item.event !== 'skewb'),
+      before.solves,
+    );
+    assert.equal(after.solves.find((item) => item.id === oldSolve.id).number, 1);
+    assert.deepEqual(
+      after.rounds.filter((item) => item.event !== 'skewb'),
+      before.rounds,
+    );
+    assert.equal((await h.request('/rounds', 'POST', { event: '222' })).body.id, oldRound.id);
+    assert.deepEqual(
+      after.goals.filter((item) => item.event !== 'skewb'),
+      before.goals,
+    );
+    assert.deepEqual(after.achievements, before.achievements);
+    assert.deepEqual(after.publications, before.publications);
+    const publicData = (await h.request('/public', 'GET', undefined, false)).body;
+    assert.deepEqual(publicData.profile.wca.personalRecords, [officialSkewb]);
+    assert.deepEqual(publicData.profile.wca.competitions, profile.wca.competitions);
+    assert.ok(publicData.achievements.every((item) => item.event !== 'skewb'));
+  } finally {
+    await h.close();
+    rmSync(directory, { recursive: true, force: true });
+  }
+});

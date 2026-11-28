@@ -153,7 +153,7 @@ export function PublicPage({
             <button className={filter === 'all' ? 'selected' : ''} onClick={() => setFilter('all')}>
               Todos
             </button>
-            {(EVENT_IDS as EventId[]).map((event) => (
+            {EVENT_IDS.map((event) => (
               <button
                 className={filter === event ? 'selected' : ''}
                 key={event}
@@ -268,7 +268,7 @@ export function PublicPage({
             </h2>
             <p className="help">Solo cuentan los singles publicados.</p>
             <div className="records-list">
-              {(EVENT_IDS as EventId[]).map((event) => (
+              {EVENT_IDS.map((event) => (
                 <div className="row between" key={event}>
                   <span className="row">
                     <PuzzleIcon event={event} size={26} />

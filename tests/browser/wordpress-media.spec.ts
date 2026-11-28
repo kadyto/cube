@@ -51,6 +51,8 @@ for (const [id, group, event, puzzle] of [
   ['eg1-01', 'EG-1', '222', '2×2'],
   ['eg2-01', 'EG-2', '222', '2×2'],
   ['l4e-01', 'L4E', 'pyram', 'Pyraminx'],
+  ['skewb-si-01', 'Sarah intermedio', 'skewb', 'Skewb'],
+  ['skewb-sa-099', 'Sarah avanzado', 'skewb', 'Skewb'],
 ] as const) {
   test(`the WordPress media block passes the direct ${group} case into the standalone iframe`, async ({
     page,
@@ -97,12 +99,12 @@ for (const [id, group, event, puzzle] of [
   });
 }
 
-test('the mobile standalone iframe times and repeats a case, then generates all three normal scrambles', async ({
+test('the mobile standalone iframe times and repeats a Skewb case, then generates normal scrambles', async ({
   page,
   context,
 }) => {
   await page.setViewportSize({ width: 320, height: 800 });
-  await page.goto(`${origin}${pagePath}?caso=l4e-01`);
+  await page.goto(`${origin}${pagePath}?caso=skewb-si-01`);
   const frame = page.frameLocator(frameSelector);
   const timer = frame.getByRole('button', { name: /^Cronómetro: mantén/ });
   const stage = frame.locator('.cbt-stage');
@@ -129,18 +131,21 @@ test('the mobile standalone iframe times and repeats a case, then generates all 
   await frame.getByRole('button', { name: 'Repetir caso', exact: true }).click();
   await expect(stage.locator('.timer-digits')).toHaveText('0.00');
   await expect(preparation).toHaveText(moves!);
-  await expect(frame.getByRole('combobox', { name: 'Caso', exact: true })).toHaveValue('l4e-01');
+  await expect(frame.getByRole('combobox', { name: 'Caso', exact: true })).toHaveValue(
+    'skewb-si-01',
+  );
   await expect(timer).toBeEnabled();
   await frame.getByRole('button', { name: 'Ver algoritmo', exact: true }).click();
   await expect(frame.getByLabel('Algoritmo del caso')).toBeVisible();
 
   await frame.getByRole('button', { name: 'Mezcla completa', exact: true }).click();
   await expect(frame.getByLabel('Mezcla actual')).not.toBeEmpty();
-  await expect(frame.locator('.scramble-picture')).toHaveAttribute('data-event', 'pyram');
+  await expect(frame.locator('.scramble-picture')).toHaveAttribute('data-event', 'skewb');
   for (const [event, name] of [
     ['333', '3×3'],
     ['222', '2×2'],
     ['pyram', 'Pyraminx'],
+    ['skewb', 'Skewb'],
   ]) {
     await frame.getByRole('button', { name, exact: true }).click();
     const picture = frame.locator('.scramble-picture');

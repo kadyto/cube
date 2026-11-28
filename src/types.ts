@@ -1,4 +1,6 @@
-export type EventId = '333' | '222' | 'pyram';
+import type { EVENT_IDS } from '../shared/domain.js';
+
+export type EventId = (typeof EVENT_IDS)[number];
 export type Penalty = 'none' | '+2' | 'DNF';
 export type Solve = {
   id: string;

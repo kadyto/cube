@@ -38,7 +38,13 @@ export function PuzzleIcon({ event = '333', size = 36 }: { event?: EventId; size
         strokeLinejoin="round"
       />
       <path d="m6 14 18 10 18-10M24 24v20" stroke="currentColor" strokeWidth="1.6" />
-      {event === '333' ? (
+      {event === 'skewb' ? (
+        <path
+          d="M15 9h18v10H15ZM15 19l9 15-9 5-9-15ZM33 19l9 5-9 15-9-5Z"
+          stroke="currentColor"
+          strokeWidth="1.2"
+        />
+      ) : event === '333' ? (
         <path
           d="m12 10.7 18 10v20M18 7.3l18 10v20M12 17.3v20l18-10M18 20.7v20l18-10M6 20.7l18 10 18-10M6 27.3l18 10 18-10"
           stroke="currentColor"

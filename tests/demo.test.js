@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createApp } from '../server/app.js';
+import { EVENT_IDS } from '../shared/domain.js';
 
 async function setup(scrambler = () => "R U R' U'") {
   const app = await createApp({ databasePath: ':memory:', initialPassword: 'a', scrambler });
@@ -29,7 +30,7 @@ test('anonymous demo generation has no database writes, scramble IDs, cookies or
   );
   try {
     const before = changes();
-    for (const event of ['333', '222', 'pyram']) {
+    for (const event of EVENT_IDS) {
       const result = await request('/demo/scramble', { event });
       assert.equal(result.response.status, 200);
       assert.deepEqual(Object.keys(result.body).sort(), ['alg', 'event']);

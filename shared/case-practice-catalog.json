@@ -1,9 +1,10 @@
 {
-  "version": 2,
+  "version": 3,
   "sources": {
     "333": "https://cubing.es/cubos/3x3/casos/",
     "222": "https://cubing.es/cubos/2x2/casos/",
-    "pyram": "https://cubing.es/cubos/pyraminx/casos-l4e/"
+    "pyram": "https://cubing.es/cubos/pyraminx/casos-l4e/",
+    "skewb": "https://cubing.es/cubos/skewb/casos/"
   },
   "groups": {
     "f2l": [
@@ -3177,6 +3178,1774 @@
         "reference": {
           "edges": "4321",
           "flips": "1111"
+        }
+      }
+    ],
+    "skewb-si": [
+      {
+        "id": "skewb-si-01",
+        "name": "01 · LFBL / B",
+        "blocks": {
+          "preparation": "F·S",
+          "solution": "F·H"
+        },
+        "reference": {
+          "corners": "L F B L",
+          "yellowCenter": "B"
+        }
+      },
+      {
+        "id": "skewb-si-02",
+        "name": "02 · FRRB / B",
+        "blocks": {
+          "preparation": "F·H",
+          "solution": "F·S"
+        },
+        "reference": {
+          "corners": "F R R B",
+          "yellowCenter": "B"
+        }
+      },
+      {
+        "id": "skewb-si-03",
+        "name": "03 · FRRB / D",
+        "blocks": {
+          "preparation": "F·S → F·S",
+          "solution": "F·H → F·H"
+        },
+        "reference": {
+          "corners": "F R R B",
+          "yellowCenter": "D"
+        }
+      },
+      {
+        "id": "skewb-si-04",
+        "name": "04 · DRDB / F",
+        "blocks": {
+          "preparation": "F·S → R·S",
+          "solution": "R·H → F·H"
+        },
+        "reference": {
+          "corners": "D R D B",
+          "yellowCenter": "F"
+        }
+      },
+      {
+        "id": "skewb-si-05",
+        "name": "05 · FDRD / F",
+        "blocks": {
+          "preparation": "F·S → R·H",
+          "solution": "R·S → F·H"
+        },
+        "reference": {
+          "corners": "F D R D",
+          "yellowCenter": "F"
+        }
+      },
+      {
+        "id": "skewb-si-06",
+        "name": "06 · DDDD / B",
+        "blocks": {
+          "preparation": "F·S → B·S",
+          "solution": "B·H → F·H"
+        },
+        "reference": {
+          "corners": "D D D D",
+          "yellowCenter": "B"
+        }
+      },
+      {
+        "id": "skewb-si-07",
+        "name": "07 · LDBD / F",
+        "blocks": {
+          "preparation": "F·H → R·S",
+          "solution": "R·H → F·S"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "yellowCenter": "F"
+        }
+      },
+      {
+        "id": "skewb-si-08",
+        "name": "08 · DFDL / F",
+        "blocks": {
+          "preparation": "F·H → R·H",
+          "solution": "R·S → F·S"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "yellowCenter": "F"
+        }
+      },
+      {
+        "id": "skewb-si-09",
+        "name": "09 · FFRL / F",
+        "blocks": {
+          "preparation": "F·S → R·S → F·H",
+          "solution": "F·S → R·H → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "yellowCenter": "F"
+        }
+      },
+      {
+        "id": "skewb-si-10",
+        "name": "10 · LDBD / D",
+        "blocks": {
+          "preparation": "F·S → R·S → B·H",
+          "solution": "B·S → R·H → F·H"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "yellowCenter": "D"
+        }
+      },
+      {
+        "id": "skewb-si-11",
+        "name": "11 · LRBB / F",
+        "blocks": {
+          "preparation": "F·S → R·H → F·H",
+          "solution": "F·S → R·S → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "yellowCenter": "F"
+        }
+      }
+    ],
+    "skewb-sa": [
+      {
+        "id": "skewb-sa-001",
+        "name": "001 · DDDD / BRDLF",
+        "blocks": {
+          "preparation": "F·S → B·S",
+          "solution": "B·H → F·H"
+        },
+        "reference": {
+          "corners": "D D D D",
+          "centers": "B R D L F"
+        }
+      },
+      {
+        "id": "skewb-sa-002",
+        "name": "002 · DDDD / FLDRB",
+        "blocks": {
+          "preparation": "F·S → F·S → F·S",
+          "solution": "F·H → F·H → F·H"
+        },
+        "reference": {
+          "corners": "D D D D",
+          "centers": "F L D R B"
+        }
+      },
+      {
+        "id": "skewb-sa-003",
+        "name": "003 · DDDD / BLFRD",
+        "blocks": {
+          "preparation": "F·S → B·H → F·S",
+          "solution": "F·H → B·S → F·H"
+        },
+        "reference": {
+          "corners": "D D D D",
+          "centers": "B L F R D"
+        }
+      },
+      {
+        "id": "skewb-sa-004",
+        "name": "004 · DDDD / RBDFL",
+        "blocks": {
+          "preparation": "F·S → R·S → F·H → R·H",
+          "solution": "R·S → F·S → R·H → F·H"
+        },
+        "reference": {
+          "corners": "D D D D",
+          "centers": "R B D F L"
+        }
+      },
+      {
+        "id": "skewb-sa-005",
+        "name": "005 · DDDD / RFDLB",
+        "blocks": {
+          "preparation": "F·S → R·S → F·H → L·S",
+          "solution": "L·H → F·S → R·H → F·H"
+        },
+        "reference": {
+          "corners": "D D D D",
+          "centers": "R F D L B"
+        }
+      },
+      {
+        "id": "skewb-sa-006",
+        "name": "006 · DDDD / FDRLB",
+        "blocks": {
+          "preparation": "F·S → R·S → B·S → L·S",
+          "solution": "L·H → B·H → R·H → F·H"
+        },
+        "reference": {
+          "corners": "D D D D",
+          "centers": "F D R L B"
+        }
+      },
+      {
+        "id": "skewb-sa-007",
+        "name": "007 · DDDD / FBLRD",
+        "blocks": {
+          "preparation": "F·S → R·S → L·S → F·H",
+          "solution": "F·S → L·H → R·H → F·H"
+        },
+        "reference": {
+          "corners": "D D D D",
+          "centers": "F B L R D"
+        }
+      },
+      {
+        "id": "skewb-sa-008",
+        "name": "008 · DDDD / LBDRF",
+        "blocks": {
+          "preparation": "F·S → R·S → L·S → B·S",
+          "solution": "B·H → L·H → R·H → F·H"
+        },
+        "reference": {
+          "corners": "D D D D",
+          "centers": "L B D R F"
+        }
+      },
+      {
+        "id": "skewb-sa-009",
+        "name": "009 · DDDD / BLDFR",
+        "blocks": {
+          "preparation": "F·S → B·S → R·S → L·S",
+          "solution": "L·H → R·H → B·H → F·H"
+        },
+        "reference": {
+          "corners": "D D D D",
+          "centers": "B L D F R"
+        }
+      },
+      {
+        "id": "skewb-sa-010",
+        "name": "010 · DDDD / BFDRL",
+        "blocks": {
+          "preparation": "F·S → B·S → L·S → R·S",
+          "solution": "R·H → L·H → B·H → F·H"
+        },
+        "reference": {
+          "corners": "D D D D",
+          "centers": "B F D R L"
+        }
+      },
+      {
+        "id": "skewb-sa-011",
+        "name": "011 · DDDD / LRDFB",
+        "blocks": {
+          "preparation": "F·S → L·S → F·H → R·S",
+          "solution": "R·H → F·S → L·H → F·H"
+        },
+        "reference": {
+          "corners": "D D D D",
+          "centers": "L R D F B"
+        }
+      },
+      {
+        "id": "skewb-sa-012",
+        "name": "012 · DDDD / LFDBR",
+        "blocks": {
+          "preparation": "F·S → L·S → F·H → L·H",
+          "solution": "L·S → F·S → L·H → F·H"
+        },
+        "reference": {
+          "corners": "D D D D",
+          "centers": "L F D B R"
+        }
+      },
+      {
+        "id": "skewb-sa-013",
+        "name": "013 · DDDD / FLRBD",
+        "blocks": {
+          "preparation": "F·S → L·S → R·S → F·H",
+          "solution": "F·S → R·H → L·H → F·H"
+        },
+        "reference": {
+          "corners": "D D D D",
+          "centers": "F L R B D"
+        }
+      },
+      {
+        "id": "skewb-sa-014",
+        "name": "014 · DDDD / RLDBF",
+        "blocks": {
+          "preparation": "F·S → L·S → R·S → B·S",
+          "solution": "B·H → R·H → L·H → F·H"
+        },
+        "reference": {
+          "corners": "D D D D",
+          "centers": "R L D B F"
+        }
+      },
+      {
+        "id": "skewb-sa-015",
+        "name": "015 · DDDD / FRLDB",
+        "blocks": {
+          "preparation": "F·S → L·S → B·S → R·S",
+          "solution": "R·H → B·H → L·H → F·H"
+        },
+        "reference": {
+          "corners": "D D D D",
+          "centers": "F R L D B"
+        }
+      },
+      {
+        "id": "skewb-sa-016",
+        "name": "016 · DDDD / RFLBD",
+        "blocks": {
+          "preparation": "F·S → R·S → F·S → R·H → F·S",
+          "solution": "F·H → R·S → F·H → R·H → F·H"
+        },
+        "reference": {
+          "corners": "D D D D",
+          "centers": "R F L B D"
+        }
+      },
+      {
+        "id": "skewb-sa-017",
+        "name": "017 · LFBL / FLDRB",
+        "blocks": {
+          "preparation": "F·S",
+          "solution": "F·H"
+        },
+        "reference": {
+          "corners": "L F B L",
+          "centers": "F L D R B"
+        }
+      },
+      {
+        "id": "skewb-sa-018",
+        "name": "018 · LFBL / BRDLF",
+        "blocks": {
+          "preparation": "F·H → B·S",
+          "solution": "B·H → F·S"
+        },
+        "reference": {
+          "corners": "L F B L",
+          "centers": "B R D L F"
+        }
+      },
+      {
+        "id": "skewb-sa-019",
+        "name": "019 · LFBL / FRDBL",
+        "blocks": {
+          "preparation": "F·S → R·S → L·S",
+          "solution": "L·H → R·H → F·H"
+        },
+        "reference": {
+          "corners": "L F B L",
+          "centers": "F R D B L"
+        }
+      },
+      {
+        "id": "skewb-sa-020",
+        "name": "020 · LFBL / BLFRD",
+        "blocks": {
+          "preparation": "F·S → B·S → F·S",
+          "solution": "F·H → B·H → F·H"
+        },
+        "reference": {
+          "corners": "L F B L",
+          "centers": "B L F R D"
+        }
+      },
+      {
+        "id": "skewb-sa-021",
+        "name": "021 · LFBL / FBDLR",
+        "blocks": {
+          "preparation": "F·S → L·S → R·S",
+          "solution": "R·H → L·H → F·H"
+        },
+        "reference": {
+          "corners": "L F B L",
+          "centers": "F B D L R"
+        }
+      },
+      {
+        "id": "skewb-sa-022",
+        "name": "022 · LFBL / RBDFL",
+        "blocks": {
+          "preparation": "F·H → R·S → F·H → R·H",
+          "solution": "R·S → F·S → R·H → F·S"
+        },
+        "reference": {
+          "corners": "L F B L",
+          "centers": "R B D F L"
+        }
+      },
+      {
+        "id": "skewb-sa-023",
+        "name": "023 · LFBL / LBDRF",
+        "blocks": {
+          "preparation": "F·H → R·S → L·S → B·S",
+          "solution": "B·H → L·H → R·H → F·S"
+        },
+        "reference": {
+          "corners": "L F B L",
+          "centers": "L B D R F"
+        }
+      },
+      {
+        "id": "skewb-sa-024",
+        "name": "024 · LFBL / LFDBR",
+        "blocks": {
+          "preparation": "F·H → L·S → F·H → L·H",
+          "solution": "L·S → F·S → L·H → F·S"
+        },
+        "reference": {
+          "corners": "L F B L",
+          "centers": "L F D B R"
+        }
+      },
+      {
+        "id": "skewb-sa-025",
+        "name": "025 · LFBL / RLDBF",
+        "blocks": {
+          "preparation": "F·H → L·S → R·S → B·S",
+          "solution": "B·H → R·H → L·H → F·S"
+        },
+        "reference": {
+          "corners": "L F B L",
+          "centers": "R L D B F"
+        }
+      },
+      {
+        "id": "skewb-sa-026",
+        "name": "026 · LFBL / RFLBD",
+        "blocks": {
+          "preparation": "F·S → R·S → F·S → R·H → F·H",
+          "solution": "F·S → R·S → F·H → R·H → F·H"
+        },
+        "reference": {
+          "corners": "L F B L",
+          "centers": "R F L B D"
+        }
+      },
+      {
+        "id": "skewb-sa-027",
+        "name": "027 · FRRB / FLDRB",
+        "blocks": {
+          "preparation": "F·H",
+          "solution": "F·S"
+        },
+        "reference": {
+          "corners": "F R R B",
+          "centers": "F L D R B"
+        }
+      },
+      {
+        "id": "skewb-sa-028",
+        "name": "028 · FRRB / FRBLD",
+        "blocks": {
+          "preparation": "F·S → F·S",
+          "solution": "F·H → F·H"
+        },
+        "reference": {
+          "corners": "F R R B",
+          "centers": "F R B L D"
+        }
+      },
+      {
+        "id": "skewb-sa-029",
+        "name": "029 · FRRB / BRDLF",
+        "blocks": {
+          "preparation": "F·S → B·H",
+          "solution": "B·S → F·H"
+        },
+        "reference": {
+          "corners": "F R R B",
+          "centers": "B R D L F"
+        }
+      },
+      {
+        "id": "skewb-sa-030",
+        "name": "030 · FRRB / FRDBL",
+        "blocks": {
+          "preparation": "F·H → R·S → L·S",
+          "solution": "L·H → R·H → F·S"
+        },
+        "reference": {
+          "corners": "F R R B",
+          "centers": "F R D B L"
+        }
+      },
+      {
+        "id": "skewb-sa-031",
+        "name": "031 · FRRB / FBDLR",
+        "blocks": {
+          "preparation": "F·H → L·S → R·S",
+          "solution": "R·H → L·H → F·S"
+        },
+        "reference": {
+          "corners": "F R R B",
+          "centers": "F B D L R"
+        }
+      },
+      {
+        "id": "skewb-sa-032",
+        "name": "032 · FRRB / FLBDR",
+        "blocks": {
+          "preparation": "F·S → F·S → R·S → L·S",
+          "solution": "L·H → R·H → F·H → F·H"
+        },
+        "reference": {
+          "corners": "F R R B",
+          "centers": "F L B D R"
+        }
+      },
+      {
+        "id": "skewb-sa-033",
+        "name": "033 · FRRB / FDBRL",
+        "blocks": {
+          "preparation": "F·S → F·S → L·S → R·S",
+          "solution": "R·H → L·H → F·H → F·H"
+        },
+        "reference": {
+          "corners": "F R R B",
+          "centers": "F D B R L"
+        }
+      },
+      {
+        "id": "skewb-sa-034",
+        "name": "034 · FRRB / RBDFL",
+        "blocks": {
+          "preparation": "F·S → R·S → F·S → R·H",
+          "solution": "R·S → F·H → R·H → F·H"
+        },
+        "reference": {
+          "corners": "F R R B",
+          "centers": "R B D F L"
+        }
+      },
+      {
+        "id": "skewb-sa-035",
+        "name": "035 · FRRB / RFDLB",
+        "blocks": {
+          "preparation": "F·S → R·S → F·S → L·S",
+          "solution": "L·H → F·H → R·H → F·H"
+        },
+        "reference": {
+          "corners": "F R R B",
+          "centers": "R F D L B"
+        }
+      },
+      {
+        "id": "skewb-sa-036",
+        "name": "036 · FRRB / LBDRF",
+        "blocks": {
+          "preparation": "F·S → R·S → L·S → B·H",
+          "solution": "B·S → L·H → R·H → F·H"
+        },
+        "reference": {
+          "corners": "F R R B",
+          "centers": "L B D R F"
+        }
+      },
+      {
+        "id": "skewb-sa-037",
+        "name": "037 · FRRB / LRDFB",
+        "blocks": {
+          "preparation": "F·S → L·S → F·S → R·S",
+          "solution": "R·H → F·H → L·H → F·H"
+        },
+        "reference": {
+          "corners": "F R R B",
+          "centers": "L R D F B"
+        }
+      },
+      {
+        "id": "skewb-sa-038",
+        "name": "038 · FRRB / LFDBR",
+        "blocks": {
+          "preparation": "F·S → L·S → F·S → L·H",
+          "solution": "L·S → F·H → L·H → F·H"
+        },
+        "reference": {
+          "corners": "F R R B",
+          "centers": "L F D B R"
+        }
+      },
+      {
+        "id": "skewb-sa-039",
+        "name": "039 · FRRB / RLDBF",
+        "blocks": {
+          "preparation": "F·S → L·S → R·S → B·H",
+          "solution": "B·S → R·H → L·H → F·H"
+        },
+        "reference": {
+          "corners": "F R R B",
+          "centers": "R L D B F"
+        }
+      },
+      {
+        "id": "skewb-sa-040",
+        "name": "040 · DRDB / DLFBR",
+        "blocks": {
+          "preparation": "F·S → R·S",
+          "solution": "R·H → F·H"
+        },
+        "reference": {
+          "corners": "D R D B",
+          "centers": "D L F B R"
+        }
+      },
+      {
+        "id": "skewb-sa-041",
+        "name": "041 · DRDB / DBFRL",
+        "blocks": {
+          "preparation": "F·S → L·H",
+          "solution": "L·S → F·H"
+        },
+        "reference": {
+          "corners": "D R D B",
+          "centers": "D B F R L"
+        }
+      },
+      {
+        "id": "skewb-sa-042",
+        "name": "042 · DRDB / FRDBL",
+        "blocks": {
+          "preparation": "F·S → R·H → L·S",
+          "solution": "L·H → R·S → F·H"
+        },
+        "reference": {
+          "corners": "D R D B",
+          "centers": "F R D B L"
+        }
+      },
+      {
+        "id": "skewb-sa-043",
+        "name": "043 · DRDB / DBRLF",
+        "blocks": {
+          "preparation": "F·H → R·S → F·H",
+          "solution": "F·S → R·H → F·S"
+        },
+        "reference": {
+          "corners": "D R D B",
+          "centers": "D B R L F"
+        }
+      },
+      {
+        "id": "skewb-sa-044",
+        "name": "044 · DRDB / RBFLD",
+        "blocks": {
+          "preparation": "F·H → R·S → B·S",
+          "solution": "B·H → R·H → F·S"
+        },
+        "reference": {
+          "corners": "D R D B",
+          "centers": "R B F L D"
+        }
+      },
+      {
+        "id": "skewb-sa-045",
+        "name": "045 · DRDB / DRBFL",
+        "blocks": {
+          "preparation": "F·H → B·S → R·S",
+          "solution": "R·H → B·H → F·S"
+        },
+        "reference": {
+          "corners": "D R D B",
+          "centers": "D R B F L"
+        }
+      },
+      {
+        "id": "skewb-sa-046",
+        "name": "046 · DRDB / DRLBF",
+        "blocks": {
+          "preparation": "F·H → L·H → F·H",
+          "solution": "F·S → L·S → F·S"
+        },
+        "reference": {
+          "corners": "D R D B",
+          "centers": "D R L B F"
+        }
+      },
+      {
+        "id": "skewb-sa-047",
+        "name": "047 · DRDB / LRFBD",
+        "blocks": {
+          "preparation": "F·H → L·H → B·S",
+          "solution": "B·H → L·S → F·S"
+        },
+        "reference": {
+          "corners": "D R D B",
+          "centers": "L R F B D"
+        }
+      },
+      {
+        "id": "skewb-sa-048",
+        "name": "048 · DRDB / RLDBF",
+        "blocks": {
+          "preparation": "F·S → R·S → B·S → F·S",
+          "solution": "F·H → B·H → R·H → F·H"
+        },
+        "reference": {
+          "corners": "D R D B",
+          "centers": "R L D B F"
+        }
+      },
+      {
+        "id": "skewb-sa-049",
+        "name": "049 · DRDB / RBDFL",
+        "blocks": {
+          "preparation": "F·H → R·H → F·H → R·H",
+          "solution": "R·S → F·S → R·S → F·S"
+        },
+        "reference": {
+          "corners": "D R D B",
+          "centers": "R B D F L"
+        }
+      },
+      {
+        "id": "skewb-sa-050",
+        "name": "050 · DRDB / LFDBR",
+        "blocks": {
+          "preparation": "F·H → L·S → F·H → L·S",
+          "solution": "L·H → F·S → L·H → F·S"
+        },
+        "reference": {
+          "corners": "D R D B",
+          "centers": "L F D B R"
+        }
+      },
+      {
+        "id": "skewb-sa-051",
+        "name": "051 · FDRD / DLFBR",
+        "blocks": {
+          "preparation": "F·S → R·H",
+          "solution": "R·S → F·H"
+        },
+        "reference": {
+          "corners": "F D R D",
+          "centers": "D L F B R"
+        }
+      },
+      {
+        "id": "skewb-sa-052",
+        "name": "052 · FDRD / DBFRL",
+        "blocks": {
+          "preparation": "F·S → L·S",
+          "solution": "L·H → F·H"
+        },
+        "reference": {
+          "corners": "F D R D",
+          "centers": "D B F R L"
+        }
+      },
+      {
+        "id": "skewb-sa-053",
+        "name": "053 · FDRD / FRDBL",
+        "blocks": {
+          "preparation": "F·S → R·S → L·H",
+          "solution": "L·S → R·H → F·H"
+        },
+        "reference": {
+          "corners": "F D R D",
+          "centers": "F R D B L"
+        }
+      },
+      {
+        "id": "skewb-sa-054",
+        "name": "054 · FDRD / DBRLF",
+        "blocks": {
+          "preparation": "F·H → R·H → F·H",
+          "solution": "F·S → R·S → F·S"
+        },
+        "reference": {
+          "corners": "F D R D",
+          "centers": "D B R L F"
+        }
+      },
+      {
+        "id": "skewb-sa-055",
+        "name": "055 · FDRD / RBFLD",
+        "blocks": {
+          "preparation": "F·H → R·H → B·S",
+          "solution": "B·H → R·S → F·S"
+        },
+        "reference": {
+          "corners": "F D R D",
+          "centers": "R B F L D"
+        }
+      },
+      {
+        "id": "skewb-sa-056",
+        "name": "056 · FDRD / DRBFL",
+        "blocks": {
+          "preparation": "F·H → B·S → R·H",
+          "solution": "R·S → B·H → F·S"
+        },
+        "reference": {
+          "corners": "F D R D",
+          "centers": "D R B F L"
+        }
+      },
+      {
+        "id": "skewb-sa-057",
+        "name": "057 · FDRD / DRLBF",
+        "blocks": {
+          "preparation": "F·H → L·S → F·H",
+          "solution": "F·S → L·H → F·S"
+        },
+        "reference": {
+          "corners": "F D R D",
+          "centers": "D R L B F"
+        }
+      },
+      {
+        "id": "skewb-sa-058",
+        "name": "058 · FDRD / LRFBD",
+        "blocks": {
+          "preparation": "F·H → L·S → B·S",
+          "solution": "B·H → L·H → F·S"
+        },
+        "reference": {
+          "corners": "F D R D",
+          "centers": "L R F B D"
+        }
+      },
+      {
+        "id": "skewb-sa-059",
+        "name": "059 · FDRD / RLDBF",
+        "blocks": {
+          "preparation": "F·S → R·H → B·S → F·S",
+          "solution": "F·H → B·H → R·S → F·H"
+        },
+        "reference": {
+          "corners": "F D R D",
+          "centers": "R L D B F"
+        }
+      },
+      {
+        "id": "skewb-sa-060",
+        "name": "060 · FDRD / RBDFL",
+        "blocks": {
+          "preparation": "F·H → R·S → F·H → R·S",
+          "solution": "R·H → F·S → R·H → F·S"
+        },
+        "reference": {
+          "corners": "F D R D",
+          "centers": "R B D F L"
+        }
+      },
+      {
+        "id": "skewb-sa-061",
+        "name": "061 · FDRD / LFDBR",
+        "blocks": {
+          "preparation": "F·H → L·H → F·H → L·H",
+          "solution": "L·S → F·S → L·S → F·S"
+        },
+        "reference": {
+          "corners": "F D R D",
+          "centers": "L F D B R"
+        }
+      },
+      {
+        "id": "skewb-sa-062",
+        "name": "062 · FDRD / RFLBD",
+        "blocks": {
+          "preparation": "F·S → R·S → F·S → R·S → F·H",
+          "solution": "F·S → R·H → F·H → R·H → F·H"
+        },
+        "reference": {
+          "corners": "F D R D",
+          "centers": "R F L B D"
+        }
+      },
+      {
+        "id": "skewb-sa-063",
+        "name": "063 · LDBD / DLFBR",
+        "blocks": {
+          "preparation": "F·H → R·S",
+          "solution": "R·H → F·S"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "centers": "D L F B R"
+        }
+      },
+      {
+        "id": "skewb-sa-064",
+        "name": "064 · LDBD / DBFRL",
+        "blocks": {
+          "preparation": "F·H → L·H",
+          "solution": "L·S → F·S"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "centers": "D B F R L"
+        }
+      },
+      {
+        "id": "skewb-sa-065",
+        "name": "065 · LDBD / BRFDL",
+        "blocks": {
+          "preparation": "F·S → F·S → R·S",
+          "solution": "R·H → F·H → F·H"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "centers": "B R F D L"
+        }
+      },
+      {
+        "id": "skewb-sa-066",
+        "name": "066 · LDBD / BDFLR",
+        "blocks": {
+          "preparation": "F·S → F·S → L·H",
+          "solution": "L·S → F·H → F·H"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "centers": "B D F L R"
+        }
+      },
+      {
+        "id": "skewb-sa-067",
+        "name": "067 · LDBD / DBRLF",
+        "blocks": {
+          "preparation": "F·S → R·S → F·S",
+          "solution": "F·H → R·H → F·H"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "centers": "D B R L F"
+        }
+      },
+      {
+        "id": "skewb-sa-068",
+        "name": "068 · LDBD / RBFLD",
+        "blocks": {
+          "preparation": "F·S → R·S → B·H",
+          "solution": "B·S → R·H → F·H"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "centers": "R B F L D"
+        }
+      },
+      {
+        "id": "skewb-sa-069",
+        "name": "069 · LDBD / DRBFL",
+        "blocks": {
+          "preparation": "F·S → B·H → R·S",
+          "solution": "R·H → B·S → F·H"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "centers": "D R B F L"
+        }
+      },
+      {
+        "id": "skewb-sa-070",
+        "name": "070 · LDBD / DRLBF",
+        "blocks": {
+          "preparation": "F·S → L·H → F·S",
+          "solution": "F·H → L·S → F·H"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "centers": "D R L B F"
+        }
+      },
+      {
+        "id": "skewb-sa-071",
+        "name": "071 · LDBD / LRFBD",
+        "blocks": {
+          "preparation": "F·S → L·H → B·H",
+          "solution": "B·S → L·S → F·H"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "centers": "L R F B D"
+        }
+      },
+      {
+        "id": "skewb-sa-072",
+        "name": "072 · LDBD / FRDBL",
+        "blocks": {
+          "preparation": "F·H → R·H → L·S",
+          "solution": "L·H → R·S → F·S"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "centers": "F R D B L"
+        }
+      },
+      {
+        "id": "skewb-sa-073",
+        "name": "073 · LDBD / FLBDR",
+        "blocks": {
+          "preparation": "F·S → F·S → R·H → L·S",
+          "solution": "L·H → R·S → F·H → F·H"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "centers": "F L B D R"
+        }
+      },
+      {
+        "id": "skewb-sa-074",
+        "name": "074 · LDBD / FDBRL",
+        "blocks": {
+          "preparation": "F·S → F·S → L·S → R·H",
+          "solution": "R·S → L·H → F·H → F·H"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "centers": "F D B R L"
+        }
+      },
+      {
+        "id": "skewb-sa-075",
+        "name": "075 · LDBD / RLDBF",
+        "blocks": {
+          "preparation": "F·S → R·S → B·S → F·H",
+          "solution": "F·S → B·H → R·H → F·H"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "centers": "R L D B F"
+        }
+      },
+      {
+        "id": "skewb-sa-076",
+        "name": "076 · LDBD / RBDFL",
+        "blocks": {
+          "preparation": "F·S → R·H → F·S → R·H",
+          "solution": "R·S → F·H → R·S → F·H"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "centers": "R B D F L"
+        }
+      },
+      {
+        "id": "skewb-sa-077",
+        "name": "077 · LDBD / LBDRF",
+        "blocks": {
+          "preparation": "F·S → R·H → L·S → B·H",
+          "solution": "B·S → L·H → R·S → F·H"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "centers": "L B D R F"
+        }
+      },
+      {
+        "id": "skewb-sa-078",
+        "name": "078 · LDBD / DLRFB",
+        "blocks": {
+          "preparation": "F·S → B·S → L·H → F·H",
+          "solution": "F·S → L·S → B·H → F·H"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "centers": "D L R F B"
+        }
+      },
+      {
+        "id": "skewb-sa-079",
+        "name": "079 · LDBD / LFDBR",
+        "blocks": {
+          "preparation": "F·S → L·S → F·S → L·S",
+          "solution": "L·H → F·H → L·H → F·H"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "centers": "L F D B R"
+        }
+      },
+      {
+        "id": "skewb-sa-080",
+        "name": "080 · LDBD / BLFRD",
+        "blocks": {
+          "preparation": "F·S → F·S → R·S → L·S → R·S",
+          "solution": "R·H → L·H → R·H → F·H → F·H"
+        },
+        "reference": {
+          "corners": "L D B D",
+          "centers": "B L F R D"
+        }
+      },
+      {
+        "id": "skewb-sa-081",
+        "name": "081 · DFDL / DLFBR",
+        "blocks": {
+          "preparation": "F·H → R·H",
+          "solution": "R·S → F·S"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "D L F B R"
+        }
+      },
+      {
+        "id": "skewb-sa-082",
+        "name": "082 · DFDL / DBFRL",
+        "blocks": {
+          "preparation": "F·H → L·S",
+          "solution": "L·H → F·S"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "D B F R L"
+        }
+      },
+      {
+        "id": "skewb-sa-083",
+        "name": "083 · DFDL / BRFDL",
+        "blocks": {
+          "preparation": "F·S → F·S → R·H",
+          "solution": "R·S → F·H → F·H"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "B R F D L"
+        }
+      },
+      {
+        "id": "skewb-sa-084",
+        "name": "084 · DFDL / BDFLR",
+        "blocks": {
+          "preparation": "F·S → F·S → L·S",
+          "solution": "L·H → F·H → F·H"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "B D F L R"
+        }
+      },
+      {
+        "id": "skewb-sa-085",
+        "name": "085 · DFDL / DBRLF",
+        "blocks": {
+          "preparation": "F·S → R·H → F·S",
+          "solution": "F·H → R·S → F·H"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "D B R L F"
+        }
+      },
+      {
+        "id": "skewb-sa-086",
+        "name": "086 · DFDL / RBFLD",
+        "blocks": {
+          "preparation": "F·S → R·H → B·H",
+          "solution": "B·S → R·S → F·H"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "R B F L D"
+        }
+      },
+      {
+        "id": "skewb-sa-087",
+        "name": "087 · DFDL / DRBFL",
+        "blocks": {
+          "preparation": "F·S → B·H → R·H",
+          "solution": "R·S → B·S → F·H"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "D R B F L"
+        }
+      },
+      {
+        "id": "skewb-sa-088",
+        "name": "088 · DFDL / DRLBF",
+        "blocks": {
+          "preparation": "F·S → L·S → F·S",
+          "solution": "F·H → L·H → F·H"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "D R L B F"
+        }
+      },
+      {
+        "id": "skewb-sa-089",
+        "name": "089 · DFDL / LRFBD",
+        "blocks": {
+          "preparation": "F·S → L·S → B·H",
+          "solution": "B·S → L·H → F·H"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "L R F B D"
+        }
+      },
+      {
+        "id": "skewb-sa-090",
+        "name": "090 · DFDL / FRDBL",
+        "blocks": {
+          "preparation": "F·H → R·S → L·H",
+          "solution": "L·S → R·H → F·S"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "F R D B L"
+        }
+      },
+      {
+        "id": "skewb-sa-091",
+        "name": "091 · DFDL / FRBLD",
+        "blocks": {
+          "preparation": "F·S → F·S → R·S → R·S",
+          "solution": "R·H → R·H → F·H → F·H"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "F R B L D"
+        }
+      },
+      {
+        "id": "skewb-sa-092",
+        "name": "092 · DFDL / FLBDR",
+        "blocks": {
+          "preparation": "F·S → F·S → R·S → L·H",
+          "solution": "L·S → R·H → F·H → F·H"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "F L B D R"
+        }
+      },
+      {
+        "id": "skewb-sa-093",
+        "name": "093 · DFDL / FDBRL",
+        "blocks": {
+          "preparation": "F·S → F·S → L·H → R·S",
+          "solution": "R·H → L·S → F·H → F·H"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "F D B R L"
+        }
+      },
+      {
+        "id": "skewb-sa-094",
+        "name": "094 · DFDL / RBDFL",
+        "blocks": {
+          "preparation": "F·S → R·S → F·S → R·S",
+          "solution": "R·H → F·H → R·H → F·H"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "R B D F L"
+        }
+      },
+      {
+        "id": "skewb-sa-095",
+        "name": "095 · DFDL / LBDRF",
+        "blocks": {
+          "preparation": "F·S → R·S → L·H → B·H",
+          "solution": "B·S → L·S → R·H → F·H"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "L B D R F"
+        }
+      },
+      {
+        "id": "skewb-sa-096",
+        "name": "096 · DFDL / RLDBF",
+        "blocks": {
+          "preparation": "F·S → R·H → B·S → F·H",
+          "solution": "F·S → B·H → R·S → F·H"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "R L D B F"
+        }
+      },
+      {
+        "id": "skewb-sa-097",
+        "name": "097 · DFDL / DLRFB",
+        "blocks": {
+          "preparation": "F·S → B·S → L·S → F·H",
+          "solution": "F·S → L·H → B·H → F·H"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "D L R F B"
+        }
+      },
+      {
+        "id": "skewb-sa-098",
+        "name": "098 · DFDL / LFDBR",
+        "blocks": {
+          "preparation": "F·S → L·H → F·S → L·H",
+          "solution": "L·S → F·H → L·S → F·H"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "L F D B R"
+        }
+      },
+      {
+        "id": "skewb-sa-099",
+        "name": "099 · DFDL / RFLBD",
+        "blocks": {
+          "preparation": "F·S → R·S → F·H → R·S → F·H",
+          "solution": "F·S → R·H → F·S → R·H → F·H"
+        },
+        "reference": {
+          "corners": "D F D L",
+          "centers": "R F L B D"
+        }
+      },
+      {
+        "id": "skewb-sa-100",
+        "name": "100 · FFRL / DBRLF",
+        "blocks": {
+          "preparation": "F·S → R·S → F·H",
+          "solution": "F·S → R·H → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "centers": "D B R L F"
+        }
+      },
+      {
+        "id": "skewb-sa-101",
+        "name": "101 · FFRL / RBFLD",
+        "blocks": {
+          "preparation": "F·S → R·S → B·S",
+          "solution": "B·H → R·H → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "centers": "R B F L D"
+        }
+      },
+      {
+        "id": "skewb-sa-102",
+        "name": "102 · FFRL / DRBFL",
+        "blocks": {
+          "preparation": "F·S → B·S → R·S",
+          "solution": "R·H → B·H → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "centers": "D R B F L"
+        }
+      },
+      {
+        "id": "skewb-sa-103",
+        "name": "103 · FFRL / DFBLR",
+        "blocks": {
+          "preparation": "F·S → B·S → L·H",
+          "solution": "L·S → B·H → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "centers": "D F B L R"
+        }
+      },
+      {
+        "id": "skewb-sa-104",
+        "name": "104 · FFRL / DRLBF",
+        "blocks": {
+          "preparation": "F·S → L·H → F·H",
+          "solution": "F·S → L·S → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "centers": "D R L B F"
+        }
+      },
+      {
+        "id": "skewb-sa-105",
+        "name": "105 · FFRL / LRFBD",
+        "blocks": {
+          "preparation": "F·S → L·H → B·S",
+          "solution": "B·H → L·S → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "centers": "L R F B D"
+        }
+      },
+      {
+        "id": "skewb-sa-106",
+        "name": "106 · FFRL / DLFBR",
+        "blocks": {
+          "preparation": "F·S → F·S → F·S → R·S",
+          "solution": "R·H → F·H → F·H → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "centers": "D L F B R"
+        }
+      },
+      {
+        "id": "skewb-sa-107",
+        "name": "107 · FFRL / DBFRL",
+        "blocks": {
+          "preparation": "F·S → F·S → F·S → L·H",
+          "solution": "L·S → F·H → F·H → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "centers": "D B F R L"
+        }
+      },
+      {
+        "id": "skewb-sa-108",
+        "name": "108 · FFRL / BDLRF",
+        "blocks": {
+          "preparation": "F·S → F·S → R·S → F·S",
+          "solution": "F·H → R·H → F·H → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "centers": "B D L R F"
+        }
+      },
+      {
+        "id": "skewb-sa-109",
+        "name": "109 · FFRL / LDFRB",
+        "blocks": {
+          "preparation": "F·S → F·S → R·S → B·H",
+          "solution": "B·S → R·H → F·H → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "centers": "L D F R B"
+        }
+      },
+      {
+        "id": "skewb-sa-110",
+        "name": "110 · FFRL / FLRBD",
+        "blocks": {
+          "preparation": "F·S → R·S → F·S → B·H",
+          "solution": "B·S → F·H → R·H → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "centers": "F L R B D"
+        }
+      },
+      {
+        "id": "skewb-sa-111",
+        "name": "111 · FFRL / RLDBF",
+        "blocks": {
+          "preparation": "F·S → R·S → B·H → F·S",
+          "solution": "F·H → B·S → R·H → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "centers": "R L D B F"
+        }
+      },
+      {
+        "id": "skewb-sa-112",
+        "name": "112 · FFRL / RBDFL",
+        "blocks": {
+          "preparation": "F·S → R·H → F·H → R·H",
+          "solution": "R·S → F·S → R·S → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "centers": "R B D F L"
+        }
+      },
+      {
+        "id": "skewb-sa-113",
+        "name": "113 · FFRL / FBRDL",
+        "blocks": {
+          "preparation": "F·S → R·H → B·S → R·H",
+          "solution": "R·S → B·H → R·S → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "centers": "F B R D L"
+        }
+      },
+      {
+        "id": "skewb-sa-114",
+        "name": "114 · FFRL / FBLRD",
+        "blocks": {
+          "preparation": "F·S → R·H → L·S → F·H",
+          "solution": "F·S → L·H → R·S → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "centers": "F B L R D"
+        }
+      },
+      {
+        "id": "skewb-sa-115",
+        "name": "115 · FFRL / LBDRF",
+        "blocks": {
+          "preparation": "F·S → R·H → L·S → B·S",
+          "solution": "B·H → L·H → R·S → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "centers": "L B D R F"
+        }
+      },
+      {
+        "id": "skewb-sa-116",
+        "name": "116 · FFRL / LFDBR",
+        "blocks": {
+          "preparation": "F·S → L·S → F·H → L·S",
+          "solution": "L·H → F·S → L·H → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "centers": "L F D B R"
+        }
+      },
+      {
+        "id": "skewb-sa-117",
+        "name": "117 · FFRL / FLDRB",
+        "blocks": {
+          "preparation": "F·S → F·S → F·S → R·H → R·H",
+          "solution": "R·S → R·S → F·H → F·H → F·H"
+        },
+        "reference": {
+          "corners": "F F R L",
+          "centers": "F L D R B"
+        }
+      },
+      {
+        "id": "skewb-sa-118",
+        "name": "118 · LRBB / DBRLF",
+        "blocks": {
+          "preparation": "F·S → R·H → F·H",
+          "solution": "F·S → R·S → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "D B R L F"
+        }
+      },
+      {
+        "id": "skewb-sa-119",
+        "name": "119 · LRBB / RBFLD",
+        "blocks": {
+          "preparation": "F·S → R·H → B·S",
+          "solution": "B·H → R·S → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "R B F L D"
+        }
+      },
+      {
+        "id": "skewb-sa-120",
+        "name": "120 · LRBB / DRBFL",
+        "blocks": {
+          "preparation": "F·S → B·S → R·H",
+          "solution": "R·S → B·H → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "D R B F L"
+        }
+      },
+      {
+        "id": "skewb-sa-121",
+        "name": "121 · LRBB / DFBLR",
+        "blocks": {
+          "preparation": "F·S → B·S → L·S",
+          "solution": "L·H → B·H → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "D F B L R"
+        }
+      },
+      {
+        "id": "skewb-sa-122",
+        "name": "122 · LRBB / DRLBF",
+        "blocks": {
+          "preparation": "F·S → L·S → F·H",
+          "solution": "F·S → L·H → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "D R L B F"
+        }
+      },
+      {
+        "id": "skewb-sa-123",
+        "name": "123 · LRBB / LRFBD",
+        "blocks": {
+          "preparation": "F·S → L·S → B·S",
+          "solution": "B·H → L·H → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "L R F B D"
+        }
+      },
+      {
+        "id": "skewb-sa-124",
+        "name": "124 · LRBB / DLFBR",
+        "blocks": {
+          "preparation": "F·S → F·S → F·S → R·H",
+          "solution": "R·S → F·H → F·H → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "D L F B R"
+        }
+      },
+      {
+        "id": "skewb-sa-125",
+        "name": "125 · LRBB / DBFRL",
+        "blocks": {
+          "preparation": "F·S → F·S → F·S → L·S",
+          "solution": "L·H → F·H → F·H → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "D B F R L"
+        }
+      },
+      {
+        "id": "skewb-sa-126",
+        "name": "126 · LRBB / BDLRF",
+        "blocks": {
+          "preparation": "F·S → F·S → R·H → F·S",
+          "solution": "F·H → R·S → F·H → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "B D L R F"
+        }
+      },
+      {
+        "id": "skewb-sa-127",
+        "name": "127 · LRBB / LDFRB",
+        "blocks": {
+          "preparation": "F·S → F·S → R·H → B·H",
+          "solution": "B·S → R·S → F·H → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "L D F R B"
+        }
+      },
+      {
+        "id": "skewb-sa-128",
+        "name": "128 · LRBB / RBDFL",
+        "blocks": {
+          "preparation": "F·S → R·S → F·H → R·S",
+          "solution": "R·H → F·S → R·H → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "R B D F L"
+        }
+      },
+      {
+        "id": "skewb-sa-129",
+        "name": "129 · LRBB / FBLRD",
+        "blocks": {
+          "preparation": "F·S → R·S → L·H → F·H",
+          "solution": "F·S → L·S → R·H → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "F B L R D"
+        }
+      },
+      {
+        "id": "skewb-sa-130",
+        "name": "130 · LRBB / LBDRF",
+        "blocks": {
+          "preparation": "F·S → R·S → L·H → B·S",
+          "solution": "B·H → L·S → R·H → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "L B D R F"
+        }
+      },
+      {
+        "id": "skewb-sa-131",
+        "name": "131 · LRBB / FLRBD",
+        "blocks": {
+          "preparation": "F·S → R·H → F·S → B·H",
+          "solution": "B·S → F·H → R·S → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "F L R B D"
+        }
+      },
+      {
+        "id": "skewb-sa-132",
+        "name": "132 · LRBB / RLDBF",
+        "blocks": {
+          "preparation": "F·S → R·H → B·H → F·S",
+          "solution": "F·H → B·S → R·S → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "R L D B F"
+        }
+      },
+      {
+        "id": "skewb-sa-133",
+        "name": "133 · LRBB / LFDBR",
+        "blocks": {
+          "preparation": "F·S → L·H → F·H → L·H",
+          "solution": "L·S → F·S → L·S → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "L F D B R"
+        }
+      },
+      {
+        "id": "skewb-sa-134",
+        "name": "134 · LRBB / FDLBR",
+        "blocks": {
+          "preparation": "F·S → L·H → B·S → L·H",
+          "solution": "L·S → B·H → L·S → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "F D L B R"
+        }
+      },
+      {
+        "id": "skewb-sa-135",
+        "name": "135 · LRBB / FLDRB",
+        "blocks": {
+          "preparation": "F·S → F·S → F·S → R·S → R·S",
+          "solution": "R·H → R·H → F·H → F·H → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "F L D R B"
+        }
+      },
+      {
+        "id": "skewb-sa-136",
+        "name": "136 · LRBB / RFLBD",
+        "blocks": {
+          "preparation": "F·S → R·S → F·S → R·S → F·S",
+          "solution": "F·H → R·H → F·H → R·H → F·H"
+        },
+        "reference": {
+          "corners": "L R B B",
+          "centers": "R F L B D"
         }
       }
     ]

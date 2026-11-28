@@ -10,6 +10,8 @@ const directCases = [
   ['eg1-01', 'EG-1', '222'],
   ['eg2-01', 'EG-2', '222'],
   ['l4e-01', 'L4E', 'pyram'],
+  ['skewb-si-01', 'Sarah intermedio', 'skewb'],
+  ['skewb-sa-099', 'Sarah avanzado', 'skewb'],
 ] as const;
 
 for (const [id, group, event] of directCases) {
@@ -34,7 +36,11 @@ for (const [id, group, event] of directCases) {
     await expect(selector.locator('option:checked')).toHaveText(entry.name);
     await expect(page.getByLabel('Preparación del caso')).toHaveText(getCasePreparation(entry));
     await expect(page.locator('.case-orientation')).toContainText(
-      event === 'pyram' ? 'amarillo abajo y verde delante' : 'amarillo arriba y verde delante',
+      event === 'pyram'
+        ? 'amarillo abajo y verde delante'
+        : event === 'skewb'
+          ? 'blanco arriba y verde delante'
+          : 'amarillo arriba y verde delante',
     );
     await expect(page.getByLabel('Algoritmo del caso')).toBeHidden();
     const picture = page
@@ -120,6 +126,7 @@ test('invalid links fall back to a scramble and each puzzle offers its own case 
     ['333', ['F2L', 'OLL', 'PLL']],
     ['222', ['CLL', 'EG-1', 'EG-2']],
     ['pyram', ['L4E']],
+    ['skewb', ['Sarah intermedio', 'Sarah avanzado']],
   ] as const) {
     await page.getByRole('button', { name: new RegExp(`^${EVENTS[event].name}`) }).click();
     await expect(groupOptions).toHaveText([...names]);

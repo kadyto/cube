@@ -53,7 +53,7 @@ export function EventTabs({
 }) {
   return (
     <div className="event-tabs" role="group" aria-label="Elige un puzzle">
-      {(EVENT_IDS as EventId[]).map((id) => (
+      {EVENT_IDS.map((id) => (
         <button
           type="button"
           key={id}
@@ -71,6 +71,20 @@ export function EventTabs({
         </button>
       ))}
     </div>
+  );
+}
+
+export function SkewbNotation() {
+  return (
+    <>
+      <p>
+        <b>R</b> abajo detrás a la derecha · <b>L</b> abajo delante a la izquierda · <b>B</b> abajo
+        detrás a la izquierda · <b>U</b> arriba detrás a la izquierda.
+      </p>
+      <p>
+        Gira 120° en sentido horario mirando ese vértice. <b>′</b> invierte el giro.
+      </p>
+    </>
   );
 }
 
@@ -108,7 +122,12 @@ export function ScramblePanel({
           </summary>
           <div className="legend-content">
             <h3>Una letra, un movimiento</h3>
-            {event === 'pyram' ? (
+            {event === 'skewb' ? (
+              <>
+                <p>Empieza con blanco arriba y verde delante.</p>
+                <SkewbNotation />
+              </>
+            ) : event === 'pyram' ? (
               <>
                 <p>
                   <b>U</b> arriba · <b>L</b> izquierda · <b>R</b> derecha · <b>B</b> detrás.

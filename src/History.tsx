@@ -66,7 +66,7 @@ export function History({
       </label>
       <div className="history-toolbar">
         <div className="segmented">
-          {(EVENT_IDS as EventId[]).map((id) => (
+          {EVENT_IDS.map((id) => (
             <button className={event === id ? 'active' : ''} key={id} onClick={() => setEvent(id)}>
               <PuzzleIcon size={20} event={id} />
               {EVENTS[id].name}

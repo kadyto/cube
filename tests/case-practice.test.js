@@ -175,20 +175,102 @@ for (const [group, count] of Object.entries({ cll: 42, eg1: 43, eg2: 43, l4e: 95
   });
 }
 
+const skewb = await puzzles.skewb.kpuzzle();
+const solvedSkewb = skewb.defaultPattern();
+// The Cubing.es diagram reads DLF, DFR, DRB, DBL. These are the slot and
+// face orders of cubing.js's white-up, green-front Skewb model.
+const skewbBottomSlots = [4, 2, 5, 7];
+const skewbCornerFaces = ['UFL', 'UBR', 'DFR', 'URF', 'DLF', 'DRB', 'ULB', 'DBL'];
+const skewbCenterFaces = 'FRDULB';
+const skewbTableCenters = 'FRBLD';
+
+function skewbTablePattern(reference) {
+  const data = structuredClone(solvedSkewb.patternData);
+  reference.corners.split(' ').forEach((face, index) => {
+    const slot = skewbBottomSlots[index];
+    data.CORNERS.orientation[slot] = skewbCornerFaces[slot].indexOf(face);
+  });
+  const centers = data.CENTERS.pieces;
+  if (reference.centers) {
+    reference.centers.split(' ').forEach((face, index) => {
+      centers[skewbCenterFaces.indexOf(skewbTableCenters[index])] = skewbCenterFaces.indexOf(face);
+    });
+  } else if (reference.yellowCenter !== 'D') {
+    // Choose an even center permutation with the yellow center in the required slot.
+    // Intermediate cases do not specify the rest of the side centers.
+    const yellow = skewbCenterFaces.indexOf('D');
+    const target = skewbCenterFaces.indexOf(reference.yellowCenter);
+    const third = skewbCenterFaces.indexOf(target === 0 ? 'R' : 'F');
+    [centers[target], centers[third], centers[yellow]] = [yellow, target, third];
+  }
+  return new KPattern(skewb, data);
+}
+
+for (const [group, count] of [
+  ['skewb-si', 11],
+  ['skewb-sa', 136],
+]) {
+  const rows = catalog.groups[group];
+  test(`${group} preparations match the published corner and center positions`, () => {
+    assert.equal(rows.length, count);
+    for (const [index, row] of rows.entries()) {
+      const id = `${group}-${String(index + 1).padStart(group === 'skewb-si' ? 2 : 3, '0')}`;
+      assert.equal(row.id, id);
+      const prepared = solvedSkewb.applyAlg(getCasePreparation(getPracticeCase(id))).patternData;
+      const expected = skewbTablePattern(row.reference).patternData;
+      assert.deepEqual(prepared.CORNERS, expected.CORNERS, id);
+      assert.equal(prepared.CENTERS.pieces[3], 3, `${id}: fixed white center`);
+      assert.equal(prepared.CENTERS.pieces.indexOf(2), expected.CENTERS.pieces.indexOf(2), id);
+      if (row.reference.centers)
+        assert.deepEqual(prepared.CENTERS.pieces, expected.CENTERS.pieces, id);
+    }
+  });
+
+  test(`${group} solutions work from the published patterns without using the inverse preparation`, () => {
+    for (const row of rows) {
+      const result = skewbTablePattern(row.reference).applyAlg(
+        getPracticeCase(row.id).algorithm,
+      ).patternData;
+      assert.deepEqual(result.CORNERS, solvedSkewb.patternData.CORNERS, row.id);
+      assert.equal(result.CENTERS.pieces[2], 2, `${row.id}: yellow center`);
+      // Solid center stickers have no observable rotational orientation.
+      if (row.reference.centers)
+        assert.deepEqual(result.CENTERS.pieces, solvedSkewb.patternData.CENTERS.pieces, row.id);
+    }
+  });
+}
+
+test('skewb-sa-099 keeps the corrected blocks and their reference pattern', () => {
+  const entry = getPracticeCase('skewb-sa-099');
+  assert.deepEqual(entry.reference, { corners: 'D F D L', centers: 'R F L B D' });
+  assert.deepEqual(entry.blocks, {
+    preparation: 'F·S → R·S → F·H → R·S → F·H',
+    solution: 'F·S → R·H → F·S → R·H → F·H',
+  });
+});
+
 test('all practice URLs resolve their unique catalog entry and puzzle', () => {
   const ids = new Set();
   for (const [event, groups] of Object.entries({
     333: ['f2l', 'oll', 'pll'],
     222: ['cll', 'eg1', 'eg2'],
     pyram: ['l4e'],
+    skewb: ['skewb-si', 'skewb-sa'],
   })) {
     for (const group of groups) {
       for (const entry of catalog.groups[group]) {
         assert.ok(!ids.has(entry.id), entry.id);
         ids.add(entry.id);
-        assert.deepEqual(getPracticeCase(entry.id), { ...entry, event, group });
+        const linked = getPracticeCase(entry.id);
+        if ('blocks' in entry) {
+          const { algorithm, preparation, ...source } = linked;
+          assert.ok(algorithm && preparation);
+          assert.deepEqual(source, { ...entry, event, group });
+        } else {
+          assert.deepEqual(linked, { ...entry, event, group });
+        }
       }
     }
   }
-  assert.equal(ids.size, 342);
+  assert.equal(ids.size, 489);
 });

@@ -1,6 +1,7 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
 import { puzzles } from 'cubing/puzzles';
-import { EVENTS } from '../../shared/domain.js';
+import { caseGroups } from '../../shared/case-practice.js';
+import { EVENTS, EVENT_IDS } from '../../shared/domain.js';
 import type { EventId } from '../../src/types';
 
 async function login(page: Page) {
@@ -12,15 +13,30 @@ async function login(page: Page) {
   await expect(page.getByLabel('Mezcla actual')).not.toBeEmpty();
 }
 
+function normalizeColor(color?: string) {
+  const rgb = color?.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+  if (rgb)
+    return (
+      '#' +
+      rgb
+        .slice(1)
+        .map((value) => Number(value).toString(16).padStart(2, '0'))
+        .join('')
+    );
+  return color?.replace(/^#([0-9a-f])([0-9a-f])([0-9a-f])$/i, '#$1$1$2$2$3$3');
+}
+
 // Independent oracle: derive each expected sticker from the puzzle's cubie state and
 // solved SVG, rather than trusting the component's metadata or its SVG animator.
 async function expectedColors(event: EventId, alg: string) {
   const loader = puzzles[EVENTS[event].puzzle];
   const [kpuzzle, source] = await Promise.all([loader.kpuzzle(), loader.svg()]);
   const solved = new Map(
-    [...source.matchAll(/<use\s+id="(\w+)-l(\d+)-o(\d+)"[^>]*?style="fill:\s*([^";]+)[^>]*>/g)].map(
-      (match) => [`${match[1]}-l${match[2]}-o${match[3]}`, match[4].trim()],
-    ),
+    [
+      ...source.matchAll(
+        /<(?:use|polygon)\s+id="(\w+)-l(\d+)-o(\d+)"[^>]*?style="fill:\s*([^";]+)[^>]*>/g,
+      ),
+    ].map((match) => [`${match[1]}-l${match[2]}-o${match[3]}`, normalizeColor(match[4].trim())]),
   );
   const pattern = kpuzzle.defaultPattern().applyAlg(alg);
   return Object.fromEntries(
@@ -39,9 +55,9 @@ async function expectedColors(event: EventId, alg: string) {
 }
 
 async function actualColors(picture: Locator) {
-  const colors = await picture.locator('svg').evaluate((svg) =>
+  const colors = await picture.locator('.scramble-picture-canvas svg').evaluate((svg) =>
     Object.fromEntries(
-      [...svg.querySelectorAll<SVGElement>('use[id]')].map((sticker) => {
+      [...svg.querySelectorAll<SVGElement>('use[id], polygon[id]')].map((sticker) => {
         const reference = sticker.style.fill.match(/#([^"')]+)/)?.[1];
         const color = svg.querySelector(`[id="${reference}"] > stop`)?.getAttribute('stop-color');
         return [sticker.id, color];
@@ -49,7 +65,7 @@ async function actualColors(picture: Locator) {
     ),
   );
   return Object.fromEntries(
-    Object.entries(colors).map(([id, color]) => [id, color?.replace('rgb(34, 102, 255)', '#26f')]),
+    Object.entries(colors).map(([id, color]) => [id, normalizeColor(color ?? undefined)]),
   );
 }
 
@@ -64,21 +80,22 @@ async function expectPicture(picture: Locator, event: EventId, alg: string) {
 }
 const preview = (page: Page) => page.getByRole('region', { name: 'Dibujo de la mezcla' });
 
-test('mobile previews show the exact cube and Pyraminx state; enlargement preserves colors and stays within the viewport', async ({
+test('mobile previews show every puzzle state; enlargement preserves colors and stays within the viewport', async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   const requests: string[] = [];
   page.on('request', (request) => requests.push(request.url()));
   await login(page);
-  for (const event of ['333', '222', 'pyram'] as const) {
+  const stickerCounts = { 333: 72, 222: 24, pyram: 36, skewb: 48 };
+  for (const event of EVENT_IDS) {
     await page.getByRole('button', { name: EVENTS[event].name, exact: true }).click();
     const picture = preview(page).locator('.scramble-picture');
     await expect(picture).toHaveAttribute('data-event', event);
     const alg = (await page.getByLabel('Mezcla actual').textContent())!.trim();
     await expectPicture(picture, event, alg);
     const colors = await actualColors(picture);
-    expect(Object.keys(colors)).toHaveLength(event === '333' ? 72 : event === '222' ? 24 : 36);
+    expect(Object.keys(colors)).toHaveLength(stickerCounts[event]);
     expect(new Set(Object.values(colors)).size).toBe(event === 'pyram' ? 4 : 6);
     await expect(page.locator('body')).toHaveJSProperty('scrollWidth', 390);
     await preview(page).screenshot({ path: `test-results/scramble-${event}-mobile.png` });
@@ -110,12 +127,14 @@ test('case previews show the prepared stickers with each puzzle held as instruct
     ['eg1-01', '222'],
     ['eg2-01', '222'],
     ['l4e-01', 'pyram'],
+    ['skewb-si-01', 'skewb'],
+    ['skewb-sa-099', 'skewb'],
   ] as const) {
     await page.goto(`/?caso=${id}#/demo`);
     const preparation = await page.getByLabel('Preparación del caso').innerText();
     const expected = await expectedColors(
       event,
-      event === 'pyram' ? preparation : `z2 ${preparation}`,
+      event === '333' || event === '222' ? `z2 ${preparation}` : preparation,
     );
     const picture = page
       .getByRole('region', { name: 'Dibujo del caso' })
@@ -127,6 +146,50 @@ test('case previews show the prepared stickers with each puzzle held as instruct
     await expect(expanded).toHaveAttribute('data-state', 'ready');
     expect(await actualColors(expanded)).toEqual(expected);
     await page.getByRole('button', { name: 'Cerrar', exact: true }).click();
+  }
+});
+
+test('all Skewb case drawings match the published corner and center patterns', async ({ page }) => {
+  test.setTimeout(90000);
+  await page.goto('/?caso=skewb-si-01#/demo');
+  const group = page.getByRole('combobox', { name: 'Grupo', exact: true });
+  const selector = page.getByRole('combobox', { name: 'Caso', exact: true });
+  const picture = page
+    .getByRole('region', { name: 'Dibujo del caso' })
+    .locator('.scramble-picture');
+  const facesByColor = new Map([
+    ['#44ee00', 'F'],
+    ['#ff0000', 'R'],
+    ['#2266ff', 'B'],
+    ['#ff8000', 'L'],
+    ['#f4f400', 'D'],
+  ]);
+  const cornerSlots = [
+    [4, 'DLF'],
+    [2, 'DFR'],
+    [5, 'DRB'],
+    [7, 'DBL'],
+  ] as const;
+  const centerSlots = [0, 1, 5, 4, 2]; // F, R, B, L, D in the reference drawing.
+
+  for (const family of ['skewb-si', 'skewb-sa'] as const) {
+    await group.selectOption(family);
+    for (const entry of caseGroups[family]) {
+      await selector.selectOption(entry.id);
+      await expect(picture).toHaveAttribute('data-state', 'ready');
+      const colors = await actualColors(picture);
+      const corners = cornerSlots.map(([slot, faces]) =>
+        [...faces].find((_, index) => colors[`CORNERS-l${slot}-o${index}`] === '#f4f400'),
+      );
+      const centers = centerSlots.map((slot) => facesByColor.get(colors[`CENTERS-l${slot}-o0`]!));
+      expect(corners.join(' '), entry.id).toBe(entry.reference.corners);
+      expect(colors['CENTERS-l3-o0'], entry.id).toBe('#ffffff');
+      if ('centers' in entry.reference) {
+        expect(centers.join(' '), entry.id).toBe(entry.reference.centers);
+      } else {
+        expect('FRBLD'[centers.indexOf('D')], entry.id).toBe(entry.reference.yellowCenter);
+      }
+    }
   }
 });
 

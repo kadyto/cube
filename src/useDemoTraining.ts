@@ -1,44 +1,33 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type RefObject } from 'react';
-import {
-  caseGroups,
-  caseGroupsByEvent,
-  getCasePreparation,
-  getPracticeCase,
-} from '../shared/case-practice.js';
+import { useCallback, useEffect, useRef, useState, type RefObject } from 'react';
+import { getPracticeCase } from '../shared/case-practice.js';
 import type { EventId, Penalty } from './types';
+import { useCaseSelection } from './useCaseSelection';
 import { useTimer } from './useTimer';
 
 type GenerateScramble = (event: EventId, signal: AbortSignal) => Promise<string>;
-type Selection = {
-  event: EventId;
-  byCase: boolean;
-  caseIds: Partial<Record<EventId, string>>;
-};
 
 /** A public training session keeps just the current attempt in memory. */
 export function useDemoTraining(
   generateScramble: GenerateScramble,
   keyboardScope?: RefObject<HTMLElement | null>,
 ) {
-  const [selection, setSelection] = useState<Selection>(() => {
-    const entry = getPracticeCase(new URLSearchParams(window.location.search).get('caso'));
-    return entry
-      ? { event: entry.event, byCase: true, caseIds: { [entry.event]: entry.id } }
-      : { event: '333', byCase: false, caseIds: {} };
-  });
-  const { event, byCase, caseIds } = selection;
-  const [showingAlgorithm, setShowingAlgorithm] = useState(false);
+  const [linkedCase] = useState(() =>
+    getPracticeCase(new URLSearchParams(window.location.search).get('caso')),
+  );
+  const [event, setEvent] = useState<EventId>(linkedCase?.event ?? '333');
+  const [byCase, setByCase] = useState(!!linkedCase);
+  const { casePractice, selectCase, setShowingAlgorithm } = useCaseSelection(
+    event,
+    byCase,
+    linkedCase?.id,
+  );
   const [scramble, setScramble] = useState<string | null>(null);
   const [generating, setGenerating] = useState(true);
   const [error, setError] = useState('');
   const [inspection, setInspection] = useState(false);
   const [result, setResult] = useState<{ timeCs: number; penalty: Penalty } | null>(null);
   const request = useRef<AbortController | null>(null);
-  const entry = byCase
-    ? getPracticeCase(caseIds[event] ?? caseGroups[caseGroupsByEvent[event][0]][0].id)
-    : null;
-  const preparation = useMemo(() => (entry ? getCasePreparation(entry) : null), [entry]);
-  const alg = preparation ?? scramble;
+  const alg = casePractice?.preparation ?? scramble;
   const loading = !byCase && generating;
   const timer = useTimer({
     disabled: loading || !alg,
@@ -51,7 +40,7 @@ export function useDemoTraining(
     resetTimer();
     setResult(null);
     setShowingAlgorithm(false);
-  }, [resetTimer]);
+  }, [resetTimer, setShowingAlgorithm]);
   const generate = useCallback(async () => {
     request.current?.abort();
     const controller = new AbortController();
@@ -93,26 +82,23 @@ export function useDemoTraining(
   function chooseEvent(next: EventId) {
     if (timer.active || next === event) return;
     changeSetup();
-    setSelection({ ...selection, event: next });
+    setEvent(next);
   }
 
   function chooseMode(nextByCase: boolean) {
     if (timer.active || byCase === nextByCase) return;
     changeSetup();
-    setSelection({ ...selection, byCase: nextByCase });
+    setByCase(nextByCase);
   }
 
   function chooseCase(id: string) {
-    const next = getPracticeCase(id);
-    if (timer.active || !byCase || next?.event !== event || next === entry) return;
-    cancel();
-    setSelection({ ...selection, caseIds: { ...caseIds, [event]: id } });
+    if (!timer.active && selectCase(id)) cancel();
   }
 
   return {
     event,
     chooseEvent,
-    casePractice: entry && preparation ? { entry, preparation, showingAlgorithm } : null,
+    casePractice,
     chooseMode,
     chooseCase,
     setShowingAlgorithm,

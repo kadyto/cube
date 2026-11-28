@@ -7,6 +7,7 @@ import {
   LoaderCircle,
   Plus,
   Pencil,
+  RefreshCw,
   ShieldCheck,
   Sparkles,
   Timer,
@@ -24,7 +25,10 @@ import {
   consecutiveWindow,
 } from '../shared/domain.js';
 import { api, errorMessage } from './api';
+import { CaseSetup, PracticeMode } from './CasePractice';
 import { Empty, ProgressChart, SolveTime, SourceBadge } from './components';
+import { readTrainingEvent } from './trainingPreferences';
+import { useCaseSelection } from './useCaseSelection';
 import { useTimer } from './useTimer';
 import { useScreenWakeLock } from './useScreenWakeLock';
 import { SolveEditor } from './SolveEditor';
@@ -58,20 +62,16 @@ export function Trainer({
 }) {
   const screen = useScreenWakeLock();
   const [pending, setPending] = useState<Pending | null>(restoredPending);
-  const [event, setEvent] = useState<EventId>(
-    () =>
-      restoredPending()?.scramble.event ??
-      ((localStorage.getItem('cube-event') as EventId) in EVENTS
-        ? (localStorage.getItem('cube-event') as EventId)
-        : '333'),
-  );
+  const [event, setEvent] = useState<EventId>(() => pending?.scramble.event ?? readTrainingEvent());
+  const [byCase, setByCase] = useState(false);
+  const [caseResult, setCaseResult] = useState<{ timeCs: number; penalty: Penalty } | null>(null);
+  const { casePractice, selectCase, setShowingAlgorithm } = useCaseSelection(event, byCase);
   const [mode, setMode] = useState<'timer' | 'manual'>('timer');
   const [inspection, setInspection] = useState(
     () => localStorage.getItem('cube-inspection') === 'true',
   );
-  const [scramble, setScramble] = useState<Scramble | null>(
-    () => restoredPending()?.scramble ?? null,
-  );
+  const [scramble, setScramble] = useState<Scramble | null>(() => pending?.scramble ?? null);
+  const currentScramble = scramble?.event === event ? scramble : null;
   const [loading, setLoading] = useState(false),
     [saving, setSaving] = useState(false),
     [error, setError] = useState('');
@@ -157,30 +157,60 @@ export function Trainer({
     }
   };
   const timer = useTimer({
-    disabled: !scramble || loading || saving || !!pending || mode !== 'timer',
+    disabled: byCase
+      ? !casePractice
+      : !currentScramble || loading || saving || !!pending || mode !== 'timer',
     inspection,
     onFinish: (timeCs, resultPenalty) => {
-      if (scramble) void persist({ scramble, timeCs, penalty: resultPenalty, source: 'timer' });
+      if (byCase) setCaseResult({ timeCs, penalty: resultPenalty });
+      else if (currentScramble)
+        void persist({
+          scramble: currentScramble,
+          timeCs,
+          penalty: resultPenalty,
+          source: 'timer',
+        });
     },
   });
   useEffect(() => {
-    if (!restoredPending()) void generate(event);
+    if (!byCase && !pending && !currentScramble) void generate(event);
     return () => {
       requestRef.current++;
     };
-  }, [event]); // eslint-disable-line react-hooks/exhaustive-deps
-  const changeEvent = (next: EventId) => {
-    if (timer.active || pending || saving) return;
-    setEvent(next);
-    localStorage.setItem('cube-event', next);
-    setLastSaved(null);
-    timer.reset();
-  };
+  }, [event, byCase]); // eslint-disable-line react-hooks/exhaustive-deps
   const busy = timer.active || saving || !!pending;
   useEffect(() => {
     onBusy?.(busy);
   }, [busy, onBusy]);
-  return (
+
+  function resetCaseAttempt() {
+    timer.reset();
+    setCaseResult(null);
+    setShowingAlgorithm(false);
+  }
+  const changeEvent = (next: EventId) => {
+    if (busy || next === event) return;
+    setEvent(next);
+    localStorage.setItem('cube-event', next);
+    setLastSaved(null);
+    setScramble(null);
+    resetCaseAttempt();
+  };
+  const inspectionToggle = (
+    <label className="switch-label">
+      <input
+        type="checkbox"
+        checked={inspection}
+        disabled={busy || (!byCase && mode === 'manual')}
+        onChange={(e) => {
+          setInspection(e.target.checked);
+          localStorage.setItem('cube-inspection', String(e.target.checked));
+        }}
+      />
+      <span>Inspección 15 s</span>
+    </label>
+  );
+  const header = (
     <>
       <div className="page-heading">
         <div>
@@ -196,15 +226,74 @@ export function Trainer({
       </div>
       <ScreenAwakeStatus screen={screen} />
       <EventTabs event={event} disabled={busy} onChange={changeEvent} />
+      <PracticeMode
+        byCase={byCase}
+        disabled={busy}
+        onChange={(next) => {
+          if (busy || next === byCase) return;
+          resetCaseAttempt();
+          setByCase(next);
+        }}
+      />
+    </>
+  );
+  const timerClass = `panel timer-panel ${timer.phase === 'running' ? 'is-running' : ''}`;
+  if (casePractice) {
+    return (
+      <>
+        {header}
+        <CaseSetup
+          practice={casePractice}
+          disabled={busy}
+          onChooseCase={(id) => {
+            if (!busy && selectCase(id)) resetCaseAttempt();
+          }}
+          onShowAlgorithm={setShowingAlgorithm}
+        />
+        <section className={timerClass} aria-label="Cronómetro del caso">
+          <div className="timer-toolbar">{inspectionToggle}</div>
+          <TimerFace
+            timer={{ ...timer, reset: resetCaseAttempt }}
+            disabled={timer.phase === 'stopped'}
+            finishedTime={caseResult ? effectiveTime(caseResult) : null}
+            finishedInstruction="Pulsa «Repetir caso» para continuar"
+          />
+          <div className="timer-footer wrap">
+            <span role="status">
+              {caseResult ? 'Intento terminado. ' : ''}El tiempo del caso se queda en esta sesión.
+            </span>
+            <button
+              type="button"
+              className="text-button"
+              disabled={busy}
+              onClick={resetCaseAttempt}
+            >
+              <RefreshCw size={14} /> Repetir caso
+            </button>
+          </div>
+        </section>
+        <ScramblePreview
+          event={event}
+          alg={casePractice.preparation}
+          disabled={busy}
+          caseOrientation
+        />
+      </>
+    );
+  }
+
+  return (
+    <>
+      {header}
       <ScramblePanel
         event={event}
-        alg={scramble?.alg ?? null}
+        alg={currentScramble?.alg ?? null}
         loading={loading}
         disabled={busy}
         onGenerate={() => void generate()}
         number={nextNumber}
       />
-      <section className={`panel timer-panel ${timer.phase === 'running' ? 'is-running' : ''}`}>
+      <section className={timerClass}>
         <div className="timer-toolbar">
           <div className="segmented" aria-label="Modo de registro">
             <button
@@ -228,24 +317,13 @@ export function Trainer({
               <Keyboard size={16} /> A mano
             </button>
           </div>
-          <label className="switch-label">
-            <input
-              type="checkbox"
-              checked={inspection}
-              disabled={busy || mode === 'manual'}
-              onChange={(e) => {
-                setInspection(e.target.checked);
-                localStorage.setItem('cube-inspection', String(e.target.checked));
-              }}
-            />
-            <span>Inspección 15 s</span>
-          </label>
+          {inspectionToggle}
         </div>
         {mode === 'timer' ? (
           <>
             <TimerFace
               timer={timer}
-              disabled={!scramble || loading || saving || !!pending}
+              disabled={!currentScramble || loading || saving || !!pending}
               lastTime={lastSaved ? effectiveTime(lastSaved) : null}
             />
           </>
@@ -259,7 +337,8 @@ export function Trainer({
                 setError('Escribe un tiempo válido: 12.34, 12,34 o 1:02.45.');
                 return;
               }
-              if (scramble) void persist({ scramble, timeCs, penalty, source: 'manual' });
+              if (currentScramble)
+                void persist({ scramble: currentScramble, timeCs, penalty, source: 'manual' });
             }}
           >
             <label htmlFor="manual-time">Tu tiempo, con tu cronómetro</label>
@@ -294,7 +373,7 @@ export function Trainer({
               <button
                 type="submit"
                 className="button primary"
-                disabled={!scramble || saving || !!pending}
+                disabled={!currentScramble || saving || !!pending}
               >
                 <Plus size={16} /> Guardar tiempo
               </button>
@@ -351,7 +430,7 @@ export function Trainer({
       </section>
       <ScramblePreview
         event={event}
-        alg={!loading && scramble?.event === event ? scramble.alg : null}
+        alg={loading ? null : (currentScramble?.alg ?? null)}
         disabled={busy}
       />
       {error && (

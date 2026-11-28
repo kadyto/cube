@@ -112,6 +112,7 @@ test('demo supports all puzzles, their diagrams and a touch timer while keeping 
     ['333', '3×3×3'],
     ['222', '2×2×2'],
     ['pyram', 'Pyraminx'],
+    ['skewb', 'Skewb'],
   ]) {
     await page.getByRole('button', { name, exact: true }).click();
     await expect(page.locator('.scramble-picture')).toHaveAttribute('data-event', event);

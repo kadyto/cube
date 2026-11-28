@@ -6,6 +6,7 @@ import { Modal, SolveTime, SourceBadge } from './components';
 import { EventTabs, ScramblePanel, ScreenAwakeStatus, TimerFace } from './TrainingWidgets';
 import { ScramblePreview } from './ScramblePreview';
 import { SolveEditor } from './SolveEditor';
+import { readTrainingEvent } from './trainingPreferences';
 import { useTimer } from './useTimer';
 import { useScreenWakeLock } from './useScreenWakeLock';
 import type { EventId, Penalty, Solve, TrainingRound } from './types';
@@ -39,7 +40,7 @@ export function CompetitionMode({
   onPublish: (solve: Solve, kind: 'single' | 'ao5') => void;
   onBusy: (value: boolean) => void;
 }) {
-  const [event, setEvent] = useState<EventId>(() => restored()?.event ?? '333');
+  const [event, setEvent] = useState<EventId>(() => restored()?.event ?? readTrainingEvent());
   const [round, setRound] = useState<TrainingRound | null>(null),
     [rounds, setRounds] = useState<TrainingRound[]>([]);
   const [pending, setPending] = useState<Pending | null>(restored);
@@ -204,6 +205,7 @@ export function CompetitionMode({
         onChange={(value) => {
           timer.reset();
           setEvent(value);
+          localStorage.setItem('cube-event', value);
         }}
       />
       <section className="panel round-panel" aria-label="Ronda de cinco">

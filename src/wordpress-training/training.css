@@ -57,7 +57,7 @@
 
 .cb-training .event-tabs {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   max-width: 100%;
   gap: 0.2rem;
   padding: 0.2rem;
@@ -467,6 +467,7 @@
     width: 100%;
   }
   .cb-training .event-tab {
+    flex-direction: column;
     padding-inline: 0.18rem;
     font-size: 0.86rem;
     gap: 0.22rem;

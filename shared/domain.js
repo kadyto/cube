@@ -2,8 +2,9 @@ export const EVENTS = {
   333: { name: '3×3×3', label: 'El clásico', puzzle: '3x3x3' },
   222: { name: '2×2×2', label: 'Pequeño y veloz', puzzle: '2x2x2' },
   pyram: { name: 'Pyraminx', label: 'Un giro diferente', puzzle: 'pyraminx' },
+  skewb: { name: 'Skewb', label: 'Giros de esquina', puzzle: 'skewb' },
 };
-export const EVENT_IDS = ['333', '222', 'pyram'];
+export const EVENT_IDS = /** @type {const} */ (['333', '222', 'pyram', 'skewb']);
 
 export function nextAttemptNumber(solves) {
   const numbers = new Set(solves.map((solve) => solve.number));

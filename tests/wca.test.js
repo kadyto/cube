@@ -18,6 +18,7 @@ test('WCA imports valid personal bests, including events outside the training pu
               444: { single: { best: 6245 }, average: { best: 7000 } },
               222: { single: { best: -1 }, average: { best: 0 } },
               pyram: { single: { best: '500' }, average: { best: 12.5 } },
+              skewb: { single: { best: 475 }, average: { best: 650 } },
               '333fm': { single: { best: 30 }, average: { best: 3150 } },
               unexpected: { single: { best: 111 } },
             },
@@ -28,6 +29,7 @@ test('WCA imports valid personal bests, including events outside the training pu
     { event: '333', single: 1234, average: 1500 },
     { event: '444', single: 6245, average: 7000 },
     { event: '333fm', single: 30, average: 3150 },
+    { event: 'skewb', single: 475, average: 650 },
   ]);
 });
 

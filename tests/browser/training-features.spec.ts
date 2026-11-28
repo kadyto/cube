@@ -1,11 +1,12 @@
 import { expect, test, type Page } from '@playwright/test';
+import { EVENT_IDS } from '../../shared/domain.js';
 const headers = { 'X-Cube-Request': '1' };
 async function prepare(page: Page) {
   await page.request.post('/api/login', { headers, data: { password: 'a' } });
   const solves = await (await page.request.get('/api/solves')).json();
   for (const solve of solves)
     await page.request.delete(`/api/solves/${solve.id}`, { headers, data: {} });
-  for (const event of ['333', '222', 'pyram']) {
+  for (const event of EVENT_IDS) {
     const rounds = await (await page.request.get(`/api/rounds?event=${event}`)).json();
     for (const round of rounds)
       if (!round.cancelledAt)

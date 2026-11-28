@@ -5,7 +5,7 @@ import { puzzles } from 'cubing/puzzles';
 import { EVENTS } from '../shared/domain.js';
 
 test(
-  'real random-state scrambles are legal, nontrivial and invertible for all three puzzles',
+  'real random-state scrambles are legal, nontrivial and invertible for each registered puzzle',
   { timeout: 120000 },
   async () => {
     for (const [event, { puzzle }] of Object.entries(EVENTS)) {
